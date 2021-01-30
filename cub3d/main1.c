@@ -1,15 +1,31 @@
 #include "cub3d.h"
 
+// int		ft_is_modificator(char **arr, t_all *app)
+// {
+
+// 	if ((ft_strncmp(*arr, "R ", 2)) == 0)
+// 	{
+// 		ft_parse_R(arr, app);
+// 		// printf("%d",app->map_ptr.count_mod);
+// 	}
+// 	else if ((ft_strncmp(*arr, "F ", 2) || ft_strncmp(*arr, "C ", 2)) == 0)
+// 		ft_parse_F(arr, app);
+// 	return(0);
+// }
+
 int		ft_is_modificator(char **arr, t_all *app)
 {
-
-	if ((ft_strncmp(*arr, "R ", 2)))
+	if ((ft_strncmp(*arr, "R", 1)) == 0)
 	{
+		printf("modigicator is R\n");
 		ft_parse_R(arr, app);
 		// printf("%d",app->map_ptr.count_mod);
 	}
-	else if ((ft_strncmp(*arr, "F ", 2) || ft_strncmp(*arr, "C ", 2)))
-		return (2);
+	else if ((ft_strncmp(*arr, "F", 1) == 0) || (ft_strncmp(*arr, "C", 1)) == 0)
+	{
+		printf("modigicator is F or C\n");
+		ft_parse_F(arr, app);
+	}
 	return(0);
 }
 
@@ -19,13 +35,15 @@ int		parse_map(int fd, char *line, t_all *app)
 	int		i = 0;
 	char	**arr;
 	
-	// while ((len = get_next_line(fd ,&line)))
-	// {
-		len = get_next_line(fd ,&line);
+	while ((len = get_next_line(fd ,&line)) > 0)
+	{
+		printf("%s", line);
 		arr = ft_split(line, ' ');
 		ft_is_modificator(arr, app);
-		// 	arr = ft_split(line, ',');
-	// }
+		// printf("%s\n", line);
+	}
+	// printf("%s %s %s", *arr , *(arr + 1), *(arr + 2));
+	free(line);
 	return (len);
 }
 
@@ -36,15 +54,15 @@ int main(int argc, char **argv)
 	char	*line;
 	int fd;
 
-	if (argc >= 2 || argc <= 3)
-	if (!(fd = open(argv[1], O_RDONLY)) && !(fd > 0))
-		print_error(1);
+	if (argc == 2 || argc == 3)
+		if (!(fd = open(argv[1], O_RDONLY)))
+			print_error(1);
 	init_values(&app);
 	len = parse_map(fd, line, &app);
-    app.mlx = mlx_init();
-    app.win = mlx_new_window(app.mlx, app.map_ptr.R[0], app.map_ptr.R[1], "cub3d");
-
-    mlx_key_hook(app.win, press_key, app.mlx);
-    mlx_loop(app.mlx);
+//    app.mlx = mlx_init();
+//    app.win = mlx_new_window(app.mlx, app.map_ptr.R[0], app.map_ptr.R[1], "cub3d");
+//
+//    mlx_key_hook(app.win, press_key, app.mlx);
+//    mlx_loop(app.mlx);
 
 }

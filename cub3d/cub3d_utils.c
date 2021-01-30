@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+int		ft_isdigit_str(char *str)
+{
+	while(*str)
+	{
+		if (!(*str >= '0' && *str <= '9'))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 void	init_values(t_all *app)
 {
 	app->map_ptr.R_init = 0;
@@ -11,7 +22,7 @@ void		print_error(int errnum)
 {
 	(errnum == 1) ? ft_putendl_fd("fd is not available", 1)
 	: (errnum == 2) ? ft_putendl_fd("R twice init", 1)
-    : (errnum == 2) ? ft_putendl_fd("Modificator more or less 8", 1)
+    : (errnum == 3) ? ft_putendl_fd("Modificator more or less 8", 1)
     : (errnum == 4) ? ft_putendl_fd("parse error with F", 1) : 0;
 	exit(0);
 }

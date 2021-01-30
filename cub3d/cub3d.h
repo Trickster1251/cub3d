@@ -29,8 +29,9 @@ typedef struct	s_map
 {
 	int		R_init;
 	int		F_init;
+	int		NO_init;
 	int		R[2];
-	int		F[3];
+	int		F;
     char    *NO;
     int     count_mod;
 }				  t_map;
@@ -60,6 +61,8 @@ void		print_error(int errnum);
 int         press_key(int keycode, void* win_ptr);
 char	    *to_word(char **str, char sym, int num);
 void        init_values(t_all *app);
-int		ft_parse_R(char **arr, t_all *app);
+int		    ft_parse_R(char **arr, t_all *app);
+int		    ft_parse_F(char **arr, t_all *app);
+int		ft_isdigit_str(char *str);
 
 #endif
