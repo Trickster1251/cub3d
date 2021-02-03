@@ -16,7 +16,7 @@ int     ft_255_or_0(int num)
 
 int		ft_parse_R(char **arr, t_all *app)
 {
-	(!array_len(arr, 2)) ? print_error("More array len") : 1;
+	(!array_len(arr, 2)) ? print_error("More array len") : 0;
 	(app->map_ptr.R_init == 1) ? (print_error("R twice init")) : (app->map_ptr.R_init = 1);
 	((app->map_ptr.R[0] = ft_atoi(*(arr + 1))) < 400) ? (app->map_ptr.R[0] = 400) : (0);
 	((app->map_ptr.R[1] = ft_atoi(*(arr + 2))) < 400) ? (app->map_ptr.R[1] = 400) : (0);
@@ -29,7 +29,7 @@ int		ft_parse_R(char **arr, t_all *app)
 
 int		ft_parse_F_C(char **arr, t_all *app)
 {	
-	(!array_len(arr, 1)) ? print_error("More array len") : 1;
+	(!array_len(arr, 1)) ? print_error("More array len") : 0;
 	if (**arr == 'F')
 	{
 		(app->map_ptr.F_init == 1) ? (print_error("F twice init")) : (app->map_ptr.F_init = 1);
@@ -54,7 +54,7 @@ int		ft_parse_F_C(char **arr, t_all *app)
 
 int		ft_parse_sprite(char **arr, t_all *app, int type)
 {
-	(!array_len(arr, 1)) ? print_error("More array len") : 1;
+	(!array_len(arr, 1)) ? print_error("More array len") : 0;
 	if (type == 'N')
 		(app->map_ptr.NO_init == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.NO_init = 1);
 		!((open((app->map_ptr.NO = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;

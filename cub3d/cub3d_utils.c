@@ -21,6 +21,9 @@ void	init_values(t_all *app)
 	app->map_ptr.R_init = 0;
 	app->map_ptr.F_init = 0;
 	app->map_ptr.NO_init = 0;
+	app->map_ptr.WE_init = 0;
+	app->map_ptr.EA_init = 0;
+	app->map_ptr.S_init = 0;
     app->map_ptr.count_mod = 0;
 }
 

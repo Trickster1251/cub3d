@@ -1,20 +1,8 @@
 #include "cub3d.h"
 
-// int		ft_is_modificator(char **arr, t_all *app)
-// {
-
-// 	if ((ft_strncmp(*arr, "R ", 2)) == 0)
-// 	{
-// 		ft_parse_R(arr, app);
-// 		// printf("%d",app->map_ptr.count_mod);
-// 	}
-// 	else if ((ft_strncmp(*arr, "F ", 2) || ft_strncmp(*arr, "C ", 2)) == 0)
-// 		ft_parse_F(arr, app);
-// 	return(0);
-// }
-
 int		ft_is_modificator(char **arr, t_all *app)
 {
+	(app->map_ptr.count_mod >= 8) ? print_error("More modificators") : 0;
 	if ((ft_strncmp(*arr, "R\0", 2)) == 0)
 		ft_parse_R(arr, app);
 	else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
@@ -49,9 +37,6 @@ int		parse_map(int fd, char *line, t_all *app)
 		}
 		free(line);
 	}
-	len = get_next_line(fd ,&line);
-	arr = ft_split(line, ' ');
-			ft_is_modificator(arr, app);
 	return (len);
 }
 
