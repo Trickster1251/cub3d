@@ -8,10 +8,10 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/walethea/cursus/my_project/cub3d/cub3d/a.out",
-            "args": ["/Users/walethea/cursus/my_project/cub3d/cub3d/map.cub"],
+            "program": "/Users/walethea/cursus/my_project/cub3d2/cub3d/a.out",
+            "args": ["/Users/walethea/cursus/my_project/cub3d2/cub3d/map.cub"],
             "stopAtEntry": false,
-            "cwd": "/Users/walethea/cursus/my_project/cub3d/cub3d",
+            "cwd": "/Users/walethea/cursus/my_project/cub3d2/cub3d",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb"

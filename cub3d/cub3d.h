@@ -71,8 +71,8 @@ char	    *to_word(char **str, char sym, int num);
 void		free_arr(char **arr);
 void        init_values(t_all *app);
 int		    ft_parse_R(char **arr, t_all *app);
-int		    ft_parse_F(char **arr, t_all *app);
-int		ft_parse_sprite(char **arr, t_all *app);
+int		    ft_parse_F_C(char **arr, t_all *app);
+int		ft_parse_sprite(char **arr, t_all *app, int type);
 int		array_len(char **arr, int num);
 int		ft_isdigit_str(char *str);
 

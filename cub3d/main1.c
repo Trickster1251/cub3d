@@ -15,24 +15,24 @@
 
 int		ft_is_modificator(char **arr, t_all *app)
 {
-	if ((ft_strncmp(*arr, "R", 1)) == 0)
+	if ((ft_strncmp(*arr, "R\0", 2)) == 0)
 	{
 		printf("modigicator is R\n");
 		ft_parse_R(arr, app);
 	}
-	else if ((ft_strncmp(*arr, "F", 1) == 0) || (ft_strncmp(*arr, "C", 1)) == 0)
+	else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
 	{
 		printf("modigicator is F or C\n");
-		ft_parse_F(arr, app);
+		ft_parse_F_C(arr, app);
 	}
-	else if ((ft_strncmp(*arr, "NO", 2) == 0) ||
-	(ft_strncmp(*arr, "WE", 2) == 0) ||
-	(ft_strncmp(*arr, "EA", 2) == 0) ||
-	(ft_strncmp(*arr, "S", 2) == 0))
-	{
-		printf("modigicator is sprite\n");
-		ft_parse_sprite(arr, app);
-	}
+	else if (ft_strncmp(*arr, "NO", 2) == 0)
+		ft_parse_sprite(arr, app, 'N');
+	else if (ft_strncmp(*arr, "WE", 2) == 0)
+		ft_parse_sprite(arr, app, 'W');
+	else if (ft_strncmp(*arr, "EA", 2) == 0)
+		ft_parse_sprite(arr, app, 'E');
+	else if (ft_strncmp(*arr, "S", 2) == 0)
+		ft_parse_sprite(arr, app, 'S');
 	return(0);
 }
 

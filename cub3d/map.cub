@@ -1,6 +1,11 @@
 R 100 20
 F 100,200,39
 NO parse_mod.c
+WE parse_mod.c
+EA parse_mod.c
+S parse_mod2.c
+C 122,200,39
+
 
 
 
