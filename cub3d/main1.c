@@ -19,12 +19,19 @@ int		ft_is_modificator(char **arr, t_all *app)
 	{
 		printf("modigicator is R\n");
 		ft_parse_R(arr, app);
-		// printf("%d",app->map_ptr.count_mod);
 	}
 	else if ((ft_strncmp(*arr, "F", 1) == 0) || (ft_strncmp(*arr, "C", 1)) == 0)
 	{
 		printf("modigicator is F or C\n");
 		ft_parse_F(arr, app);
+	}
+	else if ((ft_strncmp(*arr, "NO", 2) == 0) ||
+	(ft_strncmp(*arr, "WE", 2) == 0) ||
+	(ft_strncmp(*arr, "EA", 2) == 0) ||
+	(ft_strncmp(*arr, "S", 2) == 0))
+	{
+		printf("modigicator is sprite\n");
+		ft_parse_sprite(arr, app);
 	}
 	return(0);
 }
@@ -35,15 +42,17 @@ int		parse_map(int fd, char *line, t_all *app)
 	int		i = 0;
 	char	**arr;
 	
-	while ((len = get_next_line(fd ,&line)) > 0)
+	while ((len = get_next_line(fd ,&line)))
 	{
-		printf("%s", line);
-		arr = ft_split(line, ' ');
-		ft_is_modificator(arr, app);
-		// printf("%s\n", line);
+		// printf("-------------%s------------\n", line);
+		if (line[0] != '\0')
+		{
+			arr = ft_split(line, ' ');
+			ft_is_modificator(arr, app);
+			printf("%d", app->map_ptr.count_mod);
+		}
+		free(line);
 	}
-	// printf("%s %s %s", *arr , *(arr + 1), *(arr + 2));
-	free(line);
 	return (len);
 }
 

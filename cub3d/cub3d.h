@@ -29,10 +29,18 @@ typedef struct	s_map
 {
 	int		R_init;
 	int		F_init;
+	int		C_init;
 	int		NO_init;
+	int		WE_init;
+	int		EA_init;
+	int		S_init;
 	int		R[2];
 	int		F;
+	int		C;
     char    *NO;
+	char    *WE;
+	char    *EA;
+	char    *S;
     int     count_mod;
 }				  t_map;
 
@@ -60,9 +68,12 @@ typedef struct	s_all // структура для всего вместе
 void		print_error(int errnum);
 int         press_key(int keycode, void* win_ptr);
 char	    *to_word(char **str, char sym, int num);
+void		free_arr(char **arr);
 void        init_values(t_all *app);
 int		    ft_parse_R(char **arr, t_all *app);
 int		    ft_parse_F(char **arr, t_all *app);
+int		ft_parse_sprite(char **arr, t_all *app);
+int		array_len(char **arr, int num);
 int		ft_isdigit_str(char *str);
 
 #endif
