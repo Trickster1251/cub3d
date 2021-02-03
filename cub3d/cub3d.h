@@ -65,7 +65,7 @@ typedef struct	s_all // структура для всего вместе
 # include <fcntl.h>
 # include "get_next_line/get_next_line.h"
 
-void		print_error(int errnum);
+void		print_error(char *string);
 int         press_key(int keycode, void* win_ptr);
 char	    *to_word(char **str, char sym, int num);
 void		free_arr(char **arr);

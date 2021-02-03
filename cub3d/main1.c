@@ -16,23 +16,19 @@
 int		ft_is_modificator(char **arr, t_all *app)
 {
 	if ((ft_strncmp(*arr, "R\0", 2)) == 0)
-	{
-		printf("modigicator is R\n");
 		ft_parse_R(arr, app);
-	}
 	else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
-	{
-		printf("modigicator is F or C\n");
 		ft_parse_F_C(arr, app);
-	}
-	else if (ft_strncmp(*arr, "NO", 2) == 0)
+	else if (ft_strncmp(*arr, "NO\0", 3) == 0)
 		ft_parse_sprite(arr, app, 'N');
-	else if (ft_strncmp(*arr, "WE", 2) == 0)
+	else if (ft_strncmp(*arr, "WE\0", 3) == 0)
 		ft_parse_sprite(arr, app, 'W');
-	else if (ft_strncmp(*arr, "EA", 2) == 0)
+	else if (ft_strncmp(*arr, "EA\0", 3) == 0)
 		ft_parse_sprite(arr, app, 'E');
-	else if (ft_strncmp(*arr, "S", 2) == 0)
+	else if (ft_strncmp(*arr, "S\0", 2) == 0)
 		ft_parse_sprite(arr, app, 'S');
+	else
+		print_error("this modificator is not exist");
 	return(0);
 }
 
@@ -49,10 +45,13 @@ int		parse_map(int fd, char *line, t_all *app)
 		{
 			arr = ft_split(line, ' ');
 			ft_is_modificator(arr, app);
-			printf("%d", app->map_ptr.count_mod);
+			// printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
 		}
 		free(line);
 	}
+	len = get_next_line(fd ,&line);
+	arr = ft_split(line, ' ');
+			ft_is_modificator(arr, app);
 	return (len);
 }
 
@@ -65,7 +64,7 @@ int main(int argc, char **argv)
 
 	if (argc == 2 || argc == 3)
 		if (!(fd = open(argv[1], O_RDONLY)))
-			print_error(1);
+			print_error("Wrong fd");
 	init_values(&app);
 	len = parse_map(fd, line, &app);
 //    app.mlx = mlx_init();

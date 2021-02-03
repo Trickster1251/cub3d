@@ -24,17 +24,9 @@ void	init_values(t_all *app)
     app->map_ptr.count_mod = 0;
 }
 
-void		print_error(int errnum)
+void		print_error(char *string)
 {
-	(errnum == 1) ? ft_putendl_fd("fd is not available", 1)
-	: (errnum == 2) ? ft_putendl_fd("R twice init", 1)
-	: (errnum == 5) ? ft_putendl_fd("C or F twice init", 1)
-	: (errnum == 6) ? ft_putendl_fd("Sprite twice init", 1)
-	: (errnum == 7) ? ft_putendl_fd("Not open sprite picture", 1)
-	: (errnum == 8) ? ft_putendl_fd("Wrong count of array elements", 1)
-	: (errnum == 9) ? ft_putendl_fd("Modificator more or less 8", 1)
-    : (errnum == 3) ? ft_putendl_fd("Modificator more or less 8", 1)
-    : (errnum == 4) ? ft_putendl_fd("parse error with F", 1) : 0;
+	ft_putendl_fd(string, 1);
 	exit(0);
 }
 
