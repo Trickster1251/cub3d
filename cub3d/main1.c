@@ -23,20 +23,25 @@ int		ft_is_modificator(char **arr, t_all *app)
 void	make_map(t_all *app,t_list **head, int size)
 {
 	app->map = calloc(size + 1,sizeof(char*));
-	int		i = -1;
-	int		j = -1;
+	int		i = 0;
+	int		j;
 	t_list	*tmp = *head;
 
 	while(tmp)
 	{
-		app->map[++i] = tmp->content;
+			if (!(ft_strncmp(tmp->content, "1",1) || ft_strncmp(tmp->content, "2",1) ||
+			ft_strncmp(tmp->content, " ",1) || ft_strncmp(tmp->content, "N",1) ||
+			ft_strncmp(tmp->content, "W",1) || ft_strncmp(tmp->content, "S",1) ||
+			ft_strncmp(tmp->content, "E",1) || ft_strncmp(tmp->content, "0",1)))
+				print_error("parse error");
+		app->map[i] = tmp->content;
 		tmp = tmp->next;
+		i++;
 	}
-	i = -1;
-	while(app->map[++i])
+	i = 0;
+	while(app->map[i++])
 		ft_putendl_fd(app->map[i], 1);
 	ft_lstclear(head, &free);
-	i = -1;
 }
 
 int		parser(int fd, char *line, t_all *app)
