@@ -13,30 +13,55 @@ int		ft_is_modificator(char **arr, t_all *app)
 		ft_parse_sprite(arr, app, 'W');
 	else if (ft_strncmp(*arr, "EA\0", 3) == 0)
 		ft_parse_sprite(arr, app, 'E');
+	else if (ft_strncmp(*arr, "SO\0", 3) == 0)
+		ft_parse_sprite(arr, app, 's');
 	else if (ft_strncmp(*arr, "S\0", 2) == 0)
 		ft_parse_sprite(arr, app, 'S');
-	else
-		print_error("this modificator is not exist");
 	return(0);
 }
 
-int		parse_map(int fd, char *line, t_all *app)
+void	make_map(t_all *app,t_list **head, int size)
+{
+	app->map = calloc(size + 1,sizeof(char*));
+	int		i = -1;
+	int		j = -1;
+	t_list	*tmp = *head;
+
+	while(tmp)
+	{
+		app->map[++i] = tmp->content;
+		tmp = tmp->next;
+	}
+	i = -1;
+	while(app->map[++i])
+		ft_putendl_fd(app->map[i], 1);
+	ft_lstclear(head, &free);
+	i = -1;
+}
+
+int		parser(int fd, char *line, t_all *app)
 {
 	int		len;
 	int		i = 0;
 	char	**arr;
+	t_list	*head = NULL;
 	
-	while ((len = get_next_line(fd ,&line)))
+	while ((len = get_next_line(fd ,&line)) && line[0] != '\0')
 	{
-		// printf("-------------%s------------\n", line);
-		if (line[0] != '\0')
-		{
 			arr = ft_split(line, ' ');
 			ft_is_modificator(arr, app);
-			// printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
-		}
-		free(line);
+			free_arr(arr);
+			free(line);
 	}
+	printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
+	while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
+	{
+		ft_lstadd_back(&head, ft_lstnew(line));
+	}
+	ft_lstadd_back(&head, ft_lstnew(line));
+	make_map(app ,&head, ft_lstsize(head));
+
+
 	return (len);
 }
 
@@ -44,18 +69,17 @@ int main(int argc, char **argv)
 {
     t_all   app;
     int     len;
-	char	*line;
+	char	*line = NULL;
 	int fd;
 
 	if (argc == 2 || argc == 3)
 		if (!(fd = open(argv[1], O_RDONLY)))
 			print_error("Wrong fd");
 	init_values(&app);
-	len = parse_map(fd, line, &app);
+	len = parser(fd, line, &app);
 //    app.mlx = mlx_init();
 //    app.win = mlx_new_window(app.mlx, app.map_ptr.R[0], app.map_ptr.R[1], "cub3d");
-//
 //    mlx_key_hook(app.win, press_key, app.mlx);
 //    mlx_loop(app.mlx);
-
+	return(0);
 }

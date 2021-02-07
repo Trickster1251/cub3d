@@ -24,6 +24,7 @@ void	init_values(t_all *app)
 	app->map_ptr.WE_init = 0;
 	app->map_ptr.EA_init = 0;
 	app->map_ptr.S_init = 0;
+	app->map_ptr.SO_init = 0;
     app->map_ptr.count_mod = 0;
 }
 
@@ -32,6 +33,7 @@ void		print_error(char *string)
 	ft_putendl_fd(string, 1);
 	exit(0);
 }
+
 
 int		array_len(char **arr, int num)
 {
@@ -42,10 +44,8 @@ int		array_len(char **arr, int num)
 
 int	press_key(int keycode, void* win_ptr)
 {
-	if (keycode == 53 || keycode == 12)
-	{
+	if (keycode == 53)
 		exit(0);
-	}
 	// printf("%d\n", keycode);
 	return (0);
 }

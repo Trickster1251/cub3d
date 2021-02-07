@@ -18,7 +18,7 @@
 
 int			get_next_line(int fd, char	**line);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-size_t		ft_strlen(char *str);
+size_t		ft_strlen1(char *str);
 char		*ft_strjoin_gnl(char *s1, const char *s2);
 char		*ft_strdup(const char *src);
 char		*ft_strchr(const char *str, int symbol);

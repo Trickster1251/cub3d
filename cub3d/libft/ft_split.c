@@ -3,106 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 20:18:34 by walethea          #+#    #+#             */
-/*   Updated: 2020/11/23 21:53:50 by walethea         ###   ########.fr       */
+/*   Created: 2020/11/07 20:35:23 by keuclide          #+#    #+#             */
+/*   Updated: 2020/11/17 20:51:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count_word(char *str, char sym)
+static char		**free_maker(char **mem, int i)
 {
-	int			i;
-	int			count;
-
-	i = 0;
-	count = 0;
-	if (sym == 0)
-		return (1);
-	while (*str)
+	while (mem[i] != NULL)
 	{
-		if (*str != sym && i == 0)
-		{
-			count++;
-			i = 1;
-		}
-		if (*str == sym && i == 1)
-			i = 0;
-		str++;
-	}
-	return (count);
-}
-
-char	**free_all(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
+		free(mem[i]);
 		i++;
 	}
-	free(str);
+	free(mem);
 	return (NULL);
 }
 
-char	*malloc_word(const char *src, char sym)
+static char		*malloc_word(char *mem, char c)
 {
-	int		i;
-	int		len;
-	char	*str;
+	char		*word;
+	int			i;
 
 	i = 0;
-	len = 0;
-	while (src[len] != sym && src[len] != '\0')
-		len++;
-	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+	while (mem[i] && mem[i] != c)
+		i++;
+	word = (char *)malloc(sizeof(char) * (i + 1));
+	if (word == NULL)
 		return (NULL);
-	while (src[i] && i < len)
+	i = 0;
+	while (mem[i] && mem[i] != c)
 	{
-		str[i] = src[i];
+		word[i] = mem[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	word[i] = '\0';
+	return (word);
 }
 
-char	**ft_split_new(char const *s, char c, char **words)
+static int		count_words(char *s, char c)
 {
-	int		j;
+	int			i;
+	int			x;
+	int			counter;
+
+	i = 0;
+	x = 0;
+	counter = 0;
+	while (s[i])
+	{
+		if (x == 0 && s[i] != c)
+		{
+			counter++;
+			x = 1;
+		}
+		if (x == 1 && s[i] == c)
+			x = 0;
+		i++;
+	}
+	return (counter);
+}
+
+static char		**new_split(const char *s, char c, char **mem)
+{
+	int			j;
 
 	j = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		if (*s && *s != c)
+		if (*s != c)
 		{
-			if (!(words[j] = malloc_word(s, c)))
-				return (free_all(words));
-			j++;
 			while (*s && *s != c)
-				s++;
+			{
+				if ((mem[j] = malloc_word((char *)s, c)) == NULL)
+					return (free_maker(mem, j));
+				while (*s && *s != c)
+					s++;
+				j++;
+			}
 		}
+		if (*s == '\0')
+			break ;
+		s++;
 	}
-	words[j] = NULL;
-	return (words);
+	mem[j] = NULL;
+	return (mem);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
-	char	**words;
-	int		col_words;
-	int		i;
+	char		**mem;
+	int			j;
 
-	i = 0;
-	if (!s)
+	j = 0;
+	if (s == NULL)
 		return (NULL);
-	col_words = count_word((char*)s, c);
-	if (!(words = (char**)malloc((sizeof(char*) * (col_words + 1)))))
+	if ((mem = (char **)malloc(sizeof(char *) *
+					(count_words((char *)s, c) + 1))) == NULL)
 		return (NULL);
-	return (ft_split_new(s, c, words));
+	return (new_split(s, c, mem));
 }

@@ -34,6 +34,7 @@ typedef struct	s_map
 	int		WE_init;
 	int		EA_init;
 	int		S_init;
+	int		SO_init;
 	int		R[2];
 	int		F;
 	int		C;
@@ -41,6 +42,7 @@ typedef struct	s_map
 	char    *WE;
 	char    *EA;
 	char    *S;
+	char    *SO;
     int     count_mod;
 }				  t_map;
 
@@ -59,7 +61,7 @@ typedef struct	s_all // структура для всего вместе
 # include <stdarg.h>
 # include <unistd.h>
 # include "libft/libft.h"
-# include "mlx.h"
+# include "../mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -75,5 +77,6 @@ int		    ft_parse_F_C(char **arr, t_all *app);
 int		ft_parse_sprite(char **arr, t_all *app, int type);
 int		array_len(char **arr, int num);
 int		ft_isdigit_str(char *str);
-
+void	make_map(t_all *app,t_list **head, int size);
+int 	validator(t_all *app ,t_list **head);
 #endif

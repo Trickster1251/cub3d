@@ -3,33 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/11 17:27:59 by walethea          #+#    #+#             */
-/*   Updated: 2020/11/23 21:40:07 by walethea         ###   ########.fr       */
+/*   Created: 2020/10/31 18:37:04 by keuclide          #+#    #+#             */
+/*   Updated: 2020/11/17 20:52:13 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *src, const char *find_str, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
+	char	*d;
+	char	*s;
 	size_t	i;
-	size_t	pos;
+	size_t	o;
 
-	pos = 0;
-	if (!(*find_str))
-		return ((char*)src);
+	i = 0;
+	d = (char *)haystack;
+	s = (char *)needle;
+	if (!(*s))
+		return ((char *)d);
 	if (len == 0)
 		return (0);
-	while (src[pos] && pos < len)
+	while (d[i] != '\0' && i < len)
 	{
-		i = 0;
-		while (src[pos + i] == find_str[i] && find_str[i] && (pos + i) < len)
-			i++;
-		if (find_str[i] == '\0')
-			return ((char*)&src[pos]);
-		pos++;
+		o = 0;
+		while (d[i + o] == s[o] && i + o < len && s[o] != '\0')
+			o++;
+		if (s[o] == '\0')
+			return ((char *)haystack + i);
+		i++;
 	}
 	return (NULL);
 }

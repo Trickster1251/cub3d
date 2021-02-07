@@ -6,7 +6,7 @@
 /*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 17:21:16 by walethea          #+#    #+#             */
-/*   Updated: 2020/12/02 19:21:22 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/07 12:12:27 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		*ft_strdup(const char *src)
 	return (str);
 }
 
-size_t		ft_strlen(char *str)
+size_t		ft_strlen1(char *str)
 {
 	size_t	i;
 
@@ -69,7 +69,7 @@ char		*ft_strjoin_gnl(char *s1, const char *s2)
 	if (!(s1 && s2))
 		return (NULL);
 	if (!(cat_s = (char*)malloc(sizeof(char) *
-		(ft_strlen((char*)s1) + ft_strlen((char*)s2) + 1))))
+		(ft_strlen1((char*)s1) + ft_strlen1((char*)s2) + 1))))
 		return (NULL);
 	while (s1[i])
 	{
@@ -101,7 +101,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 		l++;
 	if (l < len)
 		len = l;
-	if (start >= ft_strlen((char*)s))
+	if (start >= ft_strlen1((char*)s))
 		return (ft_strdup(""));
 	sub_s = (unsigned char*)malloc(sizeof(unsigned char) * (len + 1));
 	if (!sub_s)

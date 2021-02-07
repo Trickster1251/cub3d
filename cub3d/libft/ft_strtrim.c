@@ -3,32 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 20:48:00 by walethea          #+#    #+#             */
-/*   Updated: 2020/11/23 22:26:55 by walethea         ###   ########.fr       */
+/*   Created: 2020/11/03 12:19:11 by keuclide          #+#    #+#             */
+/*   Updated: 2020/11/17 21:32:51 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char		*ft_strtrim(const char *s1, const char *set)
 {
-	size_t		start;
-	size_t		end;
+	char	*mem;
+	int		start;
+	int		end;
 
-	start = 0;
-	end = 0;
-	if (!s1 || !set)
+	if (s1 == NULL || set == NULL)
 		return (NULL);
-	while (s1[end])
-		end++;
-	end -= 1;
+	end = ft_strlen(s1);
+	while (end > 0 && ft_strchr(set, s1[end]))
+		end--;
+	if (end == 0)
+	{
+		mem = (ft_substr("", 0, 1));
+		return (mem);
+	}
+	start = 0;
 	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
-	while (end && ft_strchr(set, s1[end]))
-		end--;
-	if (s1[start] == 0)
-		return (ft_calloc(1, sizeof(char)));
-	return (ft_substr(s1, start, end - start + 1));
+	mem = (ft_substr((char *)s1, start, end - start + 1));
+	return (mem);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/10 20:25:18 by walethea          #+#    #+#             */
-/*   Updated: 2020/11/23 22:24:21 by walethea         ###   ########.fr       */
+/*   Created: 2020/11/07 14:11:26 by keuclide          #+#    #+#             */
+/*   Updated: 2020/11/09 15:23:56 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	unsigned char chr;
-
-	chr = c;
-	write(fd, &chr, 1);
+	write(fd, &c, 1);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: walethea <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/11/23 21:26:37 by walethea          #+#    #+#              #
-#    Updated: 2020/11/24 00:16:18 by walethea         ###   ########.fr        #
+#    Created: 2020/10/29 14:04:37 by keuclide          #+#    #+#              #
+#    Updated: 2021/02/07 12:10:36 by walethea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = ft_isalpha.c \
 	   ft_memchr.c \
 	   ft_putendl_fd.c \
 	   ft_strjoin.c \
-	   ft_strlen.c \
+	   ft_strnlen.c \
 	   ft_toupper.c \
 	   ft_isascii.c \
 	   ft_memcmp.c \
@@ -34,6 +34,7 @@ SRCS = ft_isalpha.c \
 	   ft_bzero.c \
 	   ft_isprint.c \
 	   ft_memmove.c \
+	   ft_splitset.c \
 	   ft_split.c \
 	   ft_strlen.c \
 	   ft_strtrim.c \
@@ -58,6 +59,7 @@ BONUS_SRCS = ft_lstnew.c \
 			 ft_lstdelone.c \
 			 ft_lstclear.c \
 			 ft_lstiter.c \
+			 ft_lstmap.c \
 			 
 OBJS = $(SRCS:.c=.o)
 
@@ -70,7 +72,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo "The libriry is successfully created"
+	@echo "The libriry is successfully created and indexed"
 
 .c.o:
 	@gcc $(FLAG) -I $(INC) -c $< -o $@
@@ -78,7 +80,7 @@ $(NAME): $(OBJS)
 bonus: all $(BONUS_OBJS)
 	@ar rc $(NAME) $(BONUS_OBJS)
 	@ranlib $(NAME)
-	@echo "The library add bonus files"
+	@echo "The library recieved bonus files"
 
 clean:
 	@rm -rf $(OBJS) $(BONUS_OBJS)
