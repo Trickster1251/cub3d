@@ -3,39 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 21:19:47 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/09 14:38:20 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/15 19:17:14 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/20 20:45:44 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+char	*start_more_len(unsigned char *sub_s)
+{
+	sub_s = (unsigned char*)malloc(sizeof(unsigned char) * 1);
+	if (!sub_s)
+		return (NULL);
+	*sub_s = '\0';
+	return ((char*)sub_s);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*mem;
-	size_t	i;
+	size_t			i;
+	size_t			l;
+	unsigned char	*sub_s;
 
 	i = 0;
-	if (s == NULL)
+	l = 0;
+	sub_s = NULL;
+	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
-	{
-		mem = (char *)malloc((sizeof(char)) * 1);
-		if (NULL == mem)
-			return (NULL);
-		mem[0] = '\0';
-		return (mem);
-	}
-	mem = (char *)malloc((sizeof(char)) * (len + 1));
-	if (NULL == mem)
+	while (s[start + l] != '\0')
+		l++;
+	if (l < len)
+		len = l;
+	if (start >= len)
+		return (start_more_len(sub_s));
+	sub_s = (unsigned char*)malloc(sizeof(unsigned char) * (len + 1));
+	if (!sub_s)
 		return (NULL);
-	while (i < len)
+	while (s[start + i] && len--)
 	{
-		mem[i] = s[start + i];
+		sub_s[i] = s[start + i];
 		i++;
 	}
-	mem[i] = '\0';
-	return (mem);
+	sub_s[i] = '\0';
+	return ((char*)&sub_s[0]);
 }

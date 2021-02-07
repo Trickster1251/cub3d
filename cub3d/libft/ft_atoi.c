@@ -3,37 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 12:42:15 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/17 21:33:50 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/14 02:06:57 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/23 22:36:55 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int		ft_atoi(char *str)
 {
-	unsigned long long int	n;
-	int						m;
+	unsigned long long	res;
+	int					i;
+	int					minus;
 
-	m = 1;
-	n = 0;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
-				*str == '\v' || *str == '\f' || *str == '\r'))
-		++str;
-	if (*str == '-')
-		m = -1;
-	if (*str == '-' || *str == '+')
-		++str;
-	while (*str && *str >= '0' && *str <= '9')
+	res = 0;
+	minus = 1;
+	i = 0;
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') || \
+	(str[i] == '\v') || (str[i] == '\r') || (str[i] == '\f'))
+		i++;
+	if (str[i] == '-' && (minus = -1))
+		i++;
+	else if (str[i] == '+')
+		i++;
+	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
 	{
-		n = n * 10 + (*str - 48);
-		++str;
+		res = res * 10;
+		res = res + (str[i] - '0');
+		i++;
 	}
-	if (n > 9223372036854775807 && m == 1)
+	if (res > 9223372036854775807 && minus == 1)
 		return (-1);
-	else if (n > 9223372036854775807 && m == -1)
+	if (res > 9223372036854775807 && minus == -1)
 		return (0);
-	return (n * m);
+	return (res * minus);
 }

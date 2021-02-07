@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.fd.c                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 14:31:37 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/09 23:06:12 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/10 20:56:11 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/14 02:38:13 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int i;
+	int		i;
+	char	endl;
 
+	endl = '\n';
 	i = 0;
-	if (s == NULL)
+	if (!s || !fd)
 		return ;
 	while (s[i])
 	{
 		write(fd, &s[i], 1);
 		i++;
 	}
-	write(fd, "\n", 1);
+	write(fd, &endl, 1);
 }

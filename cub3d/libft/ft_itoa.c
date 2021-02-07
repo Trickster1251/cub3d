@@ -3,63 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 14:49:48 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/10 00:11:20 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/23 22:29:22 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/23 22:31:27 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*from_int_to_char(char *mem, int i, long m, int sign)
+int		ft_numlen(long num)
 {
-	mem[i] = '\0';
-	i--;
-	if (m == 0)
-		mem[0] = '0';
-	while (m > 0)
+	int		len;
+
+	len = 0;
+	if (num < 0 && (num *= -1))
+		len++;
+	while (num > 0)
 	{
-		mem[i] = m % 10 + '0';
-		m /= 10;
-		i--;
+		num /= 10;
+		len++;
 	}
-	if (sign < 0)
-		mem[0] = '-';
-	return (mem);
+	return (len);
 }
 
-static int	size(int i, long m)
+char	*ft_itoa(int n)
 {
-	long n;
+	long	nb;
+	int		len;
+	char	*str;
 
-	n = m;
-	while (n / 10 != 0)
+	nb = n;
+	if (nb == 0)
 	{
-		i++;
-		n /= 10;
+		str = (char*)malloc(sizeof(char) * 2);
+		str[0] = '0';
+		str[1] = '\0';
+		return (str);
 	}
-	return (i);
-}
-
-char		*ft_itoa(int n)
-{
-	char	*mem;
-	int		i;
-	int		sign;
-	long	m;
-
-	m = (long)n;
-	i = 1;
-	sign = 1;
-	if (m < 0)
-	{
-		m = -m;
-		sign = -1;
-		i++;
-	}
-	i = size(i, m);
-	if ((mem = (char*)malloc((sizeof(char) * (i + 1)))) == NULL)
+	len = ft_numlen(nb);
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	return (from_int_to_char(mem, i, m, sign));
+	str[len--] = '\0';
+	if (nb < 0 && (nb *= -1))
+		str[0] = '-';
+	while (nb > 0)
+	{
+		str[len] = (nb % 10) + 48;
+		nb /= 10;
+		len--;
+	}
+	return (str);
 }

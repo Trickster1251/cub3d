@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 14:16:53 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/09 23:05:34 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/10 20:50:59 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/14 02:36:27 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putstr_fd(char *s, int fd)
 	int i;
 
 	i = 0;
-	if (s == NULL)
+	if (!s || !fd)
 		return ;
 	while (s[i])
 	{

@@ -3,102 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: walethea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 14:35:50 by keuclide          #+#    #+#             */
-/*   Updated: 2020/12/10 14:48:38 by keuclide         ###   ########.fr       */
+/*   Created: 2020/11/10 20:59:44 by walethea          #+#    #+#             */
+/*   Updated: 2020/11/23 22:34:48 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-
-static long long int	pow(long long int e)
+void	ft_putnbr_fd(int n, int fd)
 {
-	long long int	z;
+	int		mod;
+	int		dif;
+	int		chr;
 
-	z = 1;
-	while (e--)
-		z *= 10;
-	return (z);
-}
-
-static void				ptnbr(long long int n, long long int z,
-int i, int fd)
-{
-	char m;
-
-	while (i != 0)
+	mod = 0;
+	dif = 0;
+	chr = 48;
+	if (n == -2147483648)
 	{
-		m = (n / (10 * z)) % 10 + '0';
-		ft_putchar_fd(m, fd);
-		z /= 10;
-		i--;
-		if (i == 0)
-		{
-			i = 2;
-			z = 10;
-			while (i != 0)
-			{
-				m = (n / (1 * z)) % 10 + '0';
-				ft_putchar_fd(m, fd);
-				z /= 10;
-				i--;
-			}
-		}
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-}
-
-static int				size(long long int v)
-{
-	int	i;
-
-	i = 0;
-	while (v / 10 != 0)
+	else if (n < 0)
 	{
-		v /= 10;
-		i++;
+		n *= -1;
+		write(fd, "-", 1);
 	}
-	i -= 1;
-	return (i);
-}
-
-static void				two(long long int n, int fd)
-{
-	char			m;
-	long long int	z;
-	int				i;
-
-	i = 2;
-	z = 10;
-	while (i != 0)
-	{
-		m = (n / (1 * z)) % 10 + '0';
-		ft_putchar_fd(m, fd);
-		z /= 10;
-		i--;
-	}
-}
-
-void					ft_putnbr_fd(long long int v, int fd)
-{
-	int				i;
-	long long int	z;
-
-	if (v < 0)
-	{
-		v *= -1;
-		ft_putchar_fd('-', fd);
-	}
-	if (v > 99)
-	{
-		i = size(v);
-		z = pow(i);
-		ptnbr(v, z, i, fd);
-	}
-	if (v < 100 && v > 9)
-		two(v, fd);
-	if (v < 10 && v >= 0)
-		ft_putchar_fd((v + '0'), fd);
+	mod = n % 10;
+	dif = n / 10;
+	if (dif != 0)
+		ft_putnbr_fd(dif, fd);
+	chr += mod;
+	write(fd, &chr, 1);
 }
