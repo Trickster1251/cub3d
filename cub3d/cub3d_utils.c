@@ -16,7 +16,7 @@ void	free_arr(char **arr)
 	free(*arr);
 }
 
-void	init_values(t_all *app)
+void	init_values(t_all *app, t_point *point)
 {
 	app->map_ptr.R_init = 0;
 	app->map_ptr.F_init = 0;
@@ -26,6 +26,8 @@ void	init_values(t_all *app)
 	app->map_ptr.S_init = 0;
 	app->map_ptr.SO_init = 0;
     app->map_ptr.count_mod = 0;
+	point->x = 0;
+	point->y = 0;
 }
 
 void		print_error(char *string)

@@ -1,5 +1,6 @@
 #ifndef CUB3D
 # define CUB3D
+# define SCALE 10
 
 typedef struct	s_win //структура для окна
 {
@@ -57,7 +58,6 @@ typedef struct	s_all // структура для всего вместе
 	char		**map;
 }				  t_all;
 
-# define SCALE 16 // условный размер каждого квадратика в карте
 # include <stdarg.h>
 # include <unistd.h>
 # include "libft/libft.h"
@@ -71,7 +71,7 @@ void		print_error(char *string);
 int         press_key(int keycode, void* win_ptr);
 char	    *to_word(char **str, char sym, int num);
 void		free_arr(char **arr);
-void        init_values(t_all *app);
+void        init_values(t_all *app, t_point *point);
 int		    ft_parse_R(char **arr, t_all *app);
 int		    ft_parse_F_C(char **arr, t_all *app);
 int		ft_parse_sprite(char **arr, t_all *app, int type);
