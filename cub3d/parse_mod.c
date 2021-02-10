@@ -23,7 +23,7 @@ int		ft_parse_R(char **arr, t_all *app)
 	(app->map_ptr.R[0] > 2560) ? (app->map_ptr.R[0] = 2560) : (0);
 	(app->map_ptr.R[1] > 1920) ? (app->map_ptr.R[1] = 1920) : (0);
 	app->map_ptr.count_mod += 1;
-	printf("%s %f %f", *arr, app->map_ptr.R[0] , app->map_ptr.R[1]);
+	printf("%s %d %d", *arr, app->map_ptr.R[0] , app->map_ptr.R[1]);
 	return (0);
 }
 

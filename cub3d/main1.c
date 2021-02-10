@@ -200,8 +200,8 @@ int main(int argc, char **argv)
     //     j = -1;
     // }
     // ft_cast_ray(&app);
-    i = 0;
-    while(i < (app.map_ptr.R[1]))
+    i = -1;
+    while(++i <= app.map_ptr.R[0])
     {
         app.camera_x = 2 * i / (double)(app.map_ptr.R[1]) - 1;
         app.ray_dir_x = plr.dir_x + plr.plane_x * app.camera_x;
@@ -210,9 +210,8 @@ int main(int argc, char **argv)
         app.delta_dist_x = fabs(1/ app.ray_dir_x);
         app.delta_dist_y = fabs(1/ app.ray_dir_y);
 
-
         //calculate step and initial sideDist
-      if (app.ray_dist_x) < 0)
+      if ((app.ray_dir_x) < 0)
       {
         app.step_x = -1;
         app.side_dist_x = (plr.x - app.map_x) * app.delta_dist_x;
@@ -220,7 +219,7 @@ int main(int argc, char **argv)
       else
       {
         app.step_x = 1;
-        app.side_dist_x; = (plr.map_x + 1.0 - plr.x) * app.delta_dist_x;
+        app.side_dist_x = (app.map_x + 1.0 - plr.x) * app.delta_dist_x;
       }
       if (app.ray_dir_y < 0)
       {
@@ -233,25 +232,55 @@ int main(int argc, char **argv)
         app.side_dist_y = (app.map_y + 1.0 - plr.y) * app.delta_dist_y;
       }
       
-      while (hit == 0)
+      while (app.hit == 0)
       {
         //jump to next map square, OR in x-direction, OR in y-direction
         if (app.side_dist_x < app.side_dist_y)
         {
           app.side_dist_x += app.delta_dist_x;
           app.map_x += app.step_x;
-          side = 0;
+          app.side = 0;
         }
         else
         {
-          app.side_dist_y += deltaDistY;
+          app.side_dist_y += app.delta_dist_y;
           app.map_y += app.step_y;
-          side = 1;
+          app.side = 1;
         }
         //Check if ray has hit a wall
-        if (app.map[app.map_x][app.map_y] > 0) hit = 1;
+        if (app.map[app.map_x][app.map_y] > 0)
+            app.hit = 1;
       }
 
+    if (app.side == 0) app.perp_wall_dist = (app.map_x - plr.x + (1 - app.step_x) / 2) / app.ray_dir_x;
+      else           app.perp_wall_dist = (app.map_y - plr.y + (1 - app.step_y) / 2) / app.ray_dir_y;
+    
+    //Calculate height of line to draw on screen
+      int lineHeight = (int)(app.map_ptr.R[1] / app.perp_wall_dist);
+    //calculate lowest and highest pixel to fill in current stripe
+      int drawStart = -lineHeight / 2 + app.map_ptr.R[1] / 2;
+
+        if(drawStart < 0)
+            drawStart = 0;
+      int drawEnd = lineHeight / 2 + app.map_ptr.R[1] / 2;
+         if(drawEnd >= app.map_ptr.R[1])drawEnd = app.map_ptr.R[1] - 1;
+    
+    int y = -1;
+    while(++y <= app.map_ptr.R[1])
+    {
+        if (y < drawStart)
+        {
+            mlx_pixel_put(app.mlx, app.win, i, y, app.map_ptr.C);
+        }
+        else if (y >= drawStart && y<= drawEnd)
+        {
+            mlx_pixel_put(app.mlx, app.win, i, y, 0x990091);
+        }
+        else if (y >= drawEnd && y <= app.map_ptr.R[1])
+        {
+            mlx_pixel_put(app.mlx, app.win, i, y, app.map_ptr.F);
+        }
+    }
     }
     mlx_loop(app.mlx);
     return(0);

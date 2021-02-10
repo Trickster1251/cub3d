@@ -1,4 +1,4 @@
-R 300 400
+R 640 480
 F 123,104,238
 NO ./parse_mod.c
 WE parse_mod.c

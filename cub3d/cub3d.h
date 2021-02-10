@@ -39,7 +39,7 @@ typedef struct	s_map
 	int		EA_init;
 	int		S_init;
 	int		SO_init;
-	float	R[2];
+	int		R[2];
 	int		F;
 	int		C;
     char    *NO;
