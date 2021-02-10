@@ -20,6 +20,18 @@ int		ft_is_modificator(char **arr, t_all *app)
     return(0);
 }
 
+// void	ft_cast_ray(t_all *all)
+// {
+// 	t_plr	ray = *all->plr;
+
+// 	while (all->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
+// 	{
+// 		ray.x += cos(ray.dir);
+// 		ray.y += sin(ray.dir);
+// 		mlx_pixel_put(all->mlx, all->win, ray.x, ray.y, 0x990099);
+// 	}
+// }
+
 int		is_valid_sym(char str)
 {
     return ((str == '1' || str == '0' || str == 'N' ||
@@ -109,14 +121,6 @@ void	make_map(t_all *app,t_list **head, int size)
         i++;
     }
     ft_putendl_fd("---->SUCCESS<----\n", 1);
-    i = -1;
-    j = -1;
-    x = 10;
-    y = 10;
-    // while(app->map[0][++j])
-    // {
-    //     mlx_pixel_put(app->mlx, app->win, j, 0, app->map_ptr.F);
-    // }
     ft_lstclear(head, &free);
 }
 
@@ -170,6 +174,7 @@ int main(int argc, char **argv)
 {
     t_all   app;
     t_point point;
+    t_plr plr;
     int     len;
     char	*line = NULL;
     int fd;
@@ -178,21 +183,75 @@ int main(int argc, char **argv)
     if (argc == 2 || argc == 3)
         if (!(fd = open(argv[1], O_RDONLY)))
             print_error("Wrong fd");
-    init_values(&app, &point);
+    init_values(&app, &point, &plr);
     len = parser(fd, line, &app);
     app.mlx = mlx_init();
     app.win = mlx_new_window(app.mlx, app.map_ptr.R[0], app.map_ptr.R[1], "cub3d");
     mlx_key_hook(app.win, press_key, app.mlx);
-    while(app.map[++i])
+    // while(app.map[++i])
+    // {
+    //     while(app.map[i][++j])
+    //     {
+    //         point.x = j;
+    //         point.y = i;
+    //         if (app.map[i][j] == '1')
+    //             draw_map(&app, point, app.map_ptr.F);
+    //     }
+    //     j = -1;
+    // }
+    // ft_cast_ray(&app);
+    i = 0;
+    while(i < (app.map_ptr.R[1]))
     {
-        while(app.map[i][++j])
+        app.camera_x = 2 * i / (double)(app.map_ptr.R[1]) - 1;
+        app.ray_dir_x = plr.dir_x + plr.plane_x * app.camera_x;
+        app.ray_dir_y = plr.dir_y + plr.plane_y * app.camera_x;
+
+        app.delta_dist_x = fabs(1/ app.ray_dir_x);
+        app.delta_dist_y = fabs(1/ app.ray_dir_y);
+
+
+        //calculate step and initial sideDist
+      if (app.ray_dist_x) < 0)
+      {
+        app.step_x = -1;
+        app.side_dist_x = (plr.x - app.map_x) * app.delta_dist_x;
+      }
+      else
+      {
+        app.step_x = 1;
+        app.side_dist_x; = (plr.map_x + 1.0 - plr.x) * app.delta_dist_x;
+      }
+      if (app.ray_dir_y < 0)
+      {
+        app.step_y = -1;
+        app.side_dist_y = (plr.y - app.map_y) * app.delta_dist_y;
+      }
+      else
+      {
+        app.step_y = 1;
+        app.side_dist_y = (app.map_y + 1.0 - plr.y) * app.delta_dist_y;
+      }
+      
+      while (hit == 0)
+      {
+        //jump to next map square, OR in x-direction, OR in y-direction
+        if (app.side_dist_x < app.side_dist_y)
         {
-            point.x = j;
-            point.y = i;
-            if (app.map[i][j] == '1')
-                draw_map(&app, point, app.map_ptr.F);
+          app.side_dist_x += app.delta_dist_x;
+          app.map_x += app.step_x;
+          side = 0;
         }
-        j = -1;
+        else
+        {
+          app.side_dist_y += deltaDistY;
+          app.map_y += app.step_y;
+          side = 1;
+        }
+        //Check if ray has hit a wall
+        if (app.map[app.map_x][app.map_y] > 0) hit = 1;
+      }
+
     }
     mlx_loop(app.mlx);
     return(0);
