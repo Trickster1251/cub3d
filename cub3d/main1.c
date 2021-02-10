@@ -203,7 +203,7 @@ int main(int argc, char **argv)
     i = -1;
     while(++i <= app.map_ptr.R[0])
     {
-        app.camera_x = 2 * i / (double)(app.map_ptr.R[1]) - 1;
+        app.camera_x = 2 * i / (double)(app.map_ptr.R[0]) - 1;
         app.ray_dir_x = plr.dir_x + plr.plane_x * app.camera_x;
         app.ray_dir_y = plr.dir_y + plr.plane_y * app.camera_x;
 
@@ -248,7 +248,7 @@ int main(int argc, char **argv)
           app.side = 1;
         }
         //Check if ray has hit a wall
-        if (app.map[app.map_x][app.map_y] > 0)
+        if (app.map[app.map_x][app.map_y] == '1')
             app.hit = 1;
       }
 
@@ -276,7 +276,7 @@ int main(int argc, char **argv)
         {
             mlx_pixel_put(app.mlx, app.win, i, y, 0x990091);
         }
-        else if (y >= drawEnd && y <= app.map_ptr.R[1])
+        else if (y > drawEnd && y < app.map_ptr.R[1])
         {
             mlx_pixel_put(app.mlx, app.win, i, y, app.map_ptr.F);
         }
