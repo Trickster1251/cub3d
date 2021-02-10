@@ -30,12 +30,10 @@ void	init_values(t_all *app, t_point *point, t_plr *plr)
 	point->y = 0;
 	plr->x = 4;
 	plr->y = 4;
-	plr->dir_x = 1;
+	plr->dir_x = -1;
 	plr->dir_y = 0;
-	plr->plane_x = 0.66;
-	plr->plane_y = 0;
-	app->map_x = 0;
-	app->map_y = 0;
+	plr->plane_x = 0;
+	plr->plane_y = 0.66;
 	app->side_dist_x = 0;
 	app->side_dist_y = 0;
 	app->delta_dist_x = 0;

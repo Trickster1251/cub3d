@@ -210,6 +210,9 @@ int main(int argc, char **argv)
         app.delta_dist_x = fabs(1/ app.ray_dir_x);
         app.delta_dist_y = fabs(1/ app.ray_dir_y);
 
+        app.map_x = (int)(plr.x);
+        app.map_y = (int)(plr.y);
+
         //calculate step and initial sideDist
       if ((app.ray_dir_x) < 0)
       {
@@ -269,17 +272,13 @@ int main(int argc, char **argv)
     while(++y <= app.map_ptr.R[1])
     {
         if (y < drawStart)
-        {
             mlx_pixel_put(app.mlx, app.win, i, y, app.map_ptr.C);
-        }
         else if (y >= drawStart && y<= drawEnd)
         {
-            mlx_pixel_put(app.mlx, app.win, i, y, 0x990091);
+            mlx_pixel_put(app.mlx, app.win, i, y, 0xfe0002);
         }
         else if (y > drawEnd && y < app.map_ptr.R[1])
-        {
             mlx_pixel_put(app.mlx, app.win, i, y, app.map_ptr.F);
-        }
     }
     }
     mlx_loop(app.mlx);
