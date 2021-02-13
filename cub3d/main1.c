@@ -173,8 +173,6 @@ void draw_map(t_all *app, t_point point, int color)
 int main(int argc, char **argv)
 {
     t_all   app;
-    t_point point;
-    t_plr plr;
     int     len;
     char	*line = NULL;
     int fd;
@@ -183,7 +181,7 @@ int main(int argc, char **argv)
     if (argc == 2 || argc == 3)
         if (!(fd = open(argv[1], O_RDONLY)))
             print_error("Wrong fd");
-    init_values(&app, &point, &plr);
+    init_values(&app);
     len = parser(fd, line, &app);
     app.mlx = mlx_init();
     app.win = mlx_new_window(app.mlx, app.map_ptr.R[0], app.map_ptr.R[1], "cub3d");
@@ -204,35 +202,35 @@ int main(int argc, char **argv)
     while(++i <= app.map_ptr.R[0])
     {
         app.camera_x = 2 * i / (double)(app.map_ptr.R[0]) - 1;
-        app.ray_dir_x = plr.dir_x + plr.plane_x * app.camera_x;
-        app.ray_dir_y = plr.dir_y + plr.plane_y * app.camera_x;
+        app.ray_dir_x = app.plr.dir_x + app.plr.plane_x * app.camera_x;
+        app.ray_dir_y = app.plr.dir_y + app.plr.plane_y * app.camera_x;
 
         app.delta_dist_x = fabs(1/ app.ray_dir_x);
         app.delta_dist_y = fabs(1/ app.ray_dir_y);
 
-        app.map_x = (int)(plr.x);
-        app.map_y = (int)(plr.y);
+        app.map_x = (int)(app.plr.x);
+        app.map_y = (int)(app.plr.y);
 
         //calculate step and initial sideDist
       if ((app.ray_dir_x) < 0)
       {
         app.step_x = -1;
-        app.side_dist_x = (plr.x - app.map_x) * app.delta_dist_x;
+        app.side_dist_x = (app.plr.x - app.map_x) * app.delta_dist_x;
       }
       else
       {
         app.step_x = 1;
-        app.side_dist_x = (app.map_x + 1.0 - plr.x) * app.delta_dist_x;
+        app.side_dist_x = (app.map_x + 1.0 - app.plr.x) * app.delta_dist_x;
       }
       if (app.ray_dir_y < 0)
       {
         app.step_y = -1;
-        app.side_dist_y = (plr.y - app.map_y) * app.delta_dist_y;
+        app.side_dist_y = (app.plr.y - app.map_y) * app.delta_dist_y;
       }
       else
       {
         app.step_y = 1;
-        app.side_dist_y = (app.map_y + 1.0 - plr.y) * app.delta_dist_y;
+        app.side_dist_y = (app.map_y + 1.0 - app.plr.y) * app.delta_dist_y;
       }
       
       while (app.hit == 0)
@@ -255,8 +253,8 @@ int main(int argc, char **argv)
             app.hit = 1;
       }
 
-    if (app.side == 0) app.perp_wall_dist = (app.map_x - plr.x + (1 - app.step_x) / 2) / app.ray_dir_x;
-      else           app.perp_wall_dist = (app.map_y - plr.y + (1 - app.step_y) / 2) / app.ray_dir_y;
+    if (app.side == 0) app.perp_wall_dist = (app.map_x - app.plr.x + (1 - app.step_x) / 2) / app.ray_dir_x;
+      else           app.perp_wall_dist = (app.map_y - app.plr.y + (1 - app.step_y) / 2) / app.ray_dir_y;
     
     //Calculate height of line to draw on screen
       int lineHeight = (int)(app.map_ptr.R[1] / app.perp_wall_dist);

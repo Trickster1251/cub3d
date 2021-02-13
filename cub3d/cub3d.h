@@ -54,7 +54,7 @@ typedef struct	s_map
 typedef struct	s_all // структура для всего вместе
 {
 	t_win		*win;
-	t_plr		*plr;
+	t_plr		plr;
     void		*mlx;
 	void		*win_ptr;
 	t_map		map_ptr;
@@ -96,7 +96,7 @@ void		print_error(char *string);
 int         press_key(int keycode, void* win_ptr);
 char	    *to_word(char **str, char sym, int num);
 void		free_arr(char **arr);
-void        init_values(t_all *app, t_point *point, t_plr *plr);
+void        init_values(t_all *app);
 int		    ft_parse_R(char **arr, t_all *app);
 int		    ft_parse_F_C(char **arr, t_all *app);
 int		ft_parse_sprite(char **arr, t_all *app, int type);
