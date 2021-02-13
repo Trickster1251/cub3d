@@ -201,6 +201,7 @@ int main(int argc, char **argv)
     i = -1;
     while(++i <= app.map_ptr.R[0])
     {
+        app.hit = 0;
         app.camera_x = 2 * i / (double)(app.map_ptr.R[0]) - 1;
         app.ray_dir_x = app.plr.dir_x + app.plr.plane_x * app.camera_x;
         app.ray_dir_y = app.plr.dir_y + app.plr.plane_y * app.camera_x;
@@ -253,8 +254,10 @@ int main(int argc, char **argv)
             app.hit = 1;
       }
 
-    if (app.side == 0) app.perp_wall_dist = (app.map_x - app.plr.x + (1 - app.step_x) / 2) / app.ray_dir_x;
-      else           app.perp_wall_dist = (app.map_y - app.plr.y + (1 - app.step_y) / 2) / app.ray_dir_y;
+    if (app.side == 0)
+        app.perp_wall_dist = ((int)app.map_x - app.plr.x + (1 - (int)app.step_x) / 2) / app.ray_dir_x;
+      else
+        app.perp_wall_dist = ((int)app.map_y - app.plr.y + (1 - (int)app.step_y) / 2) / app.ray_dir_y;
     
     //Calculate height of line to draw on screen
       int lineHeight = (int)(app.map_ptr.R[1] / app.perp_wall_dist);

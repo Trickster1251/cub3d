@@ -19,14 +19,14 @@ typedef struct	s_point // структура для точки
 
 typedef struct	s_plr //структура для игрока и луча
 {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 	int			dir_x;
 	int			dir_y;
-	float		plane_x;
-	float		plane_y;
-	float		start;
-	float		end;
+	double		plane_x;
+	double		plane_y;
+	double		start;
+	double		end;
 }				  t_plr;
 
 typedef struct	s_map
