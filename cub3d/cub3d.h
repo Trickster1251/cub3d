@@ -1,6 +1,7 @@
 #ifndef CUB3D
 # define CUB3D
 # define SCALE 10
+# define MOVE_SPEED 0.1
 
 typedef struct	s_win //структура для окна
 {
@@ -17,44 +18,65 @@ typedef struct	s_point // структура для точки
 	int			y;
 }				  t_point;
 
+typedef struct	s_key // структура для точки
+{
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			esc;
+}				  t_key;
+
 typedef struct	s_plr //структура для игрока и луча
 {
 	double		x;
 	double		y;
-	int			dir_x;
-	int			dir_y;
+	double		dir_x;
+	double		dir_y;
 	double		plane_x;
 	double		plane_y;
 	double		start;
 	double		end;
 }				  t_plr;
 
+typedef struct  s_data {
+    void        *img;
+    char        *addr;
+    int         bpp;
+    int         line_len;
+    int         endian;
+}               t_data;
+
 typedef struct	s_map
 {
-	int		R_init;
-	int		F_init;
-	int		C_init;
-	int		NO_init;
-	int		WE_init;
-	int		EA_init;
-	int		S_init;
-	int		SO_init;
-	int		R[2];
-	int		F;
-	int		C;
-    char    *NO;
-	char    *WE;
-	char    *EA;
-	char    *S;
-	char    *SO;
+	int		r_i;
+	int		f_i;
+	int		c_i;
+	int		n_i;
+	int		w_i;
+	int		e_i;
+	int		s_i;
+	int		so_i;
+	int		r[2];
+	int		f;
+	int		c;
+    char    *no;
+	char    *we;
+	char    *ea;
+	char    *s;
+	char    *so;
     int     count_mod;
 }				  t_map;
+
+
 
 
 typedef struct	s_all // структура для всего вместе
 {
 	t_win		*win;
 	t_plr		plr;
+	t_key		key;
+	t_data		img;
     void		*mlx;
 	void		*win_ptr;
 	t_map		map_ptr;
@@ -62,6 +84,7 @@ typedef struct	s_all // структура для всего вместе
 	double 		camera_x;
     double 		ray_dir_x;
     double 		ray_dir_y;
+
 
 	int			map_x;
     int			map_y;
@@ -93,8 +116,11 @@ typedef struct	s_all // структура для всего вместе
 # include "get_next_line/get_next_line.h"
 
 void		print_error(char *string);
-int         press_key(int keycode, void* win_ptr);
+int				parser(int fd, char *line, t_all *app);
+int			press_key(int keycode, t_all* app);
+int			release_key(t_all* a);
 char	    *to_word(char **str, char sym, int num);
+void            my_mlx_pixel_put(t_all *app, int x, int y, int color);
 void		free_arr(char **arr);
 void        init_values(t_all *app);
 int		    ft_parse_R(char **arr, t_all *app);
