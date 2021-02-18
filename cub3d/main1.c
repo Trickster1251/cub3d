@@ -1,10 +1,5 @@
 #include "cub3d.h"
 
-// void    key_init(t_all *a)
-// {
-    
-// }
-
 int    keep_key(int keycode, t_all *a)
 {   
     (keycode == 13) ? (a->key.w = 0) :
@@ -29,6 +24,7 @@ int     raycaster(t_all *app)
     release_key(app);
     app->img.img = mlx_new_image(app->mlx, app->map_ptr.r[0], app->map_ptr.r[1]);
     app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
+
     int i = -1;
     while(++i <= app->map_ptr.r[0])
     {
@@ -64,7 +60,8 @@ int     raycaster(t_all *app)
         app->step_y = 1;
         app->side_dist_y = (app->map_y + 1.0 - app->plr.y) * app->delta_dist_y;
       }
-      
+  
+
       while (app->hit == 0)
       {
         //jump to next map square, OR in x-direction, OR in y-direction
@@ -81,7 +78,7 @@ int     raycaster(t_all *app)
           app->side = 1;
         }
         //Check if ray has hit a wall
-        if (app->map[app->map_x][app->map_y] == '1')
+        if (app->map[app->map_y][app->map_x] == '1')
             app->hit = 1;
       }
 
@@ -95,29 +92,30 @@ int     raycaster(t_all *app)
     //calculate lowest and highest pixel to fill in current stripe
       int drawStart = -lineHeight / 2 + app->map_ptr.r[1] / 2;
 
-        if(drawStart < 0)
-            drawStart = 0;
+      if(drawStart < 0)
+        drawStart = 0;
       int drawEnd = lineHeight / 2 + app->map_ptr.r[1] / 2;
-         if(drawEnd >= app->map_ptr.r[1])drawEnd = app->map_ptr.r[1] - 1;
+        if(drawEnd >= app->map_ptr.r[1])drawEnd = app->map_ptr.r[1] - 1;
     
     int y = -1;
     while(++y <= app->map_ptr.r[1])
     {
         if (y < drawStart)
-            mlx_pixel_put(app->mlx, app->win, i, y, app->map_ptr.c);
-            // my_mlx_pixel_put(app, i, y, app->map_ptr.c);
+        {
+          my_mlx_pixel_put(app, i, y, app->map_ptr.c);
+        }
         else if (y >= drawStart && y<= drawEnd)
         {
-          mlx_pixel_put(app->mlx, app->win, i, y, 0xfe0002);
-          // my_mlx_pixel_put(app, i, y, 0xfe0002);
-
+          my_mlx_pixel_put(app, i, y, 0xfe0002);
         }
         else if (y > drawEnd && y < app->map_ptr.r[1])
-            mlx_pixel_put(app->mlx, app->win, i, y, app->map_ptr.f);
-          // my_mlx_pixel_put(app, i, y, app->map_ptr.f);
-
+        {
+          my_mlx_pixel_put(app, i, y, app->map_ptr.f);
+        }
     }
     }
+    mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
+    mlx_destroy_image(app->mlx, app->img.img);
     return (0);
 }
 
@@ -138,7 +136,6 @@ int main(int argc, char **argv)
     app.win = mlx_new_window(app.mlx, app.map_ptr.r[0], app.map_ptr.r[1], "cub3d");
     mlx_hook(app.win, 2, 0, press_key, &app);
     mlx_hook(app.win, 3, 0, keep_key, &app);
-    // mlx_key_hook(app.win, release_key, &app);
     mlx_loop_hook(app.mlx, raycaster, &app);
     // while(app.map[++i])
     // {

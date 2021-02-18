@@ -71,7 +71,7 @@ int     skip_space(char *str)
 //     }
 // }
 
-void	make_map(t_all *app,t_list **head, int size)
+void	validator_map(t_all *app,t_list **head, int size)
 {
     app->map = calloc(size + 1,sizeof(char*));
     int		i = -1;
@@ -167,13 +167,9 @@ int		parser(int fd, char *line, t_all *app)
     }
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
-    {
         ft_lstadd_back(&head, ft_lstnew(line));
-    }
     ft_lstadd_back(&head, ft_lstnew(line));
-    make_map(app ,&head, ft_lstsize(head));
-
-
+    validator_map(app ,&head, ft_lstsize(head));
     return (len);
 }
 
@@ -247,15 +243,18 @@ int	release_key(t_all* a)
 
 	if (a->key.w == 1)
 	{
-		a->plr.x -= a->plr.plane_y;
-        a->plr.y += a->plr.plane_x;
-		printf("%f\n", a->plr.x);
+        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_y * MOVE_SPEED)] != '1')
+		    a->plr.x -= a->plr.plane_y * MOVE_SPEED;
+        if (a->map[(int)(a->plr.y + a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
+            a->plr.y += a->plr.plane_x * MOVE_SPEED;
+        // a->plr.x -= a->plr.plane_y * MOVE_SPEED;
+        // a->plr.y += a->plr.plane_x * MOVE_SPEED;
+
 	}	
 	else if (a->key.s == 1)
 	{
-		a->plr.x += a->plr.plane_y;
-        a->plr.y -= a->plr.plane_x;
-		printf("%f\n", a->plr.y);
+		a->plr.x += a->plr.plane_y * MOVE_SPEED;
+        a->plr.y -= a->plr.plane_x * MOVE_SPEED;
 	}
 	else if (a->key.d == 1)
 	{
@@ -266,7 +265,6 @@ int	release_key(t_all* a)
 		a->plr.plane_x = a->plr.plane_x * cos(-0.1) - a->plr.plane_y * sin(-0.1);
 		a->plr.plane_y = old_plane_x * sin(-0.1) + a->plr.plane_y * cos(-0.1);
 	}
-
 	else if (a->key.a == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;

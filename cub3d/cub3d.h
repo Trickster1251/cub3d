@@ -1,7 +1,7 @@
 #ifndef CUB3D
 # define CUB3D
 # define SCALE 10
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED 0.5
 
 typedef struct	s_win //структура для окна
 {
@@ -116,19 +116,19 @@ typedef struct	s_all // структура для всего вместе
 # include "get_next_line/get_next_line.h"
 
 void		print_error(char *string);
-int				parser(int fd, char *line, t_all *app);
+int			parser(int fd, char *line, t_all *app);
+void		validator_map(t_all *app,t_list **head, int size);
 int			press_key(int keycode, t_all* app);
 int			release_key(t_all* a);
 char	    *to_word(char **str, char sym, int num);
-void            my_mlx_pixel_put(t_all *app, int x, int y, int color);
+void		my_mlx_pixel_put(t_all *app, int x, int y, int color);
 void		free_arr(char **arr);
 void        init_values(t_all *app);
 int		    ft_parse_R(char **arr, t_all *app);
 int		    ft_parse_F_C(char **arr, t_all *app);
-int		ft_parse_sprite(char **arr, t_all *app, int type);
-int		array_len(char **arr, int num);
-int		ft_isdigit_str(char *str);
-void	make_map(t_all *app,t_list **head, int size);
-int 	validator(t_all *app ,t_list **head);
+int			ft_parse_sprite(char **arr, t_all *app, int type);
+int			array_len(char **arr, int num);
+int			ft_isdigit_str(char *str);
+int 		validator(t_all *app ,t_list **head);
 
 #endif
