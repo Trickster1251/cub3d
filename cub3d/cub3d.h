@@ -24,6 +24,8 @@ typedef struct	s_key // структура для точки
 	int			a;
 	int			s;
 	int			d;
+	int			e;
+	int			q;
 	int			esc;
 }				  t_key;
 

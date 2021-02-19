@@ -220,6 +220,8 @@ void	init_values(t_all *app)
     app->key.a = 0;
     app->key.s = 0;
     app->key.d = 0;
+    app->key.q = 0;
+    app->key.e = 0;
     // app->key->esc = 0;
 }
 
@@ -240,23 +242,36 @@ int		array_len(char **arr, int num)
 int	release_key(t_all* a)
 {
 
-
 	if (a->key.w == 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_y * MOVE_SPEED)] != '1')
 		    a->plr.x -= a->plr.plane_y * MOVE_SPEED;
         if (a->map[(int)(a->plr.y + a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
             a->plr.y += a->plr.plane_x * MOVE_SPEED;
-        // a->plr.x -= a->plr.plane_y * MOVE_SPEED;
-        // a->plr.y += a->plr.plane_x * MOVE_SPEED;
-
+        printf("plr.x=%f\nplr.y=%f\nplr.plane.x=%f\nplr.plane.y=%f\n-----------------------\n", a->plr.x, a->plr.y, a->plr.plane_x, a->plr.plane_y);
 	}	
 	else if (a->key.s == 1)
 	{
-		a->plr.x += a->plr.plane_y * MOVE_SPEED;
-        a->plr.y -= a->plr.plane_x * MOVE_SPEED;
+        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_y * MOVE_SPEED)] != '1')
+		    a->plr.x += a->plr.plane_y * MOVE_SPEED;
+        if (a->map[(int)(a->plr.y - a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
+            a->plr.y -= a->plr.plane_x * MOVE_SPEED;
 	}
-	else if (a->key.d == 1)
+    else if (a->key.a == 1)
+	{
+        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] != '1')
+		    a->plr.x += a->plr.plane_x * MOVE_SPEED;
+        if (a->map[(int)(a->plr.y - a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
+            a->plr.y -= a->plr.plane_y * MOVE_SPEED;
+	}
+    else if (a->key.d == 1)
+	{
+        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] != '1')
+		    a->plr.x -= a->plr.plane_x * MOVE_SPEED;
+        if (a->map[(int)(a->plr.y + a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
+            a->plr.y += a->plr.plane_y * MOVE_SPEED;
+	}
+	else if (a->key.e == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(-0.1) - a->plr.dir_y * sin(-0.1);
@@ -265,7 +280,7 @@ int	release_key(t_all* a)
 		a->plr.plane_x = a->plr.plane_x * cos(-0.1) - a->plr.plane_y * sin(-0.1);
 		a->plr.plane_y = old_plane_x * sin(-0.1) + a->plr.plane_y * cos(-0.1);
 	}
-	else if (a->key.a == 1)
+	else if (a->key.q == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(0.1) - a->plr.dir_y * sin(0.1);
@@ -273,6 +288,6 @@ int	release_key(t_all* a)
 		double	old_plane_x = a->plr.plane_x;
 		a->plr.plane_x = a->plr.plane_x * cos(0.1) - a->plr.plane_y * sin(0.1);
 		a->plr.plane_y = old_plane_x * sin(0.1) + a->plr.plane_y * cos(0.1);
-	}	
+	}
 	return (0);
 }
