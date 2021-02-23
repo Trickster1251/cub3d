@@ -73,8 +73,8 @@ int     skip_space(char *str)
 
 void    ft_is_plr(t_all *app, char dir, int i, int j)
 {
-    app->plr.x = i + 0.5;
-    app->plr.y = j + 0.5;
+    app->plr.x = j + 0.5;
+    app->plr.y = i + 0.5;
     if (dir == 'S')
     {
         app->plr.dir_y = 1;
@@ -136,21 +136,6 @@ void	validator_map(t_all *app,t_list **head, int size)
                 print_error("parse error, zero no lock on last line");
             else if (i == (size - 1) && app->map[i][j] == ' ')
                 break;
-            else if (app->map[i][j] == ' ' &&
-            !(is_valid_space(app->map[i - 1][j]) &&
-            is_valid_space(app->map[i + 1][j]) && 
-            is_valid_space(app->map[i][j - 1]) &&
-            is_valid_space(app->map[i + 1][j + 1]) &&
-            is_valid_space(app->map[i + 1][j - 1]) &&
-            is_valid_space(app->map[i - 1][j - 1]) &&
-            is_valid_space(app->map[i - 1][j + 1]) &&
-            is_valid_space(app->map[i][j + 1])
-            ))
-            {
-                printf("\n%s\n", app->map[i]);
-                printf("---->%c%i\n", app->map[i][j], j);
-                print_error("parse error, space no lock");
-            }
             else if (app->map[i][j] == '0' &&
             !(is_valid_sym(app->map[i - 1][j]) &&
             is_valid_sym(app->map[i + 1][j]) && 
