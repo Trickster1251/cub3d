@@ -1,5 +1,6 @@
 #include "cub3d.h"
 
+
 int    keep_key(int keycode, t_all *a)
 {   
     (keycode == 13) ? (a->key.w = 0) :

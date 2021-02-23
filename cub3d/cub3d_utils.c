@@ -16,9 +16,9 @@ int		ft_is_modificator(char **arr, t_all *app)
 {
     (app->map_ptr.count_mod >= 8) ? print_error("More modificators") : 0;
     if ((ft_strncmp(*arr, "R\0", 2)) == 0)
-        ft_parse_R(arr, app);
+        ft_parse_r(arr, app);
     else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
-        ft_parse_F_C(arr, app);
+        ft_parse_f_c(arr, app);
     else if (ft_strncmp(*arr, "NO\0", 3) == 0)
         ft_parse_sprite(arr, app, 'N');
     else if (ft_strncmp(*arr, "WE\0", 3) == 0)
@@ -71,10 +71,37 @@ int     skip_space(char *str)
 //     }
 // }
 
+void    ft_is_plr(t_all *app, char dir, int i, int j)
+{
+    app->plr.x = i + 0.5;
+    app->plr.y = j + 0.5;
+    if (dir == 'S')
+    {
+        app->plr.dir_y = 1;
+        app->plr.plane_x = -0.66;
+    }
+    else if (dir == 'E')
+    {
+        app->plr.dir_x = 1;
+	    app->plr.plane_y = 0.66;
+    }
+    else if (dir == 'N')
+    {
+        app->plr.dir_y = -1;
+        app->plr.plane_x = 0.66;
+    }
+    else if (dir == 'W')
+    {
+        app->plr.dir_x = -1;
+	    app->plr.plane_y = -0.66;
+    }
+}
+
 void	validator_map(t_all *app,t_list **head, int size)
 {
     app->map = calloc(size + 1,sizeof(char*));
     int		i = -1;
+    int     l = -1;
     int		j = 0;
     int     x;
     int     y;
@@ -83,11 +110,15 @@ void	validator_map(t_all *app,t_list **head, int size)
     while(tmp)
     {
         app->map[++i] = tmp->content;
-        if (!(ft_strncmp(app->map[i], "1",1) || ft_strncmp(app->map[i], "2",1) ||
-            ft_strncmp(app->map[i], " ",1) || ft_strncmp(app->map[i], "N",1) ||
-            ft_strncmp(app->map[i], "W",1) || ft_strncmp(app->map[i], "S",1) ||
-            ft_strncmp(app->map[i], "E",1) || ft_strncmp(app->map[i], "0",1)))
-                print_error("parse error");
+        while(app->map[i][j])
+        {
+            if (!(ft_strncmp(&app->map[i][j], "1",1) || ft_strncmp(&app->map[i][j], "2",1) ||
+                ft_strncmp(&app->map[i][j], " ",1) || ft_strncmp(&app->map[i][j], "N",1) ||
+                ft_strncmp(&app->map[i][j], "W",1) || ft_strncmp(&app->map[i][j], "S",1) ||
+                 ft_strncmp(&app->map[i][j], "E",1) || ft_strncmp(&app->map[i][j], "0",1)))
+                    print_error("parse error");
+            j++;
+        }
         tmp = tmp->next;
     }
     i = -1;
@@ -135,6 +166,14 @@ void	validator_map(t_all *app,t_list **head, int size)
                 printf("---->%c%i\n", app->map[i][j], j);
                 print_error("parse error, zero no lock");
             }
+            if (app->map[i][j] == 'N')
+                ft_is_plr(app, 'N', i, j);
+            else if (app->map[i][j] == 'E')
+                ft_is_plr(app, 'E', i, j);
+            else if (app->map[i][j] == 'W')
+                ft_is_plr(app, 'W', i, j);
+            else if (app->map[i][j] == 'S')
+                ft_is_plr(app, 'S', i, j);
             j++;
         }
         j = 0;
@@ -184,9 +223,18 @@ int		ft_isdigit_str(char *str)
 	return (1);
 }
 
-void	free_arr(char **arr)
+char	**free_arr(char **str)
 {
-	free(*arr);
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (NULL);
 }
 
 void	init_values(t_all *app)
@@ -203,10 +251,10 @@ void	init_values(t_all *app)
 	// point->y = 0;
 	app->plr.x = 4;
 	app->plr.y = 4;
-	app->plr.dir_x = -1;
+	app->plr.dir_x = 0;
 	app->plr.dir_y = 0;
 	app->plr.plane_x = 0;
-	app->plr.plane_y = 0.66;
+	app->plr.plane_y = 0;
 	app->side_dist_x = 0;
 	app->side_dist_y = 0;
 	app->delta_dist_x = 0;
@@ -242,7 +290,7 @@ int		array_len(char **arr, int num)
 int	release_key(t_all* a)
 {
 
-	if (a->key.w == 1)
+	if (a->key.s == 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_y * MOVE_SPEED)] != '1')
 		    a->plr.x -= a->plr.plane_y * MOVE_SPEED;
@@ -250,7 +298,7 @@ int	release_key(t_all* a)
             a->plr.y += a->plr.plane_x * MOVE_SPEED;
         printf("plr.x=%f\nplr.y=%f\nplr.plane.x=%f\nplr.plane.y=%f\n-----------------------\n", a->plr.x, a->plr.y, a->plr.plane_x, a->plr.plane_y);
 	}	
-	else if (a->key.s == 1)
+	else if (a->key.w == 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_y * MOVE_SPEED)] != '1')
 		    a->plr.x += a->plr.plane_y * MOVE_SPEED;
@@ -259,19 +307,19 @@ int	release_key(t_all* a)
 	}
     else if (a->key.a == 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] != '1')
-		    a->plr.x += a->plr.plane_x * MOVE_SPEED;
+        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] != '1')
+		    a->plr.x -= a->plr.plane_x * MOVE_SPEED;
         if (a->map[(int)(a->plr.y - a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
             a->plr.y -= a->plr.plane_y * MOVE_SPEED;
 	}
-    else if (a->key.d == 1)
+    else if (a->key.d== 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] != '1')
-		    a->plr.x -= a->plr.plane_x * MOVE_SPEED;
+        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] != '1')
+		    a->plr.x += a->plr.plane_x * MOVE_SPEED;
         if (a->map[(int)(a->plr.y + a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
             a->plr.y += a->plr.plane_y * MOVE_SPEED;
 	}
-	else if (a->key.e == 1)
+	else if (a->key.q == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(-0.1) - a->plr.dir_y * sin(-0.1);
@@ -280,7 +328,7 @@ int	release_key(t_all* a)
 		a->plr.plane_x = a->plr.plane_x * cos(-0.1) - a->plr.plane_y * sin(-0.1);
 		a->plr.plane_y = old_plane_x * sin(-0.1) + a->plr.plane_y * cos(-0.1);
 	}
-	else if (a->key.q == 1)
+	else if (a->key.e == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(0.1) - a->plr.dir_y * sin(0.1);
