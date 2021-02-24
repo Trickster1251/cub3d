@@ -1,16 +1,16 @@
 R 640 480 
 F 123,104,238
-NO ./parse_mod.c
-WE parse_mod.c
-EA parse_mod.c
-S parse_mod.c
-SO parse_mod.c
+NO ./eagle.xpm
+WE ./bluestone.xpm
+EA ./wood.xpm
+S ./eagle.xpm
+SO ./wood.xpm
 C 122,200,39
 
 111111111111111
 100010000000001
 100000000000001
-1000S0111000001
+1000W0111000001
 100000011000001
 100000011000001
 111111111111111

@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 int    keep_key(int keycode, t_all *a)
 {   
     (keycode == 13) ? (a->key.w = 0) :
@@ -27,6 +26,15 @@ int     press_key(int keycode, t_all *a)
 
 int     raycaster(t_all *app)
 {
+
+
+  int   tex_h;
+  int   tex_w;
+
+  tex_h = 0;
+  tex_w = 0;
+
+  tex_h = 0;
     release_key(app);
     app->img.img = mlx_new_image(app->mlx, app->map_ptr.r[0], app->map_ptr.r[1]);
     app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
@@ -94,15 +102,56 @@ int     raycaster(t_all *app)
         app->perp_wall_dist = ((int)app->map_y - app->plr.y + (1 - (int)app->step_y) / 2) / app->ray_dir_y;
     
     //Calculate height of line to draw on screen
-      int lineHeight = (int)(app->map_ptr.r[1] / app->perp_wall_dist);
+      app->line_h = (int)(app->map_ptr.r[1] / app->perp_wall_dist);
     //calculate lowest and highest pixel to fill in current stripe
-      int drawStart = -lineHeight / 2 + app->map_ptr.r[1] / 2;
+      int drawStart = -app->line_h / 2 + app->map_ptr.r[1] / 2;
 
-      if(drawStart < 0)
+      if (drawStart < 0)
         drawStart = 0;
-      int drawEnd = lineHeight / 2 + app->map_ptr.r[1] / 2;
-        if(drawEnd >= app->map_ptr.r[1])drawEnd = app->map_ptr.r[1] - 1;
+      int drawEnd = app->line_h / 2 + app->map_ptr.r[1] / 2;
+        if (drawEnd >= app->map_ptr.r[1]) drawEnd = app->map_ptr.r[1] - 1;
+  
+    /////////////
+    if (app->side == 0) app->wall_x = app->plr.y + app->perp_wall_dist * app->ray_dir_y;
+      else           app->wall_x = app->plr.x + app->perp_wall_dist * app->ray_dir_x;
+      app->wall_x -= floor((app->wall_x));
+
+    if (app->side == 0)
+    {
+        if (app->step_x > 0)
+        {
+            app->tex.w = app->tex.so.w;
+            app->tex.h = app->tex.so.h;
+        }
+        else
+        {
+            app->tex.w = app->tex.no.w;
+            app->tex.h = app->tex.no.h;
+        }
+    }
+    else
+    {
+        if (app->step_y > 0)
+        {
+            app->tex.w = app->tex.we.w;
+            app->tex.h = app->tex.we.h;
+        }
+        else
+        {
+            app->tex.w = app->tex.ea.w;
+            app->tex.h = app->tex.ea.h;
+        }
+    }
     
+      //x coordinate on the texture
+      app->tex_x = (int)(app->wall_x * (double)(app->tex.w));
+      if(app->side == 0 && app->ray_dir_x > 0) app->tex_x = app->tex.w - app->tex_x - 1;
+      if(app->side == 1 && app->ray_dir_y < 0) app->tex_x = app->tex.w - app->tex_x - 1;
+
+
+      app->step = 1.0 * app->tex.h / app->line_h;
+      app->tex_pos = (drawStart - app->map_ptr.r[1] / 2 + app->line_h / 2) * app->step;
+
     int y = -1;
     while(++y <= app->map_ptr.r[1])
     {
@@ -112,9 +161,10 @@ int     raycaster(t_all *app)
         }
         else if (y >= drawStart && y<= drawEnd)
         {
-          if (app->side == 1)
-            my_mlx_pixel_put(app, i, y, 0xfe0002 / 2);
-          my_mlx_pixel_put(app, i, y, 0xfe0002);
+          app->tex_y = (int)app->tex_pos & (app->tex.h - 1);
+          app->tex_pos += app->step;
+          get_texture(app, app->side);
+          my_mlx_pixel_put(app, i, y, app->color);
         }
         else if (y > drawEnd && y < app->map_ptr.r[1])
         {
@@ -142,6 +192,8 @@ int main(int argc, char **argv)
     len = parser(fd, line, &app);
     app.mlx = mlx_init();
     app.win = mlx_new_window(app.mlx, app.map_ptr.r[0], app.map_ptr.r[1], "cub3d");
+    ft_putendl_fd(app.tex.ea.path, 1);
+    init_textures(&app);
     mlx_hook(app.win, 2, 0, press_key, &app);
     mlx_hook(app.win, 3, 0, keep_key, &app);
     mlx_loop_hook(app.mlx, raycaster, &app);

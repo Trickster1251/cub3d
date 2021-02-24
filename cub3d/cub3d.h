@@ -5,14 +5,29 @@
 # define MAX_RES_WIDTH 5120
 # define MAX_RES_HEIGHT 2880
 
-typedef struct	s_win //структура для окна
+typedef struct	s_img //структура для окна
 {
 	void		*img;
 	void		*addr;
 	int			line_l;
 	int			bpp;
-	int			en;
-}				  t_win;
+	int			endian;
+	char		*path;
+	int			w;
+	int			h;
+}				  t_img;
+
+typedef struct	s_texture //структура для окна
+{
+	t_img		no;
+	t_img		we;
+	t_img		ea;
+	t_img		so;
+	t_img		s;
+	int			h;
+	int			w;
+}				  t_texture;
+
 
 typedef struct	s_point // структура для точки
 {
@@ -64,11 +79,6 @@ typedef struct	s_map
 	int		r[2];
 	int		f;
 	int		c;
-    char    *no;
-	char    *we;
-	char    *ea;
-	char    *s;
-	char    *so;
     int     count_mod;
 }				  t_map;
 
@@ -77,7 +87,7 @@ typedef struct	s_map
 
 typedef struct	s_all // структура для всего вместе
 {
-	t_win		*win;
+	t_img		*win;
 	t_plr		plr;
 	t_key		key;
 	t_data		img;
@@ -85,16 +95,22 @@ typedef struct	s_all // структура для всего вместе
 	void		*win_ptr;
 	t_map		map_ptr;
 	char		**map;
+	t_texture	tex;
 	double 		camera_x;
     double 		ray_dir_x;
     double 		ray_dir_y;
-
-
+	unsigned int	color;
+	double		wall_x;
+	int			tex_x;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
 	int			map_x;
     int			map_y;
     //length of ray from current position to next x or y-side
     double 		side_dist_x;
     double		side_dist_y;
+	int			line_h;
 
      //length of ray from one x or y-side to next x or y-side
     double		delta_dist_x;
@@ -120,6 +136,7 @@ typedef struct	s_all // структура для всего вместе
 # include "get_next_line/get_next_line.h"
 
 void		print_error(char *string);
+void		ft_is_plr(t_all *app, char dir, int i, int j);
 int			parser(int fd, char *line, t_all *app);
 void		validator_map(t_all *app,t_list **head, int size);
 int			press_key(int keycode, t_all* app);
@@ -134,5 +151,8 @@ int			array_len(char **arr, int num);
 int			ft_isdigit_str(char *str);
 int 		validator(t_all *app ,t_list **head);
 char		**free_arr(char **str);
+void    	init_textures(t_all *app);
+void    	get_texture(t_all *all, int side);
+int             get_color(t_img *tex, int x, int y);
 
 #endif

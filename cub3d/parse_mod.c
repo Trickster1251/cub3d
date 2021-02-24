@@ -57,20 +57,30 @@ int		ft_parse_sprite(char **arr, t_all *app, int type)
 {
 	(!array_len(arr, 1)) ? print_error("More array len") : 0;
 	if (type == 'N')
+	{
 		(app->map_ptr.n_i == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.n_i = 1);
-		!((open((app->map_ptr.no = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
-	if (type == 'W')
+		!((open((app->tex.no.path = ft_strdup(arr[1])), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+	}
+	else if (type == 'W')
+	{
 		(app->map_ptr.w_i == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.w_i = 1);
-		!((open((app->map_ptr.we = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
-	if (type == 'E')
+		!((open((app->tex.we.path = ft_strdup(arr[1])), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+	}
+	else if (type == 'E')
+	{
 		(app->map_ptr.e_i == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.e_i = 1);
-		!((open((app->map_ptr.ea = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
-	if (type == 'S')
+		!((open((app->tex.ea.path = ft_strdup(arr[1])), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+	}
+	else if (type == 'S')
+	{
 		(app->map_ptr.so_i == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.so_i = 1);
-		!((open((app->map_ptr.so = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
-	if (type == 's')
+		!((open((app->tex.so.path = ft_strdup(arr[1])), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+	}
+	else if (type == 's')
+	{
 		(app->map_ptr.s_i == 1) ? (print_error("Sprite twice init")) : (app->map_ptr.s_i = 1);
-		!((open((app->map_ptr.s = *(arr + 1)), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+		!((open((app->tex.s.path = ft_strdup(arr[1])), O_RDONLY)) > 0) ? print_error("Wrong fd") : 0;
+	}
 	app->map_ptr.count_mod += 1;
 	printf("%s %s\n", *arr, *(arr+1));
 	return (0);
