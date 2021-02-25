@@ -176,7 +176,7 @@ int     raycaster(t_all *app)
     mlx_destroy_image(app->mlx, app->img.img);
     return (0);
 }
-
+-
 int main(int argc, char **argv)
 {
     t_all   app;

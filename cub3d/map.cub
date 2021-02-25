@@ -1,8 +1,8 @@
 R 640 480 
 F 123,104,238
 NO ./eagle.xpm
-WE ./bluestone.xpm
-EA ./wood.xpm
+WE ./4.xpm
+EA ./5.xpm
 S ./eagle.xpm
 SO ./wood.xpm
 C 122,200,39
