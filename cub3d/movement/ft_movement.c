@@ -42,7 +42,7 @@ int	release_key(t_all* a)
             a->plr.y += a->plr.plane_x * MOVE_SPEED;
         }
 	}	
-	else if (a->key.w == 1)
+	if (a->key.w == 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_y * MOVE_SPEED)] == '0')
         {
@@ -53,21 +53,21 @@ int	release_key(t_all* a)
             a->plr.y -= a->plr.plane_x * MOVE_SPEED;
         }
 	}
-    else if (a->key.a == 1)
+    if (a->key.a == 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] == '0')
 		    a->plr.x -= a->plr.plane_x * MOVE_SPEED;
         if (a->map[(int)(a->plr.y - a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] == '0')
             a->plr.y -= a->plr.plane_y * MOVE_SPEED;
 	}
-    else if (a->key.d== 1)
+    if (a->key.d== 1)
 	{
         if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] == '0')
 		    a->plr.x += a->plr.plane_x * MOVE_SPEED;
         if (a->map[(int)(a->plr.y + a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] == '0')
             a->plr.y += a->plr.plane_y * MOVE_SPEED;
 	}
-	else if (a->key.q == 1)
+	if (a->key.q == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(-0.1) - a->plr.dir_y * sin(-0.1);
@@ -76,7 +76,7 @@ int	release_key(t_all* a)
 		a->plr.plane_x = a->plr.plane_x * cos(-0.1) - a->plr.plane_y * sin(-0.1);
 		a->plr.plane_y = old_plane_x * sin(-0.1) + a->plr.plane_y * cos(-0.1);
 	}
-	else if (a->key.e == 1)
+	if (a->key.e == 1)
 	{
 		double	old_dir_x = a->plr.dir_x;
 		a->plr.dir_x = a->plr.dir_x * cos(0.1) - a->plr.dir_y * sin(0.1);

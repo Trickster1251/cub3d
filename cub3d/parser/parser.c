@@ -193,9 +193,9 @@ int             parser(int fd, char *line, t_all *app)
     t_list	*head = NULL;
 
     
-    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod <= 8))
+    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod <= 8) && line[0] != '1')
     {
-        if (line[0] != '\0' && !is_not_space(line))
+        if (line[0] != '\0')
         {
             arr = ft_split(line, ' ');
             ft_is_modificator(arr, app);
@@ -204,7 +204,7 @@ int             parser(int fd, char *line, t_all *app)
         free(line);
     }
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
-    // ft_lstadd_back(&head, ft_lstnew(line));
+    ft_lstadd_back(&head, ft_lstnew(line));
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
         ft_lstadd_back(&head, ft_lstnew(line));
     ft_lstadd_back(&head, ft_lstnew(line));
