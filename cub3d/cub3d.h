@@ -17,6 +17,13 @@ typedef struct	s_img //структура для окна
 	int			h;
 }				  t_img;
 
+typedef struct		s_sprite
+{
+	double			x;
+	double			y;
+	double			dist;
+}					t_sprite;
+
 typedef struct	s_texture //структура для окна
 {
 	t_img		no;
@@ -26,6 +33,7 @@ typedef struct	s_texture //структура для окна
 	t_img		s;
 	int			h;
 	int			w;
+	int			count_sprite;
 }				  t_texture;
 
 
@@ -153,6 +161,7 @@ int 		validator(t_all *app ,t_list **head);
 char		**free_arr(char **str);
 void    	init_textures(t_all *app);
 void    	get_texture(t_all *all, int side);
-int             get_color(t_img *tex, int x, int y);
+int         get_color(t_img *tex, int x, int y);
+void		cast_sprite(t_all *app, double *sprite_dist);
 
 #endif

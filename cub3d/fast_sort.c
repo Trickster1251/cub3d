@@ -1,71 +1,49 @@
 #include <stdio.h>
-# define len(arr) (int)(sizeof(arr) / sizeof(arr[0]))
+#include <stdlib.h>
+#define SIZE 20
 
-void    swap(int *a, int *b)
+void ft_qsort (int* arr, int left, int right)
 {
-    int     *tmp;
+    int i = left, j = right;
+    int temp, pivot = arr[ (left+right)/2 ];
 
-    *tmp = *a;
-    *a = *b;
-    *b = *tmp;
-}
-
-int     part(int *arr, int l, int r)
-{
-    int i = -1;
-    int len = ((int)(sizeof(arr) / sizeof(arr[0])));
-    int x = arr[r];
-    int less = l;
-     while(arr[++i])
+    while (i <= j)
     {
-        if (arr[i] <= x)
+        while (arr[i] < pivot) i++;
+        while (arr[j] > pivot) j--;
+
+        if (i <= j)
         {
-        swap(&arr[i], &arr[less]);
-        ++less;
+            if (arr[i] > arr[j])
+            {
+                temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+            }
+
+            i++; j--;
         }
-    }
-        swap(&arr[less], &arr[r]);
-    return less;
+
+    };
+
+    if (left < j) ft_qsort (arr, left, j);
+    if (i < right) ft_qsort (arr, i, right);
 }
 
-void q_sort(int *arr, int l, int r)
-{
-    if (l < r)
-    {
-        int q = part(arr, l, r);
-        q_sort(arr, l, q - 1);
-        q_sort(arr, q + 1, r);
-    }
-}
-
-void q_sort_eval(int *arr)
-{
-    q_sort(arr, 0, (int)(sizeof(arr) / sizeof(arr[0]) - 1));
-}
+//-------------------------------------------------------------------
 
 int main()
 {
-    int arr[] = {1, 2, 44, 5, 12, 5, 6, 7, 100, 12};
+    int Arr[SIZE];
 
-    int i  = -1;
+    // Заполнение массива случайными числами
+    for (int i = 0; i<SIZE; i++) Arr[i] = rand()%100;
 
-    q_sort_eval(&arr);
+    // Вывод элементов массива до сортировки
+    for (int i = 0; i<SIZE; i++) printf("%3d ", Arr[i]); printf("\n");
 
-    while(arr[++i])
-    {
-        printf("%d\n", arr[i]);
-    }
+    ft_qsort(Arr, 0, SIZE-1); // вызов функции сортировки
 
-    // int *left = arr[0];
-    // int *right = arr[len_array];
-    // while(arr[++i])
-    // {
-    //     if (*left > arr[i + 1] && *left < srav)
-    //     {
-    //         swap(left, arr[i + 1]);
-            
-    //     }
-    //     printf("%d\n", arr[i]);
-    // }
+    // Вывод элементов массива после сортировки
+    for (int i = 0; i<SIZE; i++) printf("%3d ", Arr[i]); printf("\n");
 
+    getchar(); return 0;
 }

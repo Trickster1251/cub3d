@@ -33,8 +33,9 @@ int     raycaster(t_all *app)
 
   tex_h = 0;
   tex_w = 0;
-
   tex_h = 0;
+  double     sprite_dist[app->map_ptr.r[0]];
+
     release_key(app);
     app->img.img = mlx_new_image(app->mlx, app->map_ptr.r[0], app->map_ptr.r[1]);
     app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
@@ -97,9 +98,11 @@ int     raycaster(t_all *app)
       }
 
     if (app->side == 0)
-        app->perp_wall_dist = ((int)app->map_x - app->plr.x + (1 - (int)app->step_x) / 2) / app->ray_dir_x;
-      else
+       app->perp_wall_dist = ((int)app->map_x - app->plr.x + (1 - (int)app->step_x) / 2) / app->ray_dir_x;
+    else
         app->perp_wall_dist = ((int)app->map_y - app->plr.y + (1 - (int)app->step_y) / 2) / app->ray_dir_y;
+
+    sprite_dist[i] = app->perp_wall_dist;
     
     //Calculate height of line to draw on screen
       app->line_h = (int)(app->map_ptr.r[1] / app->perp_wall_dist);
@@ -156,9 +159,7 @@ int     raycaster(t_all *app)
     while(++y <= app->map_ptr.r[1])
     {
         if (y < drawStart)
-        {
           my_mlx_pixel_put(app, i, y, app->map_ptr.c);
-        }
         else if (y >= drawStart && y<= drawEnd)
         {
           app->tex_y = (int)app->tex_pos & (app->tex.h - 1);
@@ -167,16 +168,15 @@ int     raycaster(t_all *app)
           my_mlx_pixel_put(app, i, y, app->color);
         }
         else if (y > drawEnd && y < app->map_ptr.r[1])
-        {
           my_mlx_pixel_put(app, i, y, app->map_ptr.f);
-        }
     }
     }
+    cast_sprite(app, sprite_dist);
     mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
     mlx_destroy_image(app->mlx, app->img.img);
     return (0);
 }
--
+
 int main(int argc, char **argv)
 {
     t_all   app;

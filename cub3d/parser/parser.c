@@ -38,6 +38,7 @@ void	init_values(t_all *app)
     app->tex.we.path = 0;
     app->tex.so.path = 0;
     app->tex.s.path = 0;
+    app->tex.count_sprite = 0;
 }
 
 int		is_valid_sym(char str)
@@ -108,6 +109,7 @@ void	validator_map(t_all *app,t_list **head, int size)
     int     y;
     t_list	*tmp = *head;
 
+
     while(tmp)
     {
         app->map[++i] = tmp->content;
@@ -160,6 +162,8 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'W', i, j);
             else if (app->map[i][j] == 'S')
                 ft_is_plr(app, 'S', i, j);
+            else if (app->map[i][j] == '2')
+                app->tex.count_sprite++;
             j++;
         }
         j = 0;
