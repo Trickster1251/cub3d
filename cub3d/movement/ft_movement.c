@@ -24,38 +24,47 @@ void    ft_is_plr(t_all *app, char dir, int i, int j)
         app->plr.dir_x = -1;
 	    app->plr.plane_y = -0.66;
     }
+    app->map[i][j] = '0';
 }
 
 int	release_key(t_all* a)
 {
-
+    int     resp_x;
+    int     resp_y;
 	if (a->key.s == 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_y * MOVE_SPEED)] != '1')
+        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_y * MOVE_SPEED)] == '0')
+        {
 		    a->plr.x -= a->plr.plane_y * MOVE_SPEED;
-        if (a->map[(int)(a->plr.y + a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
+        }
+        if (a->map[(int)(a->plr.y + a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] == '0')
+        {
             a->plr.y += a->plr.plane_x * MOVE_SPEED;
-        printf("plr.x=%f\nplr.y=%f\nplr.plane.x=%f\nplr.plane.y=%f\n-----------------------\n", a->plr.x, a->plr.y, a->plr.plane_x, a->plr.plane_y);
+        }
 	}	
 	else if (a->key.w == 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_y * MOVE_SPEED)] != '1')
+        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_y * MOVE_SPEED)] == '0')
+        {
 		    a->plr.x += a->plr.plane_y * MOVE_SPEED;
-        if (a->map[(int)(a->plr.y - a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
+        }
+        if (a->map[(int)(a->plr.y - a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] == '0')
+        {
             a->plr.y -= a->plr.plane_x * MOVE_SPEED;
+        }
 	}
     else if (a->key.a == 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] != '1')
+        if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.plane_x * MOVE_SPEED)] == '0')
 		    a->plr.x -= a->plr.plane_x * MOVE_SPEED;
-        if (a->map[(int)(a->plr.y - a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
+        if (a->map[(int)(a->plr.y - a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] == '0')
             a->plr.y -= a->plr.plane_y * MOVE_SPEED;
 	}
     else if (a->key.d== 1)
 	{
-        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] != '1')
+        if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.plane_x * MOVE_SPEED)] == '0')
 		    a->plr.x += a->plr.plane_x * MOVE_SPEED;
-        if (a->map[(int)(a->plr.y + a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] != '1')
+        if (a->map[(int)(a->plr.y + a->plr.plane_y * MOVE_SPEED)][(int)a->plr.x] == '0')
             a->plr.y += a->plr.plane_y * MOVE_SPEED;
 	}
 	else if (a->key.q == 1)

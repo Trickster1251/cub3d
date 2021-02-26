@@ -45,7 +45,7 @@ void	init_values(t_all *app)
 int		is_valid_sym(char str)
 {
     return ((str == '1' || str == '0' || str == 'N' ||
-     str == 'S' || str == 'E' || str == 'W' || str == '2') ? (1) : (0));
+     str == 'S' || str == 'E' || str == 'W' || str == '2' || str == 'T' || str == 't') ? (1) : (0));
 }
 
 int		is_valid_space(char str)
@@ -61,20 +61,9 @@ int     skip_space(char *str)
     return(i);
 }
 
-
-int     is_not_space(char *str)
-{
-    int     i;
-    i = -1;
-    while(str[++i])
-        if (str[i] != ' ')
-            return (0);
-    return(1);
-}
-
 int		ft_is_modificator(char **arr, t_all *app)
 {
-    // (app->map_ptr.count_mod >= 8) ? print_error("More modificators") : 0;
+    (app->map_ptr.count_mod >= 8) ? print_error("More modificators") : 0;
     if ((ft_strncmp(*arr, "R\0", 2)) == 0)
         ft_parse_r(arr, app);
     else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
@@ -176,6 +165,16 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'S', i, j);
             else if (app->map[i][j] == '2')
                 app->tex.count_sprite++;
+            else if (app->map[i][j] == 't')
+            {
+                app->t_x = j;
+                app->t_y = i;
+            }
+            else if (app->map[i][j] == 'T')
+            {
+                app->T_x = j;
+                app->T_y = i;
+            }
             j++;
         }
         j = 0;
@@ -193,21 +192,18 @@ int             parser(int fd, char *line, t_all *app)
     t_list	*head = NULL;
 
     
-    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod <= 8))
+    while ((len = get_next_line(fd ,&line) > 0) && (line[0] != '\0'))
     {
-        if (line[0] != '\0' && !is_not_space(line))
-        {
             arr = ft_split(line, ' ');
             ft_is_modificator(arr, app);
             free_arr(arr);
-        }
-        free(line);
+            free(line);
     }
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
-    // ft_lstadd_back(&head, ft_lstnew(line));
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
         ft_lstadd_back(&head, ft_lstnew(line));
     ft_lstadd_back(&head, ft_lstnew(line));
     validator_map(app ,&head, ft_lstsize(head));
     return (len);
 }
+

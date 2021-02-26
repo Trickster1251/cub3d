@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int    keep_key(int keycode, t_all *a)
 {   
@@ -173,7 +173,7 @@ int     raycaster(t_all *app)
     }
     cast_sprite(app, sprite_dist);
     mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
-    // mlx_string_put(app->mlx, app->win, app->map_ptr.r[0] / 2 - 5, app->map_ptr.r[1] / 2, 0xFFFFFF, ft_itoa(app->plr.apple));
+    mlx_string_put(app->mlx, app->win, app->map_ptr.r[0] / 2 - 5, app->map_ptr.r[1] / 2, 0xFFFFFF, ft_itoa(app->plr.apple));
     mlx_destroy_image(app->mlx, app->img.img);
     return (0);
 }

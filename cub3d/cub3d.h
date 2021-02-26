@@ -62,6 +62,7 @@ typedef struct	s_plr //структура для игрока и луча
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
+	int			apple;
 	double		start;
 	double		end;
 }				  t_plr;
@@ -115,6 +116,10 @@ typedef struct	s_all // структура для всего вместе
 	double		tex_pos;
 	int			map_x;
     int			map_y;
+	double		t_x;
+	double		t_y;
+	double		T_x;
+	double		T_y;
     //length of ray from current position to next x or y-side
     double 		side_dist_x;
     double		side_dist_y;
