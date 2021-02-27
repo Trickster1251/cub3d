@@ -77,26 +77,26 @@ void	cast_sprite(t_all *app, double *sprite_dist)
 		double invDet = 1.0 / (app->plr.pln_x * app->plr.dir_y - app->plr.dir_x * app->plr.pln_y);
 		double transformX = invDet * (app->plr.dir_y * spriteX - app->plr.dir_x * spriteY);
 		double transformY = invDet * (-app->plr.pln_y * spriteX + app->plr.pln_x * spriteY);
-		int spriteScreenX = (int)((app->map_ptr.r[0] / 2) * (1 + transformX / transformY));
-		double spriteHeight = fabs((double)(app->map_ptr.r[0] / (transformY)));
-		int drawStartY = -spriteHeight / 2 +app->map_ptr.r[1] / 2;
+		int spriteScreenX = (int)((app->m.r[0] / 2) * (1 + transformX / transformY));
+		double spriteHeight = fabs((double)(app->m.r[0] / (transformY)));
+		int drawStartY = -spriteHeight / 2 +app->m.r[1] / 2;
 		if(drawStartY < 0) drawStartY = 0;
-			int drawEndY = spriteHeight / 2 +app->map_ptr.r[1] / 2;
-		if(drawEndY >=app->map_ptr.r[1]) drawEndY =app->map_ptr.r[1] - 1;
-			double spriteWidth = fabs(app->map_ptr.r[0] / (transformY));
+			int drawEndY = spriteHeight / 2 +app->m.r[1] / 2;
+		if(drawEndY >=app->m.r[1]) drawEndY =app->m.r[1] - 1;
+			double spriteWidth = fabs(app->m.r[0] / (transformY));
 		int drawStartX = -spriteWidth / 2 + spriteScreenX;
 		if(drawStartX < 0) drawStartX = 0;
 			int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(drawEndX >= app->map_ptr.r[0]) drawEndX = app->map_ptr.r[0] - 1;
+		if(drawEndX >= app->m.r[0]) drawEndX = app->m.r[0] - 1;
 			int stripe = drawStartX;
 			int y = drawStartY;
 		while(stripe < drawEndX)
 		{
 			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * app->tex.s.w / spriteWidth) / 256;
-			if(transformY > 0 && stripe > 0 && stripe < app->map_ptr.r[0] && transformY < sprite_dist[stripe])
+			if(transformY > 0 && stripe > 0 && stripe < app->m.r[0] && transformY < sprite_dist[stripe])
 				while(y < drawEndY)
 				{
-		 			int d = (y) * 256 - app->map_ptr.r[1] * 128 + spriteHeight * 128;
+		 			int d = (y) * 256 - app->m.r[1] * 128 + spriteHeight * 128;
 		  			int texY = ((d * app->tex.s.h) / spriteHeight) / 256;
 		  			int color = get_color(&app->tex.s, texX, texY);
 					if((color & 0x00FFFFFF) != 0)

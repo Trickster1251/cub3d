@@ -4,7 +4,7 @@ void	image_to_sreenshot(t_all *all, int fd)
 {
 	int y;
 
-	y = all->map_ptr.r[1];
+	y = all->m.r[1];
 	while (y >= 0)
 	{
 		y--;
@@ -23,7 +23,7 @@ void	render_bmp(t_all *all)
 
 	if ((fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)) < 0)
 		print_error("Fail with creating screenshot file");
-	n = all->img.line_len * (all->map_ptr.r[1]) + 54;
+	n = all->img.line_len * (all->m.r[1]) + 54;
 	write(fd, "BM", 2);
 	write(fd, &n, 4);
 	i = 0;
@@ -32,8 +32,8 @@ void	render_bmp(t_all *all)
 	write(fd, &i, 4);
 	i = 40;
 	write(fd, &i, 4);
-	write(fd, &all->map_ptr.r[0], 4);
-	write(fd, &all->map_ptr.r[1], 4);
+	write(fd, &all->m.r[0], 4);
+	write(fd, &all->m.r[1], 4);
 	b = 1;
 	write(fd, &b, 2);
 	b = all->img.bpp;

@@ -2,14 +2,14 @@
 
 void	init_values(t_all *app)
 {
-	app->map_ptr.r_i = 0;
-	app->map_ptr.f_i = 0;
-	app->map_ptr.n_i = 0;
-	app->map_ptr.w_i = 0;
-	app->map_ptr.e_i = 0;
-	app->map_ptr.s_i = 0;
-	app->map_ptr.so_i = 0;
-    app->map_ptr.count_mod = 0;
+	app->m.r_i = 0;
+	app->m.f_i = 0;
+	app->m.n_i = 0;
+	app->m.w_i = 0;
+	app->m.e_i = 0;
+	app->m.s_i = 0;
+	app->m.so_i = 0;
+    app->m.count_mod = 0;
 	// point->x = 0;
 	// point->y = 0;
 	app->plr.x = 4;
@@ -64,7 +64,7 @@ int     skip_space(char *str)
 
 int		ft_is_modificator(char **arr, t_all *app)
 {
-    (app->map_ptr.count_mod >= 8) ? print_error("More modificators") : 0;
+    (app->m.count_mod >= 8) ? print_error("More modificators") : 0;
     if ((ft_strncmp(*arr, "R\0", 2)) == 0)
         ft_parse_r(arr, app);
     else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
@@ -193,7 +193,7 @@ int             parser(int fd, char *line, t_all *app)
     t_list	*head = NULL;
 
 
-    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod < 8))
+    while ((len = get_next_line(fd ,&line) > 0) && (app->m.count_mod < 8))
     {
         if (line[0] != '\0')
         {
@@ -204,7 +204,7 @@ int             parser(int fd, char *line, t_all *app)
         free(line);
     }
     (len < 0) ? (print_error("Something wrong with .cub file")) : (0);
-    printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
+    printf("\nThis is count-->%d\n", app->m.count_mod);
     while ((len = get_next_line(fd ,&line)))
     {
         if (line[0] != '\0')

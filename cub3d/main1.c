@@ -43,7 +43,7 @@ void	make_screenshot(int argc, char **argv, t_all *app)
 
 int		main(int argc, char **argv)
 {
-	t_all   app;
+	t_all	app;
 	char	*line;
 	int		fd;
 	int		i;
@@ -60,7 +60,7 @@ int		main(int argc, char **argv)
 	app.mlx = mlx_init();
 	if (argc == 3)
 		make_screenshot(argc, argv, &app);
-	app.win = mlx_new_window(app.mlx, app.map_ptr.r[0], app.map_ptr.r[1], "cub3d");
+	app.win = mlx_new_window(app.mlx, app.m.r[0], app.m.r[1], "cub3d");
 	init_textures(&app);
 	mlx_hook(app.win, 2, 0, press_key, &app);
 	mlx_hook(app.win, 3, 0, keep_key, &app);

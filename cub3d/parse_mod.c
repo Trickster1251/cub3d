@@ -20,19 +20,19 @@ int		is_correct_num(char **arr, int i)
 int		ft_parse_r(char **arr, t_all *app)
 {
 	(!array_len(arr, 2)) ? print_error("More array len") : (0);
-	(app->map_ptr.r_i == 1) ?
-	(print_error("R twice init")) : (app->map_ptr.r_i = 1);
+	(app->m.r_i == 1) ?
+	(print_error("R twice init")) : (app->m.r_i = 1);
 	if (!is_correct_num(arr, 0))
 		print_error("Enter correct symbols at resolution");
-	((app->map_ptr.r[0] = ft_atoi(*(arr + 1))) < 400)
-	? (app->map_ptr.r[0] = 400) : (0);
-	((app->map_ptr.r[1] = ft_atoi(*(arr + 2))) < 400)
-	? (app->map_ptr.r[1] = 400) : (0);
-	((app->map_ptr.r[0] > 2560)) ?
-	(app->map_ptr.r[0] = 2560) : (0);
-	((app->map_ptr.r[1] > 1440)) ?
-	(app->map_ptr.r[1] = 1440) : (0);
-	app->map_ptr.count_mod += 1;
+	((app->m.r[0] = ft_atoi(*(arr + 1))) < 400)
+	? (app->m.r[0] = 400) : (0);
+	((app->m.r[1] = ft_atoi(*(arr + 2))) < 400)
+	? (app->m.r[1] = 400) : (0);
+	((app->m.r[0] > 2560)) ?
+	(app->m.r[0] = 2560) : (0);
+	((app->m.r[1] > 1440)) ?
+	(app->m.r[1] = 1440) : (0);
+	app->m.count_mod += 1;
 	// ft_printf("%s %d %d\n", *arr, app->map_ptr.r[0] , app->map_ptr.r[1]);
 	return (0);
 }
@@ -42,25 +42,25 @@ int		ft_parse_f_c(char **arr, t_all *app)
 	(!array_len(arr, 3)) ? print_error("More array len") : 0;
 	if (**arr == 'F')
 	{
-		(app->map_ptr.f_i == 1)
-		? (print_error("F twice init")) : (app->map_ptr.f_i = 1);
+		(app->m.f_i == 1)
+		? (print_error("F twice init")) : (app->m.f_i = 1);
 		if (!is_correct_num((arr), 0))
 			print_error("Enter correct symbols at F");
-		app->map_ptr.f = create_rgb(ft_atoi(*(arr + 1)),
+		app->m.f = create_rgb(ft_atoi(*(arr + 1)),
 		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
 		// printf("F %d\n", app->map_ptr.f);
 	}
 	else
 	{
-		(app->map_ptr.c_i == 1) ?
-		(print_error("C twice init")) : (app->map_ptr.c_i = 1);
+		(app->m.c_i == 1) ?
+		(print_error("C twice init")) : (app->m.c_i = 1);
 		if (!is_correct_num((arr), 0))
 			print_error("Enter correct symbols at C");
-		app->map_ptr.c = create_rgb(ft_atoi(*(arr + 1)),
+		app->m.c = create_rgb(ft_atoi(*(arr + 1)),
 		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
 		// printf("C %d\n", app->map_ptr.c);
 	}
-	app->map_ptr.count_mod += 1;
+	app->m.count_mod += 1;
 	return (0);
 }
 
@@ -77,7 +77,7 @@ int		ft_parse_sprite(char **arr, t_all *app, int type)
 		parse_so_tex(app, arr);
 	else if (type == 's')
 		parse_s_tex(app, arr);
-	app->map_ptr.count_mod += 1;
+	app->m.count_mod += 1;
 	// printf("%s %s\n", *arr, *(arr+1));
 	return (0);
 }

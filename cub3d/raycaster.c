@@ -4,21 +4,21 @@ int		 raycaster(t_all *app)
 {
 	int			tex_h;
 	int			tex_w;
-	double     sprite_dist[app->map_ptr.r[0]];
+	double     sprite_dist[app->m.r[0]];
 
 	tex_h = 0;
 	tex_w = 0;
 	tex_h = 0;
 	release_key(app);
-	if (!(app->img.img = mlx_new_image(app->mlx, app->map_ptr.r[0], app->map_ptr.r[1])))
+	if (!(app->img.img = mlx_new_image(app->mlx, app->m.r[0], app->m.r[1])))
 		print_error("Something wrong with image in raycaster");
 	app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
 
 	int i = -1;
-	while(++i < app->map_ptr.r[0])
+	while(++i < app->m.r[0])
 	{
 		app->hit = 0;
-		app->camera_x = 2 * i / (double)(app->map_ptr.r[0]) - 1;
+		app->camera_x = 2 * i / (double)(app->m.r[0]) - 1;
 		app->ray_dir_x = app->plr.dir_x + app->plr.pln_x * app->camera_x;
 		app->ray_dir_y = app->plr.dir_y + app->plr.pln_y * app->camera_x;
 
@@ -74,14 +74,14 @@ int		 raycaster(t_all *app)
 
 	sprite_dist[i] = app->perp_wall_dist;
 
-	  app->line_h = (int)(app->map_ptr.r[0] / app->perp_wall_dist);
+	  app->line_h = (int)(app->m.r[0] / app->perp_wall_dist);
 	  
-	  int drawStart = -app->line_h / 2 + app->map_ptr.r[1] / 2;
+	  int drawStart = -app->line_h / 2 + app->m.r[1] / 2;
 
 	  if (drawStart < 0)
 		drawStart = 0;
-	  int drawEnd = app->line_h / 2 + app->map_ptr.r[1] / 2;
-		if (drawEnd >= app->map_ptr.r[1]) drawEnd = app->map_ptr.r[1] - 1;
+	  int drawEnd = app->line_h / 2 + app->m.r[1] / 2;
+		if (drawEnd >= app->m.r[1]) drawEnd = app->m.r[1] - 1;
   
 	/////////////
 	if (app->side == 0) app->wall_x = app->plr.y + app->perp_wall_dist * app->ray_dir_y;
@@ -122,13 +122,13 @@ int		 raycaster(t_all *app)
 
 
 	  app->step = 1.0 * app->tex.h / app->line_h;
-	  app->tex_pos = (drawStart - app->map_ptr.r[1] / 2 + app->line_h / 2) * app->step;
+	  app->tex_pos = (drawStart - app->m.r[1] / 2 + app->line_h / 2) * app->step;
 
 	int y = -1;
-	while(++y < app->map_ptr.r[1])
+	while(++y < app->m.r[1])
 	{
 		if (y < drawStart)
-		  my_mlx_pixel_put(app, i, y, app->map_ptr.c);
+		  my_mlx_pixel_put(app, i, y, app->m.c);
 		else if (y >= drawStart && y< drawEnd)
 		{
 		  app->tex_y = (int)app->tex_pos & (app->tex.h - 1);
@@ -136,8 +136,8 @@ int		 raycaster(t_all *app)
 		  get_texture(app, app->side);
 		  my_mlx_pixel_put(app, i, y, app->color);
 		}
-		else if (y > drawEnd && y < app->map_ptr.r[1])
-		  my_mlx_pixel_put(app, i, y, app->map_ptr.f);
+		else if (y > drawEnd && y < app->m.r[1])
+		  my_mlx_pixel_put(app, i, y, app->m.f);
 	}
 	}
 	cast_sprite(app, sprite_dist);
