@@ -1,5 +1,35 @@
 #include "cub3d.h"
 
+void	what_side(t_all *app)
+{
+	if (app->side == 0)
+	{
+		if (app->step_x > 0)
+		{
+			app->tex.w = app->tex.so.w;
+			app->tex.h = app->tex.so.h;
+		}
+		else
+		{
+			app->tex.w = app->tex.no.w;
+			app->tex.h = app->tex.no.h;
+		}
+	}
+	else
+	{
+		if (app->step_y > 0)
+		{
+			app->tex.w = app->tex.we.w;
+			app->tex.h = app->tex.we.h;
+		}
+		else
+		{
+			app->tex.w = app->tex.ea.w;
+			app->tex.h = app->tex.ea.h;
+		}
+	}
+}
+
 int		 raycaster(t_all *app)
 {
 	double     sprite_dist[app->m.r[0]];
@@ -62,48 +92,18 @@ int		 raycaster(t_all *app)
 	else
 		app->perp_wall_dist = ((int)app->map_y - app->plr.y + (1 - (int)app->step_y) / 2) / app->ray_dir_y;
 	sprite_dist[i] = app->perp_wall_dist;
-    if ((app->m.r[0] + 100) < app->m.r[1])
-	    app->line_h = (int)(app->m.r[0] / app->perp_wall_dist);
-    else
-        app->line_h = (int)(app->m.r[1] / app->perp_wall_dist);
+	app->line_h = (int)(app->m.r[0] / app->perp_wall_dist) * 0.75;
 	int drawStart = -app->line_h / 2 + app->m.r[1] / 2;
 	if (drawStart < 0)
 	    drawStart = 0;
 	int drawEnd = app->line_h / 2 + app->m.r[1] / 2;
 	if (drawEnd >= app->m.r[1]) drawEnd = app->m.r[1] - 1;
-	/////////////
 	if (app->side == 0)
         app->wall_x = app->plr.y + app->perp_wall_dist * app->ray_dir_y;
 	else
         app->wall_x = app->plr.x + app->perp_wall_dist * app->ray_dir_x;
 	app->wall_x -= floor((app->wall_x));
-	if (app->side == 0)
-	{
-		if (app->step_x > 0)
-		{
-			app->tex.w = app->tex.so.w;
-			app->tex.h = app->tex.so.h;
-		}
-		else
-		{
-			app->tex.w = app->tex.no.w;
-			app->tex.h = app->tex.no.h;
-		}
-	}
-	else
-	{
-		if (app->step_y > 0)
-		{
-			app->tex.w = app->tex.we.w;
-			app->tex.h = app->tex.we.h;
-		}
-		else
-		{
-			app->tex.w = app->tex.ea.w;
-			app->tex.h = app->tex.ea.h;
-		}
-	}
-	
+	what_side(app);
 	app->tex_x = (int)(app->wall_x * (double)(app->tex.w));
 	if(app->side == 0 && app->ray_dir_x > 0) app->tex_x = app->tex.w - app->tex_x - 1;
 	if(app->side == 1 && app->ray_dir_y < 0) app->tex_x = app->tex.w - app->tex_x - 1;

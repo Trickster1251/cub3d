@@ -34,6 +34,7 @@ void	init_values(t_all *app)
     app->key.d = 0;
     app->key.q = 0;
     app->key.e = 0;
+    app->rec_flag = 1;
     app->tex.ea.path = 0;
     app->tex.no.path = 0;
     app->tex.we.path = 0;
