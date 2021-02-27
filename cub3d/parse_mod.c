@@ -8,10 +8,18 @@ int		create_rgb(int r, int g, int b)
 int		ft_255_or_0(int num)
 {
 	if (num > 255)
-		print_error("color is error");
+		print_error("Color modificator more then 255");
 	else if (num < 0)
-		print_error("color is error");
+		print_error("Color modificator less then 0");
 	return (num);
+}
+
+int		is_correct_num(char **arr, int i)
+{
+	while(arr[++i])
+		if (!(ft_isdigit_str(arr[i])))
+			return (0);
+	return(1);
 }
 
 int		ft_parse_r(char **arr, t_all *app)
@@ -19,8 +27,10 @@ int		ft_parse_r(char **arr, t_all *app)
 	(!array_len(arr, 2)) ? print_error("More array len") : (0);
 	(app->map_ptr.r_i == 1) ?
 	(print_error("R twice init")) : (app->map_ptr.r_i = 1);
-	((app->map_ptr.r[0] = ft_atoi_cube(*(arr + 1))) < 400) ? (app->map_ptr.r[0] = 400) : (0);
-	((app->map_ptr.r[1] = ft_atoi_cube(*(arr + 2))) < 400) ? (app->map_ptr.r[1] = 400) : (0);
+	if (!is_correct_num(arr, 0))
+		print_error("Enter correct symbols at resolution");
+	((app->map_ptr.r[0] = ft_atoi(*(arr + 1))) < 400) ? (app->map_ptr.r[0] = 400) : (0);
+	((app->map_ptr.r[1] = ft_atoi(*(arr + 2))) < 400) ? (app->map_ptr.r[1] = 400) : (0);
 	(ft_strlen(*(arr + 1)) > 4 || (app->map_ptr.r[0] > 2560)) ? (app->map_ptr.r[0] = 2560) : (0);
 	(ft_strlen(*(arr + 2)) > 4 || (app->map_ptr.r[1] > 1440)) ? (app->map_ptr.r[1] = 1440) : (0);
 	app->map_ptr.count_mod += 1;
@@ -35,8 +45,8 @@ int		ft_parse_f_c(char **arr, t_all *app)
 	{
 		(app->map_ptr.f_i == 1) ? (print_error("F twice init")) : (app->map_ptr.f_i = 1);
     	arr = ft_split(*(arr+1), ',');
-		if (!ft_isdigit_str(*arr) && !ft_isdigit_str(*(arr+1)) && !ft_isdigit_str(*(arr+2)))
-			print_error("F modificator with space on argumetns\n");
+		if (!is_correct_num((arr), 0))
+			print_error("Enter correct symbols at F");
     	app->map_ptr.f = create_rgb(ft_255_or_0(ft_atoi(*arr)), ft_255_or_0(ft_atoi(*(arr+1))),ft_255_or_0(ft_atoi(*(arr+2))));
 		printf("\n%d\n", app->map_ptr.f);
 	}
@@ -44,8 +54,8 @@ int		ft_parse_f_c(char **arr, t_all *app)
 	{
 		(app->map_ptr.c_i == 1) ? (print_error("C twice init")) : (app->map_ptr.c_i = 1);
     	arr = ft_split(*(arr+1), ',');
-		if (!ft_isdigit_str(*arr) && !ft_isdigit_str(*(arr+1)) && !ft_isdigit_str(*(arr+2)))
-			print_error("C modificator with space on arguments");
+		if (!is_correct_num((arr), 0))
+			print_error("Enter correct symbols at C");
     	app->map_ptr.c = create_rgb(ft_255_or_0(ft_atoi(*arr)), ft_255_or_0(ft_atoi(*(arr+1))),ft_255_or_0(ft_atoi(*(arr+2))));
 		printf("%d\n", app->map_ptr.c);
 	}

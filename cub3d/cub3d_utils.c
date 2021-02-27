@@ -99,11 +99,10 @@ void            my_mlx_pixel_put(t_all *app, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-
 int		ft_isdigit_str(char *str)
 {
 	while(*str)
-	{
+	{ 
 		if (!(*str >= '0' && *str <= '9'))
 			return (0);
 		str++;

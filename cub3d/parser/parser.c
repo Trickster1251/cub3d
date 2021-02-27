@@ -166,16 +166,16 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'S', i, j);
             else if (app->map[i][j] == '2')
                 app->tex.count_sprite++;
-            else if (app->map[i][j] == 't')
-            {
-                app->t_x = j;
-                app->t_y = i;
-            }
-            else if (app->map[i][j] == 'T')
-            {
-                app->T_x = j;
-                app->T_y = i;
-            }
+            // else if (app->map[i][j] == 't')
+            // {
+            //     app->t_x = j;
+            //     app->t_y = i;
+            // }
+            // else if (app->map[i][j] == 'T')
+            // {
+            //     app->T_x = j;
+            //     app->T_y = i;
+            // }
             j++;
         }
         j = 0;

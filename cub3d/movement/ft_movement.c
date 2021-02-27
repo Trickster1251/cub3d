@@ -35,7 +35,6 @@ int	release_key(t_all* a)
 		    a->plr.x -= a->plr.plane_y * MOVE_SPEED;
         if (a->map[(int)(a->plr.y + a->plr.plane_x * MOVE_SPEED)][(int)a->plr.x] != '1')
             a->plr.y += a->plr.plane_x * MOVE_SPEED;
-        printf("plr.x=%f\nplr.y=%f\nplr.plane.x=%f\nplr.plane.y=%f\n-----------------------\n", a->plr.x, a->plr.y, a->plr.plane_x, a->plr.plane_y);
 	}	
 	else if (a->key.w == 1)
 	{
