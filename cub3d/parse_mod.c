@@ -1,5 +1,100 @@
 #include "cub3d.h"
 
+static int		count_word(char *str, char sym, char sym1)
+{
+	int			i;
+	int			count;
+
+	i = 0;
+	count = 0;
+	if (sym == 0)
+		return (1);
+	while (*str)
+	{
+		if (*str != sym && *str != sym1 && i == 0)
+		{
+			count++;
+			i = 1;
+		}
+		if ((*str == sym || *str == sym1) && i == 1)
+			i = 0;
+		str++;
+	}
+	return (count);
+}
+
+static char	**free_all(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (NULL);
+}
+
+static char	*malloc_word(const char *src, char sym, char sym1)
+{
+	int		i;
+	int		len;
+	char	*str;
+
+	i = 0;
+	len = 0;
+	while (src[len] != sym && src[len] != sym1 && src[len] != '\0')
+		len++;
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (src[i] && i < len)
+	{
+		str[i] = src[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+static char	**ft_split_new(char const *s, char c, char c1, char **words)
+{
+	int		j;
+
+	j = 0;
+	while (*s)
+	{
+		while (*s && (*s == c || *s == c1))
+			s++;
+		if (*s && *s != c && *s != c1)
+		{
+			if (!(words[j] = malloc_word(s, c, c1)))
+				return (free_all(words));
+			j++;
+			while (*s && (*s != c && *s != c1))
+				s++;
+		}
+	}
+	words[j] = NULL;
+	return (words);
+}
+
+char	**ft_split1(char const *s, char c, char c1)
+{
+	char	**words;
+	int		col_words;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	col_words = count_word((char*)s, c, c1);
+	if (!(words = (char**)malloc((sizeof(char*) * (col_words + 1)))))
+		return (NULL);
+	return (ft_split_new(s, c, c1, words));
+}
+
 int		create_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
@@ -40,27 +135,25 @@ int		ft_parse_r(char **arr, t_all *app)
 
 int		ft_parse_f_c(char **arr, t_all *app)
 {	
-	(!array_len(arr, 1)) ? print_error("More array len") : 0;
+	(!array_len(arr, 3)) ? print_error("More array len") : 0;
 	if (**arr == 'F')
 	{
 		(app->map_ptr.f_i == 1) ? (print_error("F twice init")) : (app->map_ptr.f_i = 1);
-    	arr = ft_split(*(arr+1), ',');
 		if (!is_correct_num((arr), 0))
 			print_error("Enter correct symbols at F");
-    	app->map_ptr.f = create_rgb(ft_255_or_0(ft_atoi(*arr)), ft_255_or_0(ft_atoi(*(arr+1))),ft_255_or_0(ft_atoi(*(arr+2))));
+    	app->map_ptr.f = create_rgb(ft_255_or_0(ft_atoi(*(arr + 1))), ft_255_or_0(ft_atoi(*(arr + 2))), ft_255_or_0(ft_atoi(*(arr + 3))));
 		printf("F %d\n", app->map_ptr.f);
 	}
 	else
 	{
 		(app->map_ptr.c_i == 1) ? (print_error("C twice init")) : (app->map_ptr.c_i = 1);
-    	arr = ft_split(*(arr+1), ',');
 		if (!is_correct_num((arr), 0))
 			print_error("Enter correct symbols at C");
-    	app->map_ptr.c = create_rgb(ft_255_or_0(ft_atoi(*arr)), ft_255_or_0(ft_atoi(*(arr+1))),ft_255_or_0(ft_atoi(*(arr+2))));
+		app->map_ptr.c = create_rgb(ft_255_or_0(ft_atoi(*(arr + 1))), ft_255_or_0(ft_atoi(*(arr + 2))), ft_255_or_0(ft_atoi(*(arr + 3))));
 		printf("C %d\n", app->map_ptr.c);
 	}
+	printf("%s -->%s<---->%s<---->%s<--\n", *arr, *(arr + 1) , *(arr + 2), *(arr + 3));
 	app->map_ptr.count_mod += 1;
-	
 	return (0);
 }
 

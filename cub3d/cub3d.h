@@ -173,6 +173,7 @@ void		cast_sprite(t_all *app, double *sprite_dist);
 int			ft_atoi_cube(char *str);
 void		render_bmp(t_all *all);
 int         my_atoi(const char *str);
+char		**ft_split1(char const *s, char c, char c1);
 
 
 

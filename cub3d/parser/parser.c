@@ -197,7 +197,7 @@ int             parser(int fd, char *line, t_all *app)
     {
         if (line[0] != '\0')
         {
-            arr = ft_split(line, ' ');
+            arr = ft_split1(line, ' ', ',');
             ft_is_modificator(arr, app);
             free_arr(arr);
         }
