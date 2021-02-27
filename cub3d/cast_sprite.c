@@ -30,13 +30,51 @@ void ft_qsort (t_sprite	*arr, int left, int right)
     if (i < right) ft_qsort (arr, i, right);
 }
 
-void		record_arr_sprites(t_all *app)
+// void		record_arr_sprites(t_all *app)
+// {
+// 	int		x;
+// 	int		y;
+// 	int		i;
+//     app->ar_spr = (t_sprite*)malloc(sizeof(t_sprite) * app->tex.count_sprite);
+
+// 	y = 0;
+// 	i = 0;
+// 	while(app->map[y])
+// 	{
+// 		x = 0;
+// 		while(app->map[y][x])
+// 		{
+// 			if (app->map[y][x] == '2')
+// 			{
+// 				app->ar_spr[i].x = x + 0.5;
+// 				app->ar_spr[i].y = y + 0.5;
+// 				app->ar_spr[i].dist = (app->plr.x - app->ar_spr[i].x) * (app->plr.x - app->ar_spr[i].x) + (app->plr.y - app->ar_spr[i].y) * (app->plr.y - app->ar_spr[i].y);
+// 				i++;
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+// void		cast_sprite(t_all *app, double *sprite_dist)
+// {
+// 	int i;
+	
+// 	if (app->rec_flag == 1)
+// 	{
+// 		record_arr_sprites(app);
+// 		app->rec_flag = 0;
+//  }
+
+
+void		cast_sprite(t_all *app, double *sprite_dist)
 {
 	int		x;
 	int		y;
 	int		i;
-    app->ar_spr = (t_sprite*)malloc(sizeof(t_sprite) * app->tex.count_sprite);
-
+	t_sprite		arr_sprite[app->tex.count_sprite];
+	
 	y = 0;
 	i = 0;
 	while(app->map[y])
@@ -46,45 +84,32 @@ void		record_arr_sprites(t_all *app)
 		{
 			if (app->map[y][x] == '2')
 			{
-				app->ar_spr[i].x = x + 0.5;
-				app->ar_spr[i].y = y + 0.5;
-				app->ar_spr[i].dist = (app->plr.x - app->ar_spr[i].x) * (app->plr.x - app->ar_spr[i].x) + (app->plr.y - app->ar_spr[i].y) * (app->plr.y - app->ar_spr[i].y);
+				arr_sprite[i].x = x + 0.5;
+				arr_sprite[i].y = y + 0.5;
+				arr_sprite[i].dist = (app->plr.x - arr_sprite[i].x) * (app->plr.x - arr_sprite[i].x) + (app->plr.y - arr_sprite[i].y) * (app->plr.y - arr_sprite[i].y);
 				i++;
 			}
 			x++;
 		}
 		y++;
 	}
-}
+	ft_qsort(arr_sprite, 0, app->tex.count_sprite - 1);
 
-void		cast_sprite(t_all *app, double *sprite_dist)
-{
-	int i;
-	
-	if (app->rec_flag == 1)
+	i = -1;
+	while(++i <= app->tex.count_sprite)
 	{
-		record_arr_sprites(app);
-		app->rec_flag = 0;
-	}
-	ft_qsort(app->ar_spr, 0, app->tex.count_sprite - 1);
-    printf ("-------------\n");
-    for (int k = 0; k < app->tex.count_sprite; k++)
-        printf("%f\n", app->ar_spr[k].dist);
-	i = 0;    
-	while(i <= (app->tex.count_sprite - 1))
-	{
-      double spriteX = app->ar_spr[i].x - app->plr.x;
-      double spriteY = app->ar_spr[i].y - app->plr.y;
+      double spriteX = arr_sprite[i].x - app->plr.x;
+      double spriteY = arr_sprite[i].y - app->plr.y;
       double invDet = 1.0 / (app->plr.pln_x * app->plr.dir_y - app->plr.dir_x * app->plr.pln_y);
       double transformX = invDet * (app->plr.dir_y * spriteX - app->plr.dir_x * spriteY);
       double transformY = invDet * (-app->plr.pln_y * spriteX + app->plr.pln_x * spriteY);
       int spriteScreenX = (int)((app->m.r[0] / 2) * (1 + transformX / transformY));
-      double spriteHeight = fabs((double)(app->m.r[0] / (transformY)) * 0.75);
+      double spriteHeight = fabs((double)(app->m.r[0] / (transformY)));
       int drawStartY = -spriteHeight / 2 +app->m.r[1] / 2;
       if(drawStartY < 0) drawStartY = 0;
       int drawEndY = spriteHeight / 2 +app->m.r[1] / 2;
       if(drawEndY >=app->m.r[1]) drawEndY =app->m.r[1] - 1;
-      double spriteWidth = fabs(app->m.r[0] / (transformY) * 0.75);
+      double spriteWidth = fabs(app->m.r[0] / (transformY));
       int drawStartX = -spriteWidth / 2 + spriteScreenX;
       if(drawStartX < 0) drawStartX = 0;
       int drawEndX = spriteWidth / 2 + spriteScreenX;
@@ -102,6 +127,5 @@ void		cast_sprite(t_all *app, double *sprite_dist)
 				my_mlx_pixel_put(app, stripe, y, color);
         }
       }
-      i++;
     }
 }
