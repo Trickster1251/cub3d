@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	se_no_tex(t_all *app, char **arr)
+void	parse_no_tex(t_all *app, char **arr)
 {
 	(app->map_ptr.n_i == 1) ?
 	(print_error("Sprite twice init")) : (app->map_ptr.n_i = 1);

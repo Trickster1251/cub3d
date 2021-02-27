@@ -178,5 +178,6 @@ void		parse_we_tex(t_all *app, char **arr);
 void		parse_ea_tex(t_all *app, char **arr);
 void		parse_so_tex(t_all *app, char **arr);
 void		parse_s_tex(t_all *app, char **arr);
+int			raycaster(t_all *app);
 
 #endif
