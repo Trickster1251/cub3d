@@ -30,73 +30,12 @@ void ft_qsort (t_sprite	*arr, int left, int right)
     if (i < right) ft_qsort (arr, i, right);
 }
 
-// void		record_arr_sprites(t_all *app)
-// {
-// 	int		x;
-// 	int		y;
-// 	int		i;
-//     app->ar_spr = (t_sprite*)malloc(sizeof(t_sprite) * app->tex.count_sprite);
-
-// 	y = 0;
-// 	i = 0;
-// 	while(app->map[y])
-// 	{
-// 		x = 0;
-// 		while(app->map[y][x])
-// 		{
-// 			if (app->map[y][x] == '2')
-// 			{
-// 				app->ar_spr[i].x = x + 0.5;
-// 				app->ar_spr[i].y = y + 0.5;
-// 				app->ar_spr[i].dist = (app->plr.x - app->ar_spr[i].x) * (app->plr.x - app->ar_spr[i].x) + (app->plr.y - app->ar_spr[i].y) * (app->plr.y - app->ar_spr[i].y);
-// 				i++;
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
-// void		cast_sprite(t_all *app, double *sprite_dist)
-// {
-// 	int i;
-	
-// 	if (app->rec_flag == 1)
-// 	{
-// 		record_arr_sprites(app);
-// 		app->rec_flag = 0;
-//  }
-
-
-void		cast_sprite(t_all *app, double *sprite_dist)
+void        print_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite)
 {
-	int		x;
-	int		y;
-	int		i;
-	t_sprite		arr_sprite[app->tex.count_sprite];
-	
-	y = 0;
-	i = 0;
-	while(app->map[y])
-	{
-		x = 0;
-		while(app->map[y][x])
-		{
-			if (app->map[y][x] == '2')
-			{
-				arr_sprite[i].x = x + 0.5;
-				arr_sprite[i].y = y + 0.5;
-				arr_sprite[i].dist = (app->plr.x - arr_sprite[i].x) * (app->plr.x - arr_sprite[i].x) + (app->plr.y - arr_sprite[i].y) * (app->plr.y - arr_sprite[i].y);
-				i++;
-			}
-			x++;
-		}
-		y++;
-	}
-	ft_qsort(arr_sprite, 0, app->tex.count_sprite - 1);
+    int     i;
 
-	i = -1;
-	while(++i <= app->tex.count_sprite)
+    i = -1;
+    while(++i <= app->tex.count_sprite)
 	{
       double spriteX = arr_sprite[i].x - app->plr.x;
       double spriteY = arr_sprite[i].y - app->plr.y;
@@ -128,4 +67,34 @@ void		cast_sprite(t_all *app, double *sprite_dist)
         }
       }
     }
+}
+
+void		cast_sprite(t_all *app, double *sprite_dist)
+{
+	int		x;
+	int		y;
+	int		i;
+
+	y = 0;
+	i = 0;
+    t_sprite  arr_sprite[app->tex.count_sprite];
+	while(app->map[y])
+	{
+		x = 0;
+		while(app->map[y][x])
+		{
+			if (app->map[y][x] == '2')
+			{
+				arr_sprite[i].x = x + 0.5;
+				arr_sprite[i].y = y + 0.5;
+				arr_sprite[i].dist = (app->plr.x - arr_sprite[i].x) * (app->plr.x - arr_sprite[i].x) + (app->plr.y - arr_sprite[i].y) * (app->plr.y - arr_sprite[i].y);
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+	ft_qsort(arr_sprite, 0, app->tex.count_sprite - 1);
+
+    print_sprite(app, sprite_dist, arr_sprite);
 }

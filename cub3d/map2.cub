@@ -1,4 +1,4 @@
-R  800 400
+R  400 1400
 F 233, 27, 253
 NO ./textures/eagle.xpm
 WE ./textures/1.xpm
