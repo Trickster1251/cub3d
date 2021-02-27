@@ -29,10 +29,10 @@ int		ft_parse_r(char **arr, t_all *app)
 	(print_error("R twice init")) : (app->map_ptr.r_i = 1);
 	if (!is_correct_num(arr, 0))
 		print_error("Enter correct symbols at resolution");
-	((app->map_ptr.r[0] = ft_atoi(*(arr + 1))) < 400) ? (app->map_ptr.r[0] = 400) : (0);
-	((app->map_ptr.r[1] = ft_atoi(*(arr + 2))) < 400) ? (app->map_ptr.r[1] = 400) : (0);
-	(ft_strlen(*(arr + 1)) > 4 || (app->map_ptr.r[0] > 2560)) ? (app->map_ptr.r[0] = 2560) : (0);
-	(ft_strlen(*(arr + 2)) > 4 || (app->map_ptr.r[1] > 1440)) ? (app->map_ptr.r[1] = 1440) : (0);
+	((app->map_ptr.r[0] = my_atoi(*(arr + 1))) < 400) ? (app->map_ptr.r[0] = 400) : (0);
+	((app->map_ptr.r[1] = my_atoi(*(arr + 2))) < 400) ? (app->map_ptr.r[1] = 400) : (0);
+	((app->map_ptr.r[0] > 2560)) ? (app->map_ptr.r[0] = 2560) : (0);
+	((app->map_ptr.r[1] > 1440)) ? (app->map_ptr.r[1] = 1440) : (0);
 	app->map_ptr.count_mod += 1;
 	printf("%s %d %d\n", *arr, app->map_ptr.r[0] , app->map_ptr.r[1]);
 	return (0);

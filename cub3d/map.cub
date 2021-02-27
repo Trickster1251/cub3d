@@ -1,8 +1,8 @@
-R 300 1000
+R 000014000 0003000
 F 123,123,238
 NO ./eagle.xpm
-WE ./4.xpm
-EA ./4.xpm
+WE ./1.xpm
+EA ./2.xpm
 S ./barrel.xpm
 SO ./wood.xpm
 C 122,200,39

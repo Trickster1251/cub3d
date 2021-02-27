@@ -91,7 +91,6 @@ int     raycaster(t_all *app)
 
 	  while (app->hit == 0)
 	  {
-		//jump to next map square, OR in x-direction, OR in y-direction
 		if (app->side_dist_x < app->side_dist_y)
 		{
 		  app->side_dist_x += app->delta_dist_x;

@@ -1,34 +1,30 @@
 #include "cub3d.h"
 
-int		ft_atoi_cube(char *str)
+static int  ft_isspace(const char *str)
 {
-	unsigned long long	res;
-	int					i;
-	int					minus;
-
-	res = 0;
-	minus = 1;
-	i = 0;
-	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') ||
-    (str[i] == '\v') || (str[i] == '\r') || (str[i] == '\f'))
-		i++;
-    while(str[i] == '0')
-        i++;
-	if (str[i] == '-' && (minus = -1))
-		i++;
-	else if (str[i] == '+')
-		i++;
-	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
-	{
-		res = res * 10;
-		res = res + (str[i] - '0');
-		i++;
-	}
-	if (res > 9223372036854775807 && minus == 1)
-		return (-1);
-	if (res > 9223372036854775807 && minus == -1)
-		return (0);
-	return (res * minus);
+    if (*str == ' ' || *str == '\t' || *str == '\r'
+            || *str == '\n' || *str == '\v' || *str == '\f')
+        return (1);
+    return (0);
+}
+int         my_atoi(const char *str)
+{
+    long long   i;
+    long long   b;
+    b = 214748364;
+    i = 0;
+    while (ft_isspace(str) == 1)
+        str++;
+    if (ft_strncmp(str, "0", 2) == 0)
+        return (0);
+    while (*str >= '0' && *str <= '9')
+    {
+        if ((i > b) || (i == b && (*str - '0') >= 7))
+            return (2147483647);
+        i = i * 10 + *str - 48;
+        str++;
+    }
+    return (i);
 }
 
 
