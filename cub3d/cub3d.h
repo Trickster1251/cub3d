@@ -173,7 +173,10 @@ void		cast_sprite(t_all *app, double *sprite_dist);
 void		render_bmp(t_all *all);
 int         my_atoi(const char *str);
 char		**ft_split_colon(char const *s, char c, char c1);
-
-
+void    	parse_no_tex(t_all *app, char **arr);
+void		parse_we_tex(t_all *app, char **arr);
+void		parse_ea_tex(t_all *app, char **arr);
+void		parse_so_tex(t_all *app, char **arr);
+void		parse_s_tex(t_all *app, char **arr);
 
 #endif

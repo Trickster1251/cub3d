@@ -1,10 +1,10 @@
-R 000800 000500
+R 000400 001000
 F 233, 27, 253
-NO ./eagle.xpm
-WE ./1.xpm
-EA ./2.xpm
-S ./barrel.xpm
-SO wood.xpm
+NO ./textures/eagle.xpm
+WE ./textures/1.xpm
+EA ./textures/2.xpm
+S ./textures/barrel.xpm
+SO ./textures/wood.xpm
 C 233, 163, 4
 
 111111111111111
