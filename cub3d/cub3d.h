@@ -106,6 +106,7 @@ typedef struct	s_all // структура для всего вместе
 	t_map		map_ptr;
 	char		**map;
 	t_texture	tex;
+	int			srcsht;
 	double 		camera_x;
     double 		ray_dir_x;
     double 		ray_dir_y;
@@ -170,5 +171,7 @@ void    	get_texture(t_all *all, int side);
 int         get_color(t_img *tex, int x, int y);
 void		cast_sprite(t_all *app, double *sprite_dist);
 int			ft_atoi_cube(char *str);
+void		render_bmp(t_all *all);
+
 
 #endif

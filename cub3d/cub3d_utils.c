@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 int		ft_atoi_cube(char *str)
 {
 	unsigned long long	res;
@@ -10,9 +9,11 @@ int		ft_atoi_cube(char *str)
 	res = 0;
 	minus = 1;
 	i = 0;
-	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') || \
-	(str[i] == '\v') || (str[i] == '\r') || (str[i] == '\f') || (str[i] == '0'))
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') ||
+    (str[i] == '\v') || (str[i] == '\r') || (str[i] == '\f'))
 		i++;
+    while(str[i] == '0')
+        i++;
 	if (str[i] == '-' && (minus = -1))
 		i++;
 	else if (str[i] == '+')

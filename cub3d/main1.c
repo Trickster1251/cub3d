@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+
+  // while(app.map[++i])
+    // {
+    //     while(app.map[i][++j])
+    //     {
+    //         point.x = j;
+    //         point.y = i;
+    //         if (app.map[i][j] == '1')
+    //             draw_map(&app, point, app.map_ptr.F);
+    //     }
+    //     j = -1;
+    // }
+    // ft_cast_ray(&app);
 int    keep_key(int keycode, t_all *a)
 {   
     (keycode == 13) ? (a->key.w = 0) :
@@ -175,9 +188,17 @@ int     raycaster(t_all *app)
     }
     }
     cast_sprite(app, sprite_dist);
-    mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
-    mlx_destroy_image(app->mlx, app->img.img);
+    if (app->srcsht != 1)
+    {
+      mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
+      mlx_destroy_image(app->mlx, app->img.img);
+    }
     return (0);
+}
+
+int   close_window(t_all *app)
+{
+  exit(0);
 }
 
 int main(int argc, char **argv)
@@ -194,24 +215,21 @@ int main(int argc, char **argv)
     init_values(&app);
     len = parser(fd, line, &app);
     app.mlx = mlx_init();
+    if (argc == 3 && (ft_strncmp(argv[2], "--save", 7) == 0))
+    {
+      app.srcsht = 1;
+      init_textures(&app);
+      raycaster(&app);
+      render_bmp(&app);
+    }
+    else if (argc == 3)
+      print_error("wrong flag argument, may be u mean \"--save\"");
     app.win = mlx_new_window(app.mlx, app.map_ptr.r[0], app.map_ptr.r[1], "cub3d");
-    ft_putendl_fd(app.tex.ea.path, 1);
     init_textures(&app);
     mlx_hook(app.win, 2, 0, press_key, &app);
     mlx_hook(app.win, 3, 0, keep_key, &app);
+    mlx_hook(app.win, 17, 0, close_window, &app);
     mlx_loop_hook(app.mlx, raycaster, &app);
-    // while(app.map[++i])
-    // {
-    //     while(app.map[i][++j])
-    //     {
-    //         point.x = j;
-    //         point.y = i;
-    //         if (app.map[i][j] == '1')
-    //             draw_map(&app, point, app.map_ptr.F);
-    //     }
-    //     j = -1;
-    // }
-    // ft_cast_ray(&app);
     mlx_loop(app.mlx);
     return(0);
 }

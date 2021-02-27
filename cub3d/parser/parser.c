@@ -40,6 +40,7 @@ void	init_values(t_all *app)
     app->tex.so.path = 0;
     app->tex.s.path = 0;
     app->tex.count_sprite = 0;
+    app->srcsht = 0;
 }
 
 int		is_valid_sym(char str)
