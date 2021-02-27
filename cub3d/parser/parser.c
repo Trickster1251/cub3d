@@ -195,4 +195,3 @@ int             parser(int fd, char *line, t_all *app)
     validator_map(app ,&head, ft_lstsize(head));
     return (len);
 }
-

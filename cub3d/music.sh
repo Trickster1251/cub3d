@@ -1,0 +1,1 @@
+afplay ./music.mp3

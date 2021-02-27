@@ -64,6 +64,8 @@ typedef struct	s_plr //структура для игрока и луча
 	double		plane_y;
 	double		start;
 	double		end;
+	//
+	int			apple;
 }				  t_plr;
 
 typedef struct  s_data {
@@ -131,6 +133,10 @@ typedef struct	s_all // структура для всего вместе
 
  	int 		hit; //was there a wall hit?
     int 		side; //was a NS or a EW wall hit?
+	double		t_x;
+	double		t_y;
+	double		T_x;
+	double		T_y;
 }				  t_all;
 
 # include <stdarg.h>
