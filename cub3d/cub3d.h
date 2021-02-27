@@ -169,5 +169,6 @@ void    	init_textures(t_all *app);
 void    	get_texture(t_all *all, int side);
 int         get_color(t_img *tex, int x, int y);
 void		cast_sprite(t_all *app, double *sprite_dist);
+int			ft_atoi_cube(char *str);
 
 #endif

@@ -41,7 +41,7 @@ int     raycaster(t_all *app)
     app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
 
     int i = -1;
-    while(++i <= app->map_ptr.r[0])
+    while(++i < app->map_ptr.r[0])
     {
         app->hit = 0;
         app->camera_x = 2 * i / (double)(app->map_ptr.r[0]) - 1;
@@ -159,11 +159,11 @@ int     raycaster(t_all *app)
       app->tex_pos = (drawStart - app->map_ptr.r[1] / 2 + app->line_h / 2) * app->step;
 
     int y = -1;
-    while(++y <= app->map_ptr.r[1])
+    while(++y < app->map_ptr.r[1])
     {
         if (y < drawStart)
           my_mlx_pixel_put(app, i, y, app->map_ptr.c);
-        else if (y >= drawStart && y<= drawEnd)
+        else if (y >= drawStart && y< drawEnd)
         {
           app->tex_y = (int)app->tex_pos & (app->tex.h - 1);
           app->tex_pos += app->step;

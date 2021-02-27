@@ -192,7 +192,7 @@ int             parser(int fd, char *line, t_all *app)
     t_list	*head = NULL;
 
 
-    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod <= 8) && line[0] != '1')
+    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod < 8))
     {
         if (line[0] != '\0')
         {
@@ -202,6 +202,7 @@ int             parser(int fd, char *line, t_all *app)
         }
         free(line);
     }
+    (len < 0) ? (print_error("Something wrong with .cub file")) : (0);
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
     ft_lstadd_back(&head, ft_lstnew(line));
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
