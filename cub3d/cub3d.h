@@ -1,7 +1,7 @@
 #ifndef CUB3D
 # define CUB3D
 # define SCALE 10
-# define MOVE_SPEED 0.1
+# define MS 0.1
 # define MAX_RES_WIDTH 5120
 # define MAX_RES_HEIGHT 2880
 
@@ -60,8 +60,8 @@ typedef struct	s_plr //структура для игрока и луча
 	double		y;
 	double		dir_x;
 	double		dir_y;
-	double		plane_x;
-	double		plane_y;
+	double		pln_x;
+	double		pln_y;
 	double		start;
 	double		end;
 	//
@@ -170,10 +170,9 @@ void    	init_textures(t_all *app);
 void    	get_texture(t_all *all, int side);
 int         get_color(t_img *tex, int x, int y);
 void		cast_sprite(t_all *app, double *sprite_dist);
-int			ft_atoi_cube(char *str);
 void		render_bmp(t_all *all);
 int         my_atoi(const char *str);
-char		**ft_split1(char const *s, char c, char c1);
+char		**ft_split_colon(char const *s, char c, char c1);
 
 
 

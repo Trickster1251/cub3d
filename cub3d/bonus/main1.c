@@ -45,8 +45,8 @@ int     raycaster(t_all *app)
     {
         app->hit = 0;
         app->camera_x = 2 * i / (double)(app->map_ptr.r[0]) - 1;
-        app->ray_dir_x = app->plr.dir_x + app->plr.plane_x * app->camera_x;
-        app->ray_dir_y = app->plr.dir_y + app->plr.plane_y * app->camera_x;
+        app->ray_dir_x = app->plr.dir_x + app->plr.pln_x * app->camera_x;
+        app->ray_dir_y = app->plr.dir_y + app->plr.pln_y * app->camera_x;
 
         app->delta_dist_x = fabs(1/ app->ray_dir_x);
         app->delta_dist_y = fabs(1/ app->ray_dir_y);

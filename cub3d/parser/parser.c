@@ -17,8 +17,8 @@ void	init_values(t_all *app)
 	app->plr.dir_x = 0;
 	app->plr.dir_y = 0;
     app->plr.apple = 0;
-	app->plr.plane_x = 0;
-	app->plr.plane_y = 0;
+	app->plr.pln_x = 0;
+	app->plr.pln_y = 0;
 	app->side_dist_x = 0;
 	app->side_dist_y = 0;
 	app->delta_dist_x = 0;
@@ -197,7 +197,7 @@ int             parser(int fd, char *line, t_all *app)
     {
         if (line[0] != '\0')
         {
-            arr = ft_split1(line, ' ', ',');
+            arr = ft_split_colon(line, ' ', ',');
             ft_is_modificator(arr, app);
             free_arr(arr);
         }
@@ -205,10 +205,15 @@ int             parser(int fd, char *line, t_all *app)
     }
     (len < 0) ? (print_error("Something wrong with .cub file")) : (0);
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
-
-    
-    while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
-        ft_lstadd_back(&head, ft_lstnew(line));
+    while ((len = get_next_line(fd ,&line)))
+    {
+        if (line[0] != '\0')
+        {
+            // printf("%s\n", line);
+            ft_lstadd_back(&head, ft_lstnew(line));
+        }
+        // free(line);
+    }
     ft_lstadd_back(&head, ft_lstnew(line));
     validator_map(app ,&head, ft_lstsize(head));
     return (len);
