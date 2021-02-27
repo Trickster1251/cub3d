@@ -205,7 +205,8 @@ int             parser(int fd, char *line, t_all *app)
     }
     (len < 0) ? (print_error("Something wrong with .cub file")) : (0);
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
-    ft_lstadd_back(&head, ft_lstnew(line));
+
+    
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
         ft_lstadd_back(&head, ft_lstnew(line));
     ft_lstadd_back(&head, ft_lstnew(line));
