@@ -105,6 +105,9 @@ int     raycaster(t_all *app)
     sprite_dist[i] = app->perp_wall_dist;
     
     //Calculate height of line to draw on screen
+    if (app->map_ptr.r[1] > app->map_ptr.r[0])
+      app->line_h = (int)(app->map_ptr.r[1] / app->perp_wall_dist - 50);
+    else
       app->line_h = (int)(app->map_ptr.r[1] / app->perp_wall_dist);
     //calculate lowest and highest pixel to fill in current stripe
       int drawStart = -app->line_h / 2 + app->map_ptr.r[1] / 2;

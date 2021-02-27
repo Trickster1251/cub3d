@@ -50,6 +50,7 @@ int		ft_parse_f_c(char **arr, t_all *app)
 		printf("%d\n", app->map_ptr.c);
 	}
 	app->map_ptr.count_mod += 1;
+	free_arr(arr);
 	return (0);
 }
 

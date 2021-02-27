@@ -95,7 +95,7 @@ char	**free_arr(char **str)
 
 void		print_error(char *string)
 {
-    ft_putendl_fd("Error:\n", 1);
+    ft_putendl_fd("Error:", 1);
 	ft_putendl_fd(string, 1);
 	exit(0);
 }

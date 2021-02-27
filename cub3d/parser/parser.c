@@ -16,6 +16,7 @@ void	init_values(t_all *app)
 	app->plr.y = 4;
 	app->plr.dir_x = 0;
 	app->plr.dir_y = 0;
+    app->plr.apple = 0;
 	app->plr.plane_x = 0;
 	app->plr.plane_y = 0;
 	app->side_dist_x = 0;
@@ -44,7 +45,7 @@ void	init_values(t_all *app)
 int		is_valid_sym(char str)
 {
     return ((str == '1' || str == '0' || str == 'N' ||
-     str == 'S' || str == 'E' || str == 'W' || str == '2') ? (1) : (0));
+     str == 'S' || str == 'E' || str == 'W' || str == '2' || str == 'T' || str == 't') ? (1) : (0));
 }
 
 int		is_valid_space(char str)
@@ -164,6 +165,16 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'S', i, j);
             else if (app->map[i][j] == '2')
                 app->tex.count_sprite++;
+            else if (app->map[i][j] == 't')
+            {
+                app->t_x = j;
+                app->t_y = i;
+            }
+            else if (app->map[i][j] == 'T')
+            {
+                app->T_x = j;
+                app->T_y = i;
+            }
             j++;
         }
         j = 0;
@@ -180,15 +191,19 @@ int             parser(int fd, char *line, t_all *app)
     char	**arr;
     t_list	*head = NULL;
 
-    
-    while ((len = get_next_line(fd ,&line) > 0) && (line[0] != '\0'))
+
+    while ((len = get_next_line(fd ,&line) > 0) && (app->map_ptr.count_mod <= 8) && line[0] != '1')
     {
+        if (line[0] != '\0')
+        {
             arr = ft_split(line, ' ');
             ft_is_modificator(arr, app);
             free_arr(arr);
-            free(line);
+        }
+        free(line);
     }
     printf("\nThis is count-->%d\n", app->map_ptr.count_mod);
+    ft_lstadd_back(&head, ft_lstnew(line));
     while ((len = get_next_line(fd ,&line))&& line[0] != '\0')
         ft_lstadd_back(&head, ft_lstnew(line));
     ft_lstadd_back(&head, ft_lstnew(line));
