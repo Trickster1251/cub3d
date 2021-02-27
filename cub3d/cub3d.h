@@ -104,6 +104,7 @@ typedef struct	s_all // структура для всего вместе
     void		*mlx;
 	void		*win_ptr;
 	t_map		m;
+	double		as_ratio;
 	char		**map;
 	t_texture	tex;
 	int			srcsht;
