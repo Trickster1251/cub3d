@@ -5,12 +5,14 @@ void ft_qsort (t_sprite	*arr, int left, int right)
     int i = left;
 	int j = right;
     t_sprite	temp;
-	t_sprite	pivot = arr[ (left+right)/2 ];
+	t_sprite	pivot = arr[ (left+right) / 2 ];
 
     while (i <= j)
     {
-        while (arr[i].dist > pivot.dist) i++;
-        while (arr[j].dist < pivot.dist) j--;
+        while (arr[i].dist > pivot.dist)
+			i++;
+        while (arr[j].dist < pivot.dist)
+			j--;
 
         if (i <= j)
         {
@@ -21,9 +23,9 @@ void ft_qsort (t_sprite	*arr, int left, int right)
 				arr[j] = temp;
             }
 
-            i++; j--;
+            i++;
+			j--;
         }
-
     };
 
     if (left < j) ft_qsort (arr, left, j);
@@ -59,19 +61,17 @@ void		record_arr_sprites(t_all *app)
 
 void		cast_sprite(t_all *app, double *sprite_dist)
 {
+
 	int i;
-	
+
 	if (app->rec_flag == 1)
 	{
 		record_arr_sprites(app);
 		app->rec_flag = 0;
 	}
-	ft_qsort(app->ar_spr, 0, app->tex.count_sprite - 1);
-    printf ("-------------\n");
-    for (int k = 0; k < app->tex.count_sprite; k++)
-        printf("%f\n", app->ar_spr[k].dist);
-	i = 0;    
-	while(i <= (app->tex.count_sprite - 1))
+	// ft_qsort(app->ar_spr, 0, app->tex.count_sprite - 1);
+	i = app->tex.count_sprite - 1;
+	while(i >= 0)
 	{
       double spriteX = app->ar_spr[i].x - app->plr.x;
       double spriteY = app->ar_spr[i].y - app->plr.y;
@@ -102,6 +102,6 @@ void		cast_sprite(t_all *app, double *sprite_dist)
 				my_mlx_pixel_put(app, stripe, y, color);
         }
       }
-      i++;
+	  i--;
     }
 }
