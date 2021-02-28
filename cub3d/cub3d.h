@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 07:18:28 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:05:47 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct	s_map
 	int		e_i;
 	int		s_i;
 	int		so_i;
-	int		r[2];
+	long	r[2];
 	int		f;
 	int		c;
     int     count_mod;

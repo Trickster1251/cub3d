@@ -1,7 +1,9 @@
 .PHONY:		all re clean fclean
 
 CC	 = 	gcc
-SRCS =	./main1.c
-
+SRCS =	*.c
+OBJT =	$(SRCS:.c=.o)
+LIBFT = ./libft/libft.a
 all:	
-			$(CC) -lmlx -framework OpenGL -framework AppKit $(SRCS);
+			gcc -lmlx -framework OpenGL -framework AppKit -c $(SRCS);
+			$(CC) -lmlx -framework OpenGL -framework AppKit -o cub3D *.o $(LIBFT);

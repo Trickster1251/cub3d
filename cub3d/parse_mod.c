@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:23:04 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 18:56:47 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,26 @@
 int		create_rgb(int r, int g, int b)
 {
 	(r < 0 || g < 0 || b < 0)
-	? (print_error("Color modificator more then 255")) : (0);
+	? (print_error("Color modificator less then 0")) : (0);
 	(r > 255 || g > 255 || b > 255)
 	? (print_error("Color modificator more then 255")) : (0);
 	return (r << 16 | g << 8 | b);
+}
+
+void	set_size_window(char **arr, t_all *app, int max_res, int i)
+{
+	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 4))
+	{
+		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) < max_res)
+		{
+			if ((app->m.r[i - 1] < 300))
+				app->m.r[i - 1] = 300;
+		}
+		else
+			app->m.r[i - 1] = max_res;
+	}
+	else
+		app->m.r[i - 1] = max_res;
 }
 
 int		is_correct_num(char **arr, int i)
@@ -36,26 +52,13 @@ int		ft_parse_r(char **arr, t_all *app)
 	(print_error("R twice init")) : (app->m.r_i = 1);
 	if (!is_correct_num(arr, 0))
 		print_error("Enter correct symbols at resolution");
-	(((app->m.r[0] = ft_atoi(*(arr + 1))) < 400) && (app->srcsht == 0))
-	? (app->m.r[0] = 400) : (0);
-	
-	(((app->m.r[1] = ft_atoi(*(arr + 2))) < 400) && (app->srcsht == 0))
-	? (app->m.r[1] = 400) : (0);
-	
-	((ft_strlen(*(arr + 1)) > 4) && (app->srcsht == 0)) ?
-	(app->m.r[0] = 2560) : (0);
-	
-	((ft_strlen(*(arr + 2)) > 4) && (app->srcsht == 0)) ?	
-	(app->m.r[1] = 1440) : (0);
-
-	((app->m.r[0] > 2560) && (app->srcsht == 0)) ?
-	(app->m.r[0] = 2560) : (0);
-	
-	((app->m.r[1] > 1440) && (app->srcsht == 0)) ?
-	(app->m.r[1] = 1440) : (0);
-	
+	if (app->srcsht == 0)
+	{
+		
+		set_size_window(arr, app, 2560, 1);
+		set_size_window(arr, app, 1440, 2);
+	}
 	app->m.count_mod += 1;
-	// ft_printf("%s %d %d\n", *arr, app->map_ptr.r[0] , app->map_ptr.r[1]);
 	return (0);
 }
 
