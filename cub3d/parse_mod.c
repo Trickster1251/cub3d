@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 18:56:47 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 19:08:13 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,27 @@ int		create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
+void	set_size_scrnsht(char **arr, t_all *app, int max_res, int i)
+{
+	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 5))
+	{
+		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) > max_res)
+			app->m.r[i - 1] = max_res;
+	}
+	else
+		app->m.r[i - 1] = max_res;
+}
+
 void	set_size_window(char **arr, t_all *app, int max_res, int i)
 {
 	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 4))
-	{
 		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) < max_res)
 		{
-			if ((app->m.r[i - 1] < 300))
+			if (app->m.r[i - 1] < 300)
 				app->m.r[i - 1] = 300;
 		}
 		else
 			app->m.r[i - 1] = max_res;
-	}
 	else
 		app->m.r[i - 1] = max_res;
 }
@@ -54,9 +63,13 @@ int		ft_parse_r(char **arr, t_all *app)
 		print_error("Enter correct symbols at resolution");
 	if (app->srcsht == 0)
 	{
-		
 		set_size_window(arr, app, 2560, 1);
 		set_size_window(arr, app, 1440, 2);
+	}
+	else
+	{
+		set_size_scrnsht(arr, app, 10000, 1);	
+		set_size_scrnsht(arr, app, 10000, 2);
 	}
 	app->m.count_mod += 1;
 	return (0);
@@ -73,7 +86,6 @@ int		ft_parse_f_c(char **arr, t_all *app)
 			print_error("Enter correct symbols at F");
 		app->m.f = create_rgb(ft_atoi(*(arr + 1)),
 		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
-		// printf("F %d\n", app->map_ptr.f);
 	}
 	else
 	{
@@ -83,7 +95,6 @@ int		ft_parse_f_c(char **arr, t_all *app)
 			print_error("Enter correct symbols at C");
 		app->m.c = create_rgb(ft_atoi(*(arr + 1)),
 		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
-		// printf("C %d\n", app->map_ptr.c);
 	}
 	app->m.count_mod += 1;
 	return (0);
@@ -103,6 +114,5 @@ int		ft_parse_sprite(char **arr, t_all *app, int type)
 	else if (type == 's')
 		parse_s_tex(app, arr);
 	app->m.count_mod += 1;
-	// printf("%s %s\n", *arr, *(arr+1));
 	return (0);
 }

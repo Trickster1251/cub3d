@@ -1,6 +1,6 @@
-    R 30 00000000001000
+    R 300 00000000001000
 F 113,                                103, 255                      
-NO ./textures/1.xpm
+NO ./textures
 WE ./textures/1.xpm
 EA ./textures/2.xpm
 S ./textures/barrel.xpm

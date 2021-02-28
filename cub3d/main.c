@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main1.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:26:49 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 20:11:24 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,15 @@ int		main(int argc, char **argv)
 	j = -1;
 	line = NULL;
 	if (argc == 2 || argc == 3)
-		if (!(fd = open(argv[1], O_RDONLY)))
-			print_error("Wrong fd");
+	{
+		if ((fd = open(argv[1], O_DIRECTORY)) < 0)
+		{
+			if ((fd = open(argv[1], O_RDONLY)) < 0)
+				print_error("Wrong fd");
+		}
+		else 	
+			print_error("This is a directory, dumb litty!");
+	}
 	init_values(&app);
 	(argc == 3) ? (app.srcsht = 1) : (0);
 	parser(fd, line, &app);
