@@ -6,18 +6,22 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 21:42:25 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 22:52:08 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D
 # define CUB3D
-# define SCALE 10
 # define MS 0.1
-# define MAX_RES_WIDTH 5120
-# define MAX_RES_HEIGHT 2880
+# include <unistd.h>
+# include "libft/libft.h"
+# include "../mlx.h"
+# include <stdlib.h>
+# include <fcntl.h>
+# include <math.h>
+# include "get_next_line/get_next_line.h"
 
-typedef struct	s_img //структура для окна
+typedef struct		s_img
 {
 	void		*img;
 	void		*addr;
@@ -27,7 +31,7 @@ typedef struct	s_img //структура для окна
 	char		*path;
 	int			w;
 	int			h;
-}				  t_img;
+}					t_img;
 
 typedef struct		s_sprite
 {
@@ -36,7 +40,7 @@ typedef struct		s_sprite
 	double			dist;
 }					t_sprite;
 
-typedef struct	s_texture //структура для окна
+typedef struct		s_texture
 {
 	t_img		no;
 	t_img		we;
@@ -46,16 +50,15 @@ typedef struct	s_texture //структура для окна
 	int			h;
 	int			w;
 	int			count_sprite;
-}				  t_texture;
+}					t_texture;
 
-
-typedef struct	s_point // структура для точки
+typedef struct		s_point
 {
 	int			x;
 	int			y;
-}				  t_point;
+}					t_point;
 
-typedef struct	s_key // структура для точки
+typedef struct		s_key
 {
 	int			w;
 	int			a;
@@ -64,9 +67,9 @@ typedef struct	s_key // структура для точки
 	int			e;
 	int			q;
 	int			esc;
-}				  t_key;
+}					t_key;
 
-typedef struct	s_plr //структура для игрока и луча
+typedef struct		s_plr
 {
 	double		x;
 	double		y;
@@ -76,19 +79,19 @@ typedef struct	s_plr //структура для игрока и луча
 	double		pln_y;
 	double		start;
 	double		end;
-	//
 	int			apple;
-}				  t_plr;
+}					t_plr;
 
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bpp;
-    int         line_len;
-    int         endian;
+typedef struct		s_data
+{
+	void        *img;
+	char        *addr;
+	int         bpp;
+	int         line_len;
+	int         endian;
 }               t_data;
 
-typedef struct	s_map
+typedef struct		s_map
 {
 	int		r_i;
 	int		f_i;
@@ -101,30 +104,26 @@ typedef struct	s_map
 	long	r[2];
 	int		f;
 	int		c;
-    int     count_mod;
-}				  t_map;
+	int     count_mod;
+}					t_map;
 
-
-
-
-typedef struct	s_all // структура для всего вместе
+typedef struct		s_all
 {
 	t_img		*win;
 	t_plr		plr;
 	t_key		key;
 	t_data		img;
-    void		*mlx;
+	void		*mlx;
 	void		*win_ptr;
 	t_map		m;
 	t_sprite	*ar_spr;
 	char		**map;
-	int			rec_flag;
 	t_texture	tex;
 	int			plr_init;
 	int			srcsht;
 	double 		camera_x;
-    double 		ray_dir_x;
-    double 		ray_dir_y;
+	double 		ray_dir_x;
+	double 		ray_dir_y;
 	unsigned int	color;
 	double		wall_x;
 	int			tex_x;
@@ -132,38 +131,23 @@ typedef struct	s_all // структура для всего вместе
 	double		step;
 	double		tex_pos;
 	int			map_x;
-    int			map_y;
-    //length of ray from current position to next x or y-side
-    double 		side_dist_x;
-    double		side_dist_y;
+	int			map_y;
+	double 		side_dist_x;
+	double		side_dist_y;
 	int			line_h;
-
-     //length of ray from one x or y-side to next x or y-side
-    double		delta_dist_x;
-    double		delta_dist_y;
-    double		perp_wall_dist;
-
-    //what direction to step in x or y-direction (either +1 or -1)
-    int 		step_x;
-    int 		step_y;
-
- 	int 		hit; //was there a wall hit?
-    int 		side; //was a NS or a EW wall hit?
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int 		step_x;
+	int 		step_y;
+ 	int 		hit;
+	int 		side;
 	double		t_x;
 	double		t_y;
 	double		T_x;
 	double		T_y;
-}				  t_all;
+}					t_all;
 
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
-# include "../mlx.h"
-# include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <math.h>
-# include "get_next_line/get_next_line.h"
 
 void		print_error(char *string);
 void		ft_is_plr(t_all *app, char dir, int i, int j);

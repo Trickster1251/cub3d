@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 21:25:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 21:48:57 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 22:41:22 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,14 @@ void	image_to_sreenshot(t_all *all, int fd)
 
 void	render_bmp(t_all *all)
 {
-	int fd;
-	unsigned int	n;
+	int				fd;
 	unsigned int	i;
-	short			b;
 
 	if ((fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)) < 0)
 		print_error("Fail with creating screenshot file");
-	n = all->img.line_len * (all->m.r[1]) + 54;
+	i = all->img.line_len * (all->m.r[1]) + 54;
 	write(fd, "BM", 2);
-	write(fd, &n, 4);
+	write(fd, &i, 4);
 	i = 0;
 	write(fd, &i, 4);
 	i = 54;
@@ -65,15 +63,11 @@ void	render_bmp(t_all *all)
 	write(fd, &i, 4);
 	write(fd, &all->m.r[0], 4);
 	write(fd, &all->m.r[1], 4);
-	b = 1;
-	write(fd, &b, 2);
-	b = all->img.bpp;
-	write(fd, &b, 2);
+	i = 1;
+	write(fd, &i, 2);
+	i = all->img.bpp;
+	write(fd, &i, 2);
 	i = 0;
-	write(fd, &i, 4);
-	write(fd, &i, 4);
-	write(fd, &i, 4);
-	write(fd, &i, 4);
-	write(fd, &i, 4);
+	write_while(fd, i);
 	image_to_sreenshot(all, fd);
 }

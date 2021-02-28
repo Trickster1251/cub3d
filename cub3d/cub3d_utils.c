@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:12 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:00:12 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 22:42:14 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int             get_color(t_img *tex, int x, int y)
 
 void    get_texture(t_all *all, int side)
 {
-    // 1 = so 0 = no 2 = ea 3 = we
     if (side == 0)
     {
         if (all->step_x > 0)
