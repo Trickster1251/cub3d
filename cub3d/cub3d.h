@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 22:52:08 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 22:54:23 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ typedef struct		s_plr
 
 typedef struct		s_data
 {
-	void        *img;
-	char        *addr;
-	int         bpp;
-	int         line_len;
-	int         endian;
-}               t_data;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+}					t_data;
 
 typedef struct		s_map
 {
@@ -104,7 +104,7 @@ typedef struct		s_map
 	long	r[2];
 	int		f;
 	int		c;
-	int     count_mod;
+	int		count_mod;
 }					t_map;
 
 typedef struct		s_all
