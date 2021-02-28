@@ -1,6 +1,6 @@
-R  200 300
-F 233, 27, 253
-NO ./textures/eagle.xpm
+                                R  1440 1000
+F 113,                                103, 255                      
+NO ./textures/1.xpm
 WE ./textures/1.xpm
 EA ./textures/2.xpm
 S ./textures/barrel.xpm
@@ -8,9 +8,8 @@ SO ./textures/wood.xpm
 C 233, 163, 4
 
 
-111111111
-100000001
-100020001
-100000201
-100000001
-111111111
+1111111111
+1000202011
+1000000011
+1000N00001
+1111111111
