@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_movement.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 21:18:26 by walethea          #+#    #+#             */
+/*   Updated: 2021/02/28 21:19:22 by walethea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	forward(t_all *a, double rtd_spd)
@@ -20,10 +32,11 @@ void	rotate(t_all *a, double rtd_spd)
 {
 	double	old_dir_x;
 	double	old_plane_x;
+
 	old_dir_x = a->plr.dir_x;
+	old_plane_x = a->plr.pln_x;
 	a->plr.dir_x = a->plr.dir_x * cos(rtd_spd) - a->plr.dir_y * sin(rtd_spd);
 	a->plr.dir_y = old_dir_x * sin(rtd_spd) + a->plr.dir_y * cos(rtd_spd);
-	old_plane_x = a->plr.pln_x;
 	a->plr.pln_x = a->plr.pln_x * cos(rtd_spd) - a->plr.pln_y * sin(rtd_spd);
 	a->plr.pln_y = old_plane_x * sin(rtd_spd) + a->plr.pln_y * cos(rtd_spd);
 }

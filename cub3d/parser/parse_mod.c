@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 19:08:13 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 21:42:10 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int		create_rgb(int r, int g, int b)
 {
@@ -19,17 +19,6 @@ int		create_rgb(int r, int g, int b)
 	(r > 255 || g > 255 || b > 255)
 	? (print_error("Color modificator more then 255")) : (0);
 	return (r << 16 | g << 8 | b);
-}
-
-void	set_size_scrnsht(char **arr, t_all *app, int max_res, int i)
-{
-	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 5))
-	{
-		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) > max_res)
-			app->m.r[i - 1] = max_res;
-	}
-	else
-		app->m.r[i - 1] = max_res;
 }
 
 void	set_size_window(char **arr, t_all *app, int max_res, int i)
@@ -46,14 +35,6 @@ void	set_size_window(char **arr, t_all *app, int max_res, int i)
 		app->m.r[i - 1] = max_res;
 }
 
-int		is_correct_num(char **arr, int i)
-{
-	while (arr[++i])
-		if (!(ft_isdigit_str(arr[i])))
-			return (0);
-	return (1);
-}
-
 int		ft_parse_r(char **arr, t_all *app)
 {
 	(!array_len(arr, 2)) ? print_error("More array len") : (0);
@@ -68,7 +49,7 @@ int		ft_parse_r(char **arr, t_all *app)
 	}
 	else
 	{
-		set_size_scrnsht(arr, app, 10000, 1);	
+		set_size_scrnsht(arr, app, 10000, 1);
 		set_size_scrnsht(arr, app, 10000, 2);
 	}
 	app->m.count_mod += 1;

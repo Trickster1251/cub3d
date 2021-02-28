@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:55 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:00:55 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 21:38:32 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	parse_no_tex(t_all *app, char **arr)
 {

@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 18:40:25 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 21:31:09 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,62 +48,7 @@ void	init_values(t_all *app)
 	app->srcsht = 0;
 }
 
-int		only_spaces(char *str)
-{
-	while(*str)
-	{
-		if (*str != ' ')
-			return (0);
-		str++;
-	}
-	return (1);
-}
 
-int		is_valid_sym(char str)
-{
-	if (str == '1' || str == '0' || str == 'N' ||
-	str == 'S' || str == 'E' || str == 'W' || str == '2')
-		return (1);
-	return (0);
-}
-
-int		is_valid_space(char str)
-{
-	if (str == '1' || str == '0' || str == 'N' || str == ' ' ||
-	str == 'S' || str == 'E' || str == 'W' || str == '2')
-		return (1);
-	return (0);
-}
-
-int     skip_space(char *str)
-{
-	int     i = 0;
-	while(str[i] == ' ' || str[i] == '\t')
-		i++;
-	return(i);
-}
-
-int		ft_is_modificator(char **arr, t_all *app)
-{
-	(app->m.count_mod >= 8) ? print_error("More modificators") : 0;
-	if ((ft_strncmp(*arr, "R\0", 2)) == 0)
-		ft_parse_r(arr, app);
-	else if ((ft_strncmp(*arr, "F\0", 2) == 0) || (ft_strncmp(*arr, "C\0", 2)) == 0)
-		ft_parse_f_c(arr, app);
-	else if (ft_strncmp(*arr, "NO\0", 3) == 0)
-		ft_parse_sprite(arr, app, 'N');
-	else if (ft_strncmp(*arr, "WE\0", 3) == 0)
-		ft_parse_sprite(arr, app, 'W');
-	else if (ft_strncmp(*arr, "EA\0", 3) == 0)
-		ft_parse_sprite(arr, app, 'E');
-	else if (ft_strncmp(*arr, "SO\0", 3) == 0)
-		ft_parse_sprite(arr, app, 'S');
-	else if (ft_strncmp(*arr, "S\0", 2) == 0)
-		ft_parse_sprite(arr, app, 's');
-	else
-		print_error("No modificator type, enter correct data");
-	return(0);
-}
 
 void    init_textures(t_all *app)
 {
@@ -136,7 +81,6 @@ int     is_valid_octa(t_all *app, int i, int j, char sym)
 	is_valid_sym(app->map[i][j + 1])
 	))
 	{
-		printf("%s--->%c<----", app->map[i], app->map[i][j]);
 		if (sym == '0')
 			print_error("parse error, zero not closed");
 		else
@@ -148,10 +92,11 @@ int     is_valid_octa(t_all *app, int i, int j, char sym)
 void	validator_map(t_all *app,t_list **head, int size)
 {
 	app->map = ft_calloc(size + 1,sizeof(char*));
-	int		i = -1;
+	int		i;
 	int		j = 0;
 	t_list	*tmp;
 	
+	i = -1;
 	tmp = *head;
 	while(tmp)
 	{
@@ -159,9 +104,6 @@ void	validator_map(t_all *app,t_list **head, int size)
 			app->map[++i] = tmp->content;
 		tmp = tmp->next;
 	}
-	i = -1;
-	while(app->map[++i])
-		ft_putendl_fd(app->map[i], 1);
 	i = -1;
 	while(app->map[++i])
 	{
@@ -218,7 +160,6 @@ int             parser(int fd, char *line, t_all *app)
 		free(line);
 	}
 	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
-	printf("\nThis is count-->%d\n", app->m.count_mod);
 	if (*line != '\0')
 		ft_lstadd_back(&head, ft_lstnew(line));
 	else

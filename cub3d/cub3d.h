@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 12:05:47 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 21:42:25 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void		ft_is_plr(t_all *app, char dir, int i, int j);
 int			parser(int fd, char *line, t_all *app);
 void		validator_map(t_all *app,t_list **head, int size);
 int			press_key(int keycode, t_all* app);
+int			keep_key(int keycode, t_all *a);
 int			release_key(t_all* a);
 char	    *to_word(char **str, char sym, int num);
 void		my_mlx_pixel_put(t_all *app, int x, int y, int color);
@@ -195,5 +196,11 @@ void		parse_ea_tex(t_all *app, char **arr);
 void		parse_so_tex(t_all *app, char **arr);
 void		parse_s_tex(t_all *app, char **arr);
 int			raycaster(t_all *app);
+int			is_valid_sym(char str);
+int			is_valid_space(char str);
+int			ft_is_modificator(char **arr, t_all *app);
+int			skip_space(char *str);
+int			is_correct_num(char **arr, int i);
+void		set_size_scrnsht(char **arr, t_all *app, int max_res, int i);
 
 #endif

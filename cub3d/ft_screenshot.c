@@ -5,12 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/28 04:59:53 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 04:59:54 by walethea         ###   ########.fr       */
+/*   Created: 2021/02/28 21:25:59 by walethea          #+#    #+#             */
+/*   Updated: 2021/02/28 21:48:57 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	set_size_scrnsht(char **arr, t_all *app, int max_res, int i)
+{
+	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 5))
+	{
+		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) > max_res)
+			app->m.r[i - 1] = max_res;
+	}
+	else
+		app->m.r[i - 1] = max_res;
+}
+
+void	write_while(int fd, unsigned int i)
+{
+	write(fd, &i, 4);
+	write(fd, &i, 4);
+	write(fd, &i, 4);
+	write(fd, &i, 4);
+	write(fd, &i, 4);
+}
 
 void	image_to_sreenshot(t_all *all, int fd)
 {
@@ -22,8 +42,7 @@ void	image_to_sreenshot(t_all *all, int fd)
 		y--;
 		write(fd, all->img.line_len * y + all->img.addr, all->img.line_len);
 	}
-	close (fd);
-    exit(0);
+	exit(0);
 }
 
 void	render_bmp(t_all *all)
