@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 20:11:24 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 20:27:47 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ int		main(int argc, char **argv)
 	line = NULL;
 	if (argc == 2 || argc == 3)
 	{
+		if ((ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".cub", 4) != 0))
+			print_error ("Wrong map extension");
 		if ((fd = open(argv[1], O_DIRECTORY)) < 0)
 		{
 			if ((fd = open(argv[1], O_RDONLY)) < 0)
-				print_error("Wrong fd");
+				print_error("This map is not exist");
 		}
-		else 	
+		else
 			print_error("This is a directory, dumb litty!");
 	}
 	init_values(&app);
