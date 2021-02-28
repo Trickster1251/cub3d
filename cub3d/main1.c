@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main1.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
+/*   Updated: 2021/02/28 05:26:49 by walethea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int		keep_key(int keycode, t_all *a)
@@ -32,7 +44,6 @@ void	make_screenshot(int argc, char **argv, t_all *app)
 {
 	if (argc == 3 && (ft_strncmp(argv[2], "--save", 7) == 0))
 	{
-		app->srcsht = 1;
 		init_textures(app);
 		raycaster(app);
 		render_bmp(app);
@@ -56,6 +67,7 @@ int		main(int argc, char **argv)
 		if (!(fd = open(argv[1], O_RDONLY)))
 			print_error("Wrong fd");
 	init_values(&app);
+	(argc == 3) ? (app.srcsht = 1) : (0);
 	parser(fd, line, &app);
 	app.mlx = mlx_init();
 	if (argc == 3)

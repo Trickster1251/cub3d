@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
+/*   Updated: 2021/02/28 05:19:07 by walethea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	init_values(t_all *app)
@@ -101,8 +113,6 @@ void    init_textures(t_all *app)
     app->tex.s.addr = mlx_get_data_addr(app->tex.s.img, &app->tex.s.bpp, &app->tex.s.line_l, &app->tex.s.endian);
 }
 
-// void    what_
-
 void	validator_map(t_all *app,t_list **head, int size)
 {
     app->map = calloc(size + 1,sizeof(char*));
@@ -175,7 +185,6 @@ int             parser(int fd, char *line, t_all *app)
     char	**arr;
     t_list	*head = NULL;
     int flag = 0;
-
 
     while ((len = get_next_line(fd ,&line) > 0) && (app->m.count_mod < 8))
     {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/28 05:00:50 by walethea          #+#    #+#             */
+/*   Updated: 2021/02/28 05:24:50 by walethea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	what_side(t_all *app)
@@ -126,7 +138,7 @@ int		 raycaster(t_all *app)
 	}
 }
 	cast_sprite(app, sprite_dist);
-	if (app->srcsht != 1)
+	if (app->srcsht == 0)
 	{
 	  mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	  mlx_destroy_image(app->mlx, app->img.img);
