@@ -123,37 +123,6 @@ void    get_texture(t_all *all, int side)
     }
 
 }
-// void	ft_cast_ray(t_all *all)
-// {
-// 	t_plr	ray = *all->plr;
-
-// 	while (all->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
-// 	{
-// 		ray.x += cos(ray.dir);
-// 		ray.y += sin(ray.dir);
-// 		mlx_pixel_put(all->mlx, all->win, ray.x, ray.y, 0x990099);
-// 	}
-// }
-
-// void draw_map(t_all *app, t_point point, int color)
-// {
-//     int end_x;
-//     int end_y;
-//     end_x = (point.x + 1) * SCALE;
-//     end_y = (point.y + 1) * SCALE;
-//     point.x *= SCALE;
-//     point.y *= SCALE;
-//     while (point.y < end_y)
-//     {
-//         while (point.x < end_x)
-//         {
-//             mlx_pixel_put(app->mlx, app->win, point.x, point.y, app->map_ptr.F);
-//             point.x++;
-//         }
-//         point.y++;
-//         point.x -= SCALE;
-//     }
-// }
 
 void            my_mlx_pixel_put(t_all *app, int x, int y, int color)
 {

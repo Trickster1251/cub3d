@@ -10,10 +10,8 @@ void	init_values(t_all *app)
 	app->m.s_i = 0;
 	app->m.so_i = 0;
     app->m.count_mod = 0;
-	// point->x = 0;
-	// point->y = 0;
-	app->plr.x = 4;
-	app->plr.y = 4;
+	app->plr.x = 0;
+	app->plr.y = 0;
 	app->plr.dir_x = 0;
 	app->plr.dir_y = 0;
     app->plr.apple = 0;
@@ -34,7 +32,6 @@ void	init_values(t_all *app)
     app->key.d = 0;
     app->key.q = 0;
     app->key.e = 0;
-    app->rec_flag = 1;
     app->tex.ea.path = 0;
     app->tex.no.path = 0;
     app->tex.we.path = 0;
@@ -47,7 +44,7 @@ void	init_values(t_all *app)
 int		is_valid_sym(char str)
 {
     return ((str == '1' || str == '0' || str == 'N' ||
-     str == 'S' || str == 'E' || str == 'W' || str == '2' || str == 'T' || str == 't') ? (1) : (0));
+     str == 'S' || str == 'E' || str == 'W' || str == '2') ? (1) : (0));
 }
 
 int		is_valid_space(char str)
@@ -80,6 +77,8 @@ int		ft_is_modificator(char **arr, t_all *app)
         ft_parse_sprite(arr, app, 'S');
     else if (ft_strncmp(*arr, "S\0", 2) == 0)
         ft_parse_sprite(arr, app, 's');
+    else
+        print_error("No modificator type, enter correct data");
     return(0);
 }
 
@@ -102,6 +101,8 @@ void    init_textures(t_all *app)
     app->tex.s.addr = mlx_get_data_addr(app->tex.s.img, &app->tex.s.bpp, &app->tex.s.line_l, &app->tex.s.endian);
 }
 
+// void    what_
+
 void	validator_map(t_all *app,t_list **head, int size)
 {
     app->map = calloc(size + 1,sizeof(char*));
@@ -115,16 +116,8 @@ void	validator_map(t_all *app,t_list **head, int size)
 
     while(tmp)
     {
-        app->map[++i] = tmp->content;
-        while(app->map[i][j])
-        {
-            if (!(ft_strncmp(&app->map[i][j], "1",1) || ft_strncmp(&app->map[i][j], "2",1) ||
-                ft_strncmp(&app->map[i][j], " ",1) || ft_strncmp(&app->map[i][j], "N",1) ||
-                ft_strncmp(&app->map[i][j], "W",1) || ft_strncmp(&app->map[i][j], "S",1) ||
-                 ft_strncmp(&app->map[i][j], "E",1) || ft_strncmp(&app->map[i][j], "0",1)))
-                    print_error("parse error");
-            j++;
-        }
+        if (tmp->content[0] != '\0')
+            app->map[++i] = tmp->content;
         tmp = tmp->next;
     }
     i = -1;
@@ -167,19 +160,8 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'S', i, j);
             else if (app->map[i][j] == '2')
                 app->tex.count_sprite++;
-            // else if (app->map[i][j] == 't')
-            // {
-            //     app->t_x = j;
-            //     app->t_y = i;
-            // }
-            // else if (app->map[i][j] == 'T')
-            // {
-            //     app->T_x = j;
-            //     app->T_y = i;
-            // }
             j++;
         }
-        j = 0;
         i++;
     }
     ft_putendl_fd("---->SUCCESS<----\n", 1);
@@ -192,6 +174,7 @@ int             parser(int fd, char *line, t_all *app)
     int		i = 0;
     char	**arr;
     t_list	*head = NULL;
+    int flag = 0;
 
 
     while ((len = get_next_line(fd ,&line) > 0) && (app->m.count_mod < 8))
@@ -206,14 +189,21 @@ int             parser(int fd, char *line, t_all *app)
     }
     (len < 0) ? (print_error("Something wrong with .cub file")) : (0);
     printf("\nThis is count-->%d\n", app->m.count_mod);
-    while ((len = get_next_line(fd ,&line)))
+    if (*line != '\0')
+        ft_lstadd_back(&head, ft_lstnew(line));
+    else
+        free(line);
+    while ((len = get_next_line(fd ,&line)) > 0)
     {
-        if (line[0] != '\0')
+        if (line[0] == '\0' && flag == 1)
+            print_error("Empty line at the map");
+        else if (line[0] != '\0' || flag == 1)
         {
-            // printf("%s\n", line);
+            flag = 1;
             ft_lstadd_back(&head, ft_lstnew(line));
         }
-        // free(line);
+        else
+            free(line);
     }
     ft_lstadd_back(&head, ft_lstnew(line));
     validator_map(app ,&head, ft_lstsize(head));

@@ -36,19 +36,19 @@ void        print_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite)
 
     i = -1;
     while(++i <= app->tex.count_sprite)
-	{
+    {
       double spriteX = arr_sprite[i].x - app->plr.x;
       double spriteY = arr_sprite[i].y - app->plr.y;
       double invDet = 1.0 / (app->plr.pln_x * app->plr.dir_y - app->plr.dir_x * app->plr.pln_y);
       double transformX = invDet * (app->plr.dir_y * spriteX - app->plr.dir_x * spriteY);
       double transformY = invDet * (-app->plr.pln_y * spriteX + app->plr.pln_x * spriteY);
       int spriteScreenX = (int)((app->m.r[0] / 2) * (1 + transformX / transformY));
-      double spriteHeight = fabs((double)(app->m.r[0] / (transformY)));
+      double spriteHeight = fabs((double)(app->m.r[0] / (transformY)) * 0.75);
       int drawStartY = -spriteHeight / 2 +app->m.r[1] / 2;
       if(drawStartY < 0) drawStartY = 0;
       int drawEndY = spriteHeight / 2 +app->m.r[1] / 2;
       if(drawEndY >=app->m.r[1]) drawEndY =app->m.r[1] - 1;
-      double spriteWidth = fabs(app->m.r[0] / (transformY));
+      double spriteWidth = fabs(app->m.r[0] / (transformY) * 0.75);
       int drawStartX = -spriteWidth / 2 + spriteScreenX;
       if(drawStartX < 0) drawStartX = 0;
       int drawEndX = spriteWidth / 2 + spriteScreenX;
@@ -59,11 +59,11 @@ void        print_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite)
         if(transformY > 0 && stripe > 0 && stripe < app->m.r[0] && transformY < sprite_dist[stripe])
         for(int y = drawStartY; y < drawEndY; y++)
         {
-         	int d = (y) * 256 - app->m.r[1] * 128 + spriteHeight * 128;
-          	int texY = ((d * app->tex.s.h) / spriteHeight) / 256;
-		  	int color = get_color(&app->tex.s, texX, texY);
-        	if((color & 0x00FFFFFF) != 0)
-				my_mlx_pixel_put(app, stripe, y, color);
+          int d = (y) * 256 - app->m.r[1] * 128 + spriteHeight * 128;
+           int texY = ((d * app->tex.s.h) / spriteHeight) / 256;
+     int color = get_color(&app->tex.s, texX, texY);
+         if((color & 0x00FFFFFF) != 0)
+    my_mlx_pixel_put(app, stripe, y, color);
         }
       }
     }
