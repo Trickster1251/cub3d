@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:19:07 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 08:17:06 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_values(t_all *app)
 	app->step_x = 0;
 	app->step_y = 0;
 	app->hit = 0;
+    app->plr_init = 0;
 	app->side = 0;
 	app->key.w = 0;
     app->key.a = 0;
@@ -51,6 +52,17 @@ void	init_values(t_all *app)
     app->tex.s.path = 0;
     app->tex.count_sprite = 0;
     app->srcsht = 0;
+}
+
+int     only_spaces(char *str)
+{
+    while(*str)
+    {
+        if (*str != ' ')
+            return (0);
+        str++;
+    }
+    return (1);
 }
 
 int		is_valid_sym(char str)
@@ -113,17 +125,35 @@ void    init_textures(t_all *app)
     app->tex.s.addr = mlx_get_data_addr(app->tex.s.img, &app->tex.s.bpp, &app->tex.s.line_l, &app->tex.s.endian);
 }
 
+int     is_valid_octa(t_all *app, int i, int j, char sym)
+{
+    if (i > 0 && !(is_valid_sym(app->map[i - 1][j]) &&
+    is_valid_sym(app->map[i + 1][j]) && 
+    is_valid_sym(app->map[i][j - 1]) &&
+    is_valid_sym(app->map[i + 1][j + 1]) &&
+    is_valid_sym(app->map[i + 1][j - 1]) &&
+    is_valid_sym(app->map[i - 1][j - 1]) &&
+    is_valid_sym(app->map[i - 1][j + 1]) &&
+    is_valid_sym(app->map[i][j + 1])
+    ))
+    {
+        printf("%s--->%c<----", app->map[i], app->map[i][j]);
+        if (sym == '0')
+            print_error("parse error, zero not closed");
+        else
+            print_error("parse error, sprite not closed");
+    }
+    return (1);
+}
+
 void	validator_map(t_all *app,t_list **head, int size)
 {
-    app->map = calloc(size + 1,sizeof(char*));
+    app->map = ft_calloc(size + 1,sizeof(char*));
     int		i = -1;
-    int     l = -1;
     int		j = 0;
-    int     x;
-    int     y;
-    t_list	*tmp = *head;
-
-
+    t_list	*tmp;
+    
+    tmp = *head;
     while(tmp)
     {
         if (tmp->content[0] != '\0')
@@ -133,33 +163,22 @@ void	validator_map(t_all *app,t_list **head, int size)
     i = -1;
     while(app->map[++i])
         ft_putendl_fd(app->map[i], 1);
-    i = 0;
-    while(app->map[i])
+    i = -1;
+    while(app->map[++i])
     {
         j = skip_space(app->map[i]);
-        while(app->map[i][j])
+        while(app->map[i][++j])
         {
-            if (i == 0 && app->map[i][j] == '0')
-                print_error("parse error, zero no lock on first line");
-            else if (i == (size - 1) && app->map[i][j] == '0')
-                print_error("parse error, zero no lock on last line");
-            else if (i == (size - 1) && app->map[i][j] == ' ')
-                break;
-            else if (app->map[i][j] == '0' &&
-            !(is_valid_sym(app->map[i - 1][j]) &&
-            is_valid_sym(app->map[i + 1][j]) && 
-            is_valid_sym(app->map[i][j - 1]) &&
-            is_valid_sym(app->map[i + 1][j + 1]) &&
-            is_valid_sym(app->map[i + 1][j - 1]) &&
-            is_valid_sym(app->map[i - 1][j - 1]) &&
-            is_valid_sym(app->map[i - 1][j + 1]) &&
-            is_valid_sym(app->map[i][j + 1])
-            ))
-            {
-                 printf("\n%s\n", app->map[i]);
-                printf("---->%c%i\n", app->map[i][j], j);
-                print_error("parse error, zero no lock");
-            }
+            if ((i == (size - 1) && app->map[i][j] == '0')
+            || (i == 0 && app->map[i][j] == '0'))
+                print_error("parse error, zero not closed");
+            else if ((i == (size - 1) && app->map[i][j] == '2')
+            || (i == 0 && app->map[i][j] == '2'))
+                print_error("parse error, sprite not closed");
+            else if (app->map[i][j] == '0')
+                is_valid_octa(app, i, j, '0');
+            else if (app->map[i][j] == '2')
+                is_valid_octa(app, i, j, '2');
             if (app->map[i][j] == 'N')
                 ft_is_plr(app, 'N', i, j);
             else if (app->map[i][j] == 'E')
@@ -170,10 +189,10 @@ void	validator_map(t_all *app,t_list **head, int size)
                 ft_is_plr(app, 'S', i, j);
             else if (app->map[i][j] == '2')
                 app->tex.count_sprite++;
-            j++;
         }
-        i++;
     }
+    if (app->plr_init == 0)
+        print_error("None player");
     ft_putendl_fd("---->SUCCESS<----\n", 1);
     ft_lstclear(head, &free);
 }
@@ -204,9 +223,9 @@ int             parser(int fd, char *line, t_all *app)
         free(line);
     while ((len = get_next_line(fd ,&line)) > 0)
     {
-        if (line[0] == '\0' && flag == 1)
+        if (line[0] == '\0' && flag == 1 && only_spaces(line))
             print_error("Empty line at the map");
-        else if (line[0] != '\0' || flag == 1)
+        else if ((line[0] != '\0' || flag == 1) && !only_spaces(line))
         {
             flag = 1;
             ft_lstadd_back(&head, ft_lstnew(line));

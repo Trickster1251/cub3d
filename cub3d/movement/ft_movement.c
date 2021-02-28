@@ -57,6 +57,8 @@ int		release_key(t_all *a)
 
 void	ft_is_plr(t_all *app, char dir, int i, int j)
 {
+	(app->plr_init == 1) ?
+	(print_error("The player already exists")) : (app->plr_init = 1);
 	app->plr.x = j + 0.5;
 	app->plr.y = i + 0.5;
 	if (dir == 'S')

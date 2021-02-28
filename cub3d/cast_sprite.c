@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:08 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 06:10:18 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 08:18:52 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void ft_qsort (t_sprite	*arr, int left, int right)
 				arr[j] = temp;
 			}
 
-			i++; j--;
+			i++;
+			j--;
 		}
-
 	};
 
 	if (left < j) ft_qsort (arr, left, j);
@@ -116,6 +116,5 @@ void		cast_sprite(t_all *app, double *sprite_dist)
 		y++;
 	}
 	ft_qsort(arr_sprite, 0, app->tex.count_sprite - 1);
-
 	print_sprite(app, sprite_dist, arr_sprite);
 }

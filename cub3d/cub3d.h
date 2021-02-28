@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 05:00:05 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 07:18:28 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct	s_all // структура для всего вместе
 	char		**map;
 	int			rec_flag;
 	t_texture	tex;
+	int			plr_init;
 	int			srcsht;
 	double 		camera_x;
     double 		ray_dir_x;
@@ -185,6 +186,7 @@ void    	get_texture(t_all *all, int side);
 int         get_color(t_img *tex, int x, int y);
 void		cast_sprite(t_all *app, double *sprite_dist);
 void		render_bmp(t_all *all);
+int			only_spaces(char *str);
 int         my_atoi(const char *str);
 char		**ft_split_colon(char const *s, char c, char c1);
 void    	parse_no_tex(t_all *app, char **arr);
