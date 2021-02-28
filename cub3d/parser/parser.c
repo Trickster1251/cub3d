@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 09:05:42 by walethea         ###   ########.fr       */
+/*   Updated: 2021/02/28 10:12:49 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int		is_valid_sym(char str)
 
 int		is_valid_space(char str)
 {
-	return ((str == '1' || str == ' ') ? (1) : (0));
+	if (str == '1' || str == '0' || str == 'N' || str == ' ' ||
+	str == 'S' || str == 'E' || str == 'W' || str == '2')
+		return (1);
+	return (0);
 }
 
 int     skip_space(char *str)
@@ -163,10 +166,12 @@ void	validator_map(t_all *app,t_list **head, int size)
 	while(app->map[++i])
 	{
 		j = skip_space(app->map[i]);
-		while(app->map[i][++j])
+		while(app->map[i][j])
 		{
-			if ((i == (size - 1) && app->map[i][j] != '1')
-			|| (i == 0 && app->map[i][j] != '1'))
+			if (!is_valid_space(app->map[i][j]))
+				print_error("Not valid character");
+			if ((i == (size - 1) && app->map[i][j] == '0')
+			|| (i == 0 && app->map[i][j] == '0'))
 				print_error("parse error, map not closed");
 			else if ((i == (size - 1) && app->map[i][j] == '2')
 			|| (i == 0 && app->map[i][j] == '2'))
@@ -185,8 +190,7 @@ void	validator_map(t_all *app,t_list **head, int size)
 				ft_is_plr(app, 'S', i, j);
 			else if (app->map[i][j] == '2')
 				app->tex.count_sprite++;
-			else
-				print_error("Not valid character");
+			j++;
 		}
 	}
 	if (app->plr_init == 0)
