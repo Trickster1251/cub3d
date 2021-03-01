@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 19:40:49 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 21:25:49 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	is_valid_0_2(t_all *app, int i, int j, int size)
 	else if (app->map[i][j] == 'S')
 		ft_is_plr(app, 'S', i, j);
 	else if (app->map[i][j] == '2')
-		app->tex.count_sprite++;
+		app->tex.c_spr++;
 }
 
 void	is_valid_map(t_all *app, int size)

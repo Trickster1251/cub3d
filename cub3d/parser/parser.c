@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 20:00:59 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 21:38:09 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_parser_values(t_all *app)
 	app->tex.we.path = 0;
 	app->tex.so.path = 0;
 	app->tex.s.path = 0;
-	app->tex.count_sprite = 0;
+	app->tex.c_spr = 0;
 	app->m.r_i = 0;
 	app->m.f_i = 0;
 	app->m.n_i = 0;

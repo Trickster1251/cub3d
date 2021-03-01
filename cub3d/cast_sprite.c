@@ -6,115 +6,66 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:08 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 08:18:52 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 21:44:48 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_qsort (t_sprite	*arr, int left, int right)
+void		init_var_sprite(t_all *a, t_sprite *ar)
 {
-	int i = left;
-	int j = right;
-	t_sprite	temp;
-	t_sprite	pivot = arr[ (left+right)/2 ];
-
-	while (i <= j)
-	{
-		while (arr[i].dist > pivot.dist) i++;
-		while (arr[j].dist < pivot.dist) j--;
-
-		if (i <= j)
-		{
-			if (arr[i].dist < arr[j].dist)
-			{
-				temp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = temp;
-			}
-
-			i++;
-			j--;
-		}
-	};
-
-	if (left < j) ft_qsort (arr, left, j);
-	if (i < right) ft_qsort (arr, i, right);
+	a->ds.spr_x = ar[a->ds.i].x - a->plr.x;
+	a->ds.spr_y = ar[a->ds.i].y - a->plr.y;
+	a->ds.inv_det = 1.0 /
+	(a->plr.pln_x * a->plr.dir_y - a->plr.dir_x * a->plr.pln_y);
+	a->ds.trn_x = a->ds.inv_det *
+	(a->plr.dir_y * a->ds.spr_x - a->plr.dir_x * a->ds.spr_y);
+	a->ds.trn_y = a->ds.inv_det *
+	(-a->plr.pln_y * a->ds.spr_x + a->plr.pln_x * a->ds.spr_y);
+	a->ds.spr_scrn_x = (int)((a->m.r[0] / 2) *
+	(1 + a->ds.trn_x / a->ds.trn_y));
+	a->ds.spr_h = fabs((int)(a->m.r[0] / (a->ds.trn_y)) * 0.75);
+	a->ds.dr_srt_y = -a->ds.spr_h / 2 + a->m.r[1] / 2;
+	if (a->ds.dr_srt_y < 0)
+		a->ds.dr_srt_y = 0;
+	a->ds.dr_end_y = a->ds.spr_h / 2 + a->m.r[1] / 2;
+	if (a->ds.dr_end_y >= a->m.r[1])
+		a->ds.dr_end_y = a->m.r[1] - 1;
+	a->ds.spr_w = fabs((int)(a->m.r[0] / (a->ds.trn_y)) * 0.75);
+	a->ds.dr_srt_x = -a->ds.spr_w / 2 + a->ds.spr_scrn_x;
+	if (a->ds.dr_srt_x < 0)
+		a->ds.dr_srt_x = 0;
+	a->ds.dr_end_x = a->ds.spr_w / 2 + a->ds.spr_scrn_x;
+	if (a->ds.dr_end_x >= a->m.r[0])
+		a->ds.dr_end_x = a->m.r[0] - 1;
+	a->ds.stripe = a->ds.dr_srt_x;
 }
 
-void        print_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite)
+void		draw_sprite(t_all *a, double *s_dist, t_sprite *ar)
 {
-	int     i;
+	int		d;
 
-	i = -1;
-	while(++i <= app->tex.count_sprite)
+	a->ds.i = -1;
+	while (++a->ds.i <= a->tex.c_spr)
 	{
-		double spriteX = arr_sprite[i].x - app->plr.x;
-		double spriteY = arr_sprite[i].y - app->plr.y;
-		double invDet = 1.0 / (app->plr.pln_x * app->plr.dir_y - app->plr.dir_x * app->plr.pln_y);
-		double transformX = invDet * (app->plr.dir_y * spriteX - app->plr.dir_x * spriteY);
-		double transformY = invDet * (-app->plr.pln_y * spriteX + app->plr.pln_x * spriteY);
-		int spriteScreenX = (int)((app->m.r[0] / 2) * (1 + transformX / transformY));
-		int spriteHeight = fabs((int)(app->m.r[0] / (transformY)) * 0.75);
-		int drawStartY = -spriteHeight / 2 +app->m.r[1] / 2;
-	if(drawStartY < 0)
-		drawStartY = 0;
-	int drawEndY = spriteHeight / 2 +app->m.r[1] / 2;
-	if(drawEndY >=app->m.r[1])
-		drawEndY =app->m.r[1] - 1;
-	int spriteWidth = fabs((int)(app->m.r[0] / (transformY)) * 0.75);
-	int drawStartX = -spriteWidth / 2 + spriteScreenX;
-	if(drawStartX < 0)
-		drawStartX = 0;
-	int drawEndX = spriteWidth / 2 + spriteScreenX;
-	if(drawEndX >= app->m.r[0])
-		drawEndX = app->m.r[0] - 1;
-	int stripe = drawStartX;
-	int y = drawStartY;
-	while(stripe < drawEndX)
-	{
-		y = drawStartY;
-		int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * app->tex.s.w / spriteWidth) / 256;
-		if(transformY > 0 && stripe > 0 && stripe < app->m.r[0] && transformY < sprite_dist[stripe])
-			while(y < drawEndY)
-			{
-				int d = (y) * 256 - app->m.r[1] * 128 + spriteHeight * 128;
-				int texY = ((d * app->tex.s.h) / spriteHeight) / 256;
-				int color = get_color(&app->tex.s, texX, texY);
-				if((color & 0x00FFFFFF) != 0)
-					my_mlx_pixel_put(app, stripe, y, color);
-				y++;
-			}
-			stripe++;
-	  }
-	}
-}
-
-void		cast_sprite(t_all *app, double *sprite_dist)
-{
-	int		x;
-	int		y;
-	int		i;
-
-	y = 0;
-	i = 0;
-	t_sprite  arr_sprite[app->tex.count_sprite];
-	while(app->map[y])
-	{
-		x = 0;
-		while(app->map[y][x])
+		init_var_sprite(a, ar);
+		a->ds.y = (a->ds.dr_srt_y - 1);
+		while ((++a->ds.stripe - 1) < a->ds.dr_end_x)
 		{
-			if (app->map[y][x] == '2')
-			{
-				arr_sprite[i].x = x + 0.5;
-				arr_sprite[i].y = y + 0.5;
-				arr_sprite[i].dist = (app->plr.x - arr_sprite[i].x) * (app->plr.x - arr_sprite[i].x) + (app->plr.y - arr_sprite[i].y) * (app->plr.y - arr_sprite[i].y);
-				i++;
-			}
-			x++;
+			a->ds.y = (a->ds.dr_srt_y - 1);
+			a->ds.tx_x = (int)(256 * (a->ds.stripe - (-a->ds.spr_w /
+			2 + a->ds.spr_scrn_x)) * a->tex.s.w / a->ds.spr_w) / 256;
+			if (a->ds.trn_y > 0 && a->ds.stripe > 0 &&
+			a->ds.stripe < a->m.r[0] &&
+			a->ds.trn_y < s_dist[a->ds.stripe])
+				while (++a->ds.y < a->ds.dr_end_y)
+				{
+					d = (a->ds.y) * 256 - a->m.r[1] * 128 + a->ds.spr_h * 128;
+					a->ds.tx_y = ((d * a->tex.s.h) / a->ds.spr_h) / 256;
+					a->ds.color = get_color(&a->tex.s, a->ds.tx_x, a->ds.tx_y);
+					if ((a->ds.color & 0x00FFFFFF) != 0)
+						my_mlx_pixel_put(a, a->ds.stripe, a->ds.y, a->ds.color);
+				}
 		}
-		y++;
 	}
-	ft_qsort(arr_sprite, 0, app->tex.count_sprite - 1);
-	print_sprite(app, sprite_dist, arr_sprite);
 }

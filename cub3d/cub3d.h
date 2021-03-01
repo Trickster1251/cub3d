@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 19:48:13 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 21:43:19 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@
 # include <fcntl.h>
 # include <math.h>
 # include "get_next_line/get_next_line.h"
+
+typedef struct		s_draw_sprite
+{
+	double		spr_x;
+	double		spr_y;
+	double		inv_det;
+	double		trn_x;
+	double		trn_y;
+	int			spr_scrn_x;
+	int			spr_h;
+	int			dr_end_y;
+	int			spr_w;
+	int			dr_srt_x;
+	int			dr_end_x;
+	int			tx_x;
+	int			tx_y;
+	int			stripe;
+	int			i;
+	int			y;
+	int			color;
+	int			dr_srt_y;
+}					t_draw_spr;
 
 typedef struct		s_img
 {
@@ -49,7 +71,7 @@ typedef struct		s_texture
 	t_img		s;
 	int			h;
 	int			w;
-	int			count_sprite;
+	int			c_spr;
 }					t_texture;
 
 typedef struct		s_point
@@ -113,12 +135,13 @@ typedef struct		s_all
 	t_plr		plr;
 	t_key		key;
 	t_data		img;
-	void		*mlx;
-	void		*win_ptr;
 	t_map		m;
 	t_sprite	*ar_spr;
-	char		**map;
 	t_texture	tex;
+	t_draw_spr	ds;
+	void		*mlx;
+	void		*win_ptr;
+	char		**map;
 	int			plr_init;
 	int			srcsht;
 	double 		camera_x;
@@ -191,5 +214,6 @@ void		is_valid_0_2(t_all *app, int i, int j, int size);
 void		is_valid_map(t_all *app, int size);
 void		validator_map(t_all *app, t_list **head, int size);
 void		init_parser_values(t_all *app);
-
+void		ft_qsort(t_sprite *arr, int left, int right);
+void        draw_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite);
 #endif
