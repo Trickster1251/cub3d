@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 21:18:26 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 02:10:08 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:31:39 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,49 @@
 void	forward(t_all *a, double rtd_spd)
 {
 	if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.pln_y * MS)] != '1')
+	{
+		if (a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.pln_y * MS)] == '2')
+		{
+			a->map[(int)a->plr.y][(int)(a->plr.x + a->plr.pln_y * MS)] = '0';
+			a->plr.apple++;
+		}
 		a->plr.x += a->plr.pln_y * rtd_spd;
+	}
 	if (a->map[(int)(a->plr.y - a->plr.pln_x * MS)][(int)a->plr.x] != '1')
+	{
+		if (a->map[(int)(a->plr.y - a->plr.pln_x * MS)][(int)a->plr.x] == '2')
+		{
+			a->map[(int)(a->plr.y - a->plr.pln_x * MS)][(int)a->plr.x] = '0';
+			a->plr.apple++;
+		}
 		a->plr.y -= a->plr.pln_x * rtd_spd;
+	}
 }
 
 void	backward(t_all *a, double rtd_spd)
 {
 	if (a->map[(int)a->plr.y][(int)(a->plr.x - a->plr.pln_y * rtd_spd)] != '1')
+	{
+		if (a->map[(int)a->plr.y]
+		[(int)(a->plr.x - a->plr.pln_y * rtd_spd)] == '2')
+		{
+			a->map[(int)a->plr.y]
+			[(int)(a->plr.x - a->plr.pln_y * rtd_spd)] = '0';
+			a->plr.apple++;
+		}
 		a->plr.x -= a->plr.pln_y * rtd_spd;
+	}
 	if (a->map[(int)(a->plr.y + a->plr.pln_x * rtd_spd)][(int)a->plr.x] != '1')
+	{
+		if (a->map[(int)(a->plr.y + a->plr.pln_x * rtd_spd)]
+		[(int)a->plr.x] == '2')
+		{
+			a->map[(int)(a->plr.y + a->plr.pln_x * rtd_spd)]
+			[(int)a->plr.x] = '0';
+			a->plr.apple++;
+		}
 		a->plr.y += a->plr.pln_x * rtd_spd;
+	}
 }
 
 void	rotate(t_all *a, double rtd_spd)

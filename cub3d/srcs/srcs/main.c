@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 01:45:00 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:15:33 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	make_screenshot(int argc, char **argv, t_all *app)
 int		close_window(int keycode)
 {
 	exit(0);
+	return(keycode);
 }
 
 int		main(int argc, char **argv)
