@@ -6,14 +6,20 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 21:31:09 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:59:54 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_values(t_all *app)
+void	init_parser_values(t_all *app)
 {
+	app->tex.ea.path = 0;
+	app->tex.no.path = 0;
+	app->tex.we.path = 0;
+	app->tex.so.path = 0;
+	app->tex.s.path = 0;
+	app->tex.count_sprite = 0;
 	app->m.r_i = 0;
 	app->m.f_i = 0;
 	app->m.n_i = 0;
@@ -22,6 +28,10 @@ void	init_values(t_all *app)
 	app->m.s_i = 0;
 	app->m.so_i = 0;
 	app->m.count_mod = 0;
+}
+
+void	init_player_values(t_all *app)
+{
 	app->plr.x = 0;
 	app->plr.y = 0;
 	app->plr.dir_x = 0;
@@ -29,142 +39,31 @@ void	init_values(t_all *app)
 	app->plr.apple = 0;
 	app->plr.pln_x = 0;
 	app->plr.pln_y = 0;
-	app->side_dist_x = 0;
+	app->side_dst_x = 0;
 	app->side_dist_y = 0;
-	app->delta_dist_x = 0;
-	app->delta_dist_y = 0;
+	app->dlt_dst_x = 0;
+	app->dlt_dst_y = 0;
 	app->perp_wall_dist = 0;
 	app->step_x = 0;
 	app->step_y = 0;
 	app->hit = 0;
 	app->plr_init = 0;
 	app->side = 0;
-	app->tex.ea.path = 0;
-	app->tex.no.path = 0;
-	app->tex.we.path = 0;
-	app->tex.so.path = 0;
-	app->tex.s.path = 0;
-	app->tex.count_sprite = 0;
 	app->srcsht = 0;
 }
 
-
-
-void    init_textures(t_all *app)
+int		read_map(char *line, int fd, t_list *head, t_all *app)
 {
-	if (!(app->tex.no.img = mlx_xpm_file_to_image(app->mlx, app->tex.no.path, &app->tex.no.w, &app->tex.no.h)))
-		print_error("cannot open NO tex");
-	if (!(app->tex.we.img = mlx_xpm_file_to_image(app->mlx, app->tex.we.path, &app->tex.we.w, &app->tex.we.h)))
-		print_error("cannot open WE tex");
-	if (!(app->tex.ea.img = mlx_xpm_file_to_image(app->mlx, app->tex.ea.path, &app->tex.ea.w, &app->tex.ea.h)))
-		print_error("cannot open EA tex");
-	if (!(app->tex.so.img = mlx_xpm_file_to_image(app->mlx, app->tex.so.path, &app->tex.so.w, &app->tex.so.h)))
-		print_error("cannot open SO tex");
-	if (!(app->tex.s.img = mlx_xpm_file_to_image(app->mlx, app->tex.s.path, &app->tex.s.w, &app->tex.s.h)))
-		print_error("cannot open Sprite tex");
-	app->tex.ea.addr = mlx_get_data_addr(app->tex.ea.img, &app->tex.ea.bpp, &app->tex.ea.line_l, &app->tex.ea.endian);
-	app->tex.no.addr = mlx_get_data_addr(app->tex.no.img, &app->tex.no.bpp, &app->tex.no.line_l, &app->tex.no.endian);
-	app->tex.we.addr = mlx_get_data_addr(app->tex.we.img, &app->tex.we.bpp, &app->tex.we.line_l, &app->tex.we.endian);
-	app->tex.so.addr = mlx_get_data_addr(app->tex.so.img, &app->tex.so.bpp, &app->tex.so.line_l, &app->tex.so.endian);
-	app->tex.s.addr = mlx_get_data_addr(app->tex.s.img, &app->tex.s.bpp, &app->tex.s.line_l, &app->tex.s.endian);
-}
-
-int     is_valid_octa(t_all *app, int i, int j, char sym)
-{
-	if (i > 0 && !(is_valid_sym(app->map[i - 1][j]) &&
-	is_valid_sym(app->map[i + 1][j]) && 
-	is_valid_sym(app->map[i][j - 1]) &&
-	is_valid_sym(app->map[i + 1][j + 1]) &&
-	is_valid_sym(app->map[i + 1][j - 1]) &&
-	is_valid_sym(app->map[i - 1][j - 1]) &&
-	is_valid_sym(app->map[i - 1][j + 1]) &&
-	is_valid_sym(app->map[i][j + 1])
-	))
-	{
-		if (sym == '0')
-			print_error("parse error, zero not closed");
-		else
-			print_error("parse error, sprite not closed");
-	}
-	return (1);
-}
-
-void	validator_map(t_all *app,t_list **head, int size)
-{
-	app->map = ft_calloc(size + 1,sizeof(char*));
-	int		i;
-	int		j = 0;
-	t_list	*tmp;
-	
-	i = -1;
-	tmp = *head;
-	while(tmp)
-	{
-		if (tmp->content[0] != '\0')
-			app->map[++i] = tmp->content;
-		tmp = tmp->next;
-	}
-	i = -1;
-	while(app->map[++i])
-	{
-		j = skip_space(app->map[i]);
-		while(app->map[i][j])
-		{
-			if (!is_valid_space(app->map[i][j]))
-				print_error("Not valid character");
-			if ((i == (size - 1) && app->map[i][j] == '0')
-			|| (i == 0 && app->map[i][j] == '0'))
-				print_error("parse error, map not closed");
-			else if ((i == (size - 1) && app->map[i][j] == '2')
-			|| (i == 0 && app->map[i][j] == '2'))
-				print_error("parse error, sprite not closed");
-			else if (app->map[i][j] == '0')
-				is_valid_octa(app, i, j, '0');
-			else if (app->map[i][j] == '2')
-				is_valid_octa(app, i, j, '2');
-			if (app->map[i][j] == 'N')
-				ft_is_plr(app, 'N', i, j);
-			else if (app->map[i][j] == 'E')
-				ft_is_plr(app, 'E', i, j);
-			else if (app->map[i][j] == 'W')
-				ft_is_plr(app, 'W', i, j);
-			else if (app->map[i][j] == 'S')
-				ft_is_plr(app, 'S', i, j);
-			else if (app->map[i][j] == '2')
-				app->tex.count_sprite++;
-			j++;
-		}
-	}
-	if (app->plr_init == 0)
-		print_error("None player");
-	ft_putendl_fd("---->SUCCESS<----\n", 1);
-	ft_lstclear(head, &free);
-}
-
-int             parser(int fd, char *line, t_all *app)
-{
+	int		flag;
 	int		len;
-	int		i = 0;
-	char	**arr;
-	t_list	*head = NULL;
-	int flag = 0;
 
-	while ((len = get_next_line(fd ,&line) > 0) && (app->m.count_mod < 8))
-	{
-		if (line[0] != '\0')
-		{
-			arr = ft_split_colon(line, ' ', ',');
-			ft_is_modificator(arr, app);
-			free_arr(arr);
-		}
-		free(line);
-	}
-	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
+	flag = 0;
+	len = 0;
 	if (*line != '\0')
 		ft_lstadd_back(&head, ft_lstnew(line));
 	else
 		free(line);
-	while ((len = get_next_line(fd ,&line)) > 0)
+	while ((len = get_next_line(fd, &line)) > 0)
 	{
 		if (line[0] == '\0' && flag == 1 && only_spaces(line))
 			print_error("Empty line at the map");
@@ -177,6 +76,30 @@ int             parser(int fd, char *line, t_all *app)
 			free(line);
 	}
 	ft_lstadd_back(&head, ft_lstnew(line));
-	validator_map(app ,&head, ft_lstsize(head));
+	validator_map(app, &head, ft_lstsize(head));
+	return (len);
+}
+
+int		parser(int fd, char *line, t_all *app)
+{
+	int		len;
+	int		i;
+	char	**arr;
+	t_list	*head;
+
+	i = 0;
+	head = NULL;
+	while ((len = get_next_line(fd, &line) > 0) && (app->m.count_mod < 8))
+	{
+		if (line[0] != '\0')
+		{
+			arr = ft_split_colon(line, ' ', ',');
+			ft_is_modificator(arr, app);
+			free_arr(arr);
+		}
+		free(line);
+	}
+	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
+	len += read_map(line, len, fd, head, flag, app);
 	return (len);
 }

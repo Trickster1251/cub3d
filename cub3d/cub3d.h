@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 22:54:23 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:48:13 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ typedef struct		s_all
 	double		tex_pos;
 	int			map_x;
 	int			map_y;
-	double 		side_dist_x;
+	double 		side_dst_x;
 	double		side_dist_y;
 	int			line_h;
-	double		delta_dist_x;
-	double		delta_dist_y;
+	double		dlt_dst_x;
+	double		dlt_dst_y;
 	double		perp_wall_dist;
 	int 		step_x;
 	int 		step_y;
@@ -158,7 +158,7 @@ int			keep_key(int keycode, t_all *a);
 int			release_key(t_all* a);
 char	    *to_word(char **str, char sym, int num);
 void		my_mlx_pixel_put(t_all *app, int x, int y, int color);
-void        init_values(t_all *app);
+void        init_player_values(t_all *app);
 int		    ft_parse_r(char **arr, t_all *app);
 int		    ft_parse_f_c(char **arr, t_all *app);
 int			ft_parse_sprite(char **arr, t_all *app, int type);
@@ -186,5 +186,10 @@ int			ft_is_modificator(char **arr, t_all *app);
 int			skip_space(char *str);
 int			is_correct_num(char **arr, int i);
 void		set_size_scrnsht(char **arr, t_all *app, int max_res, int i);
+int			is_valid_octa(t_all *app, int i, int j, char sym);
+void		is_valid_0_2(t_all *app, int i, int j, int size);
+void		is_valid_map(t_all *app, int size);
+void		validator_map(t_all *app, t_list **head, int size);
+void		init_parser_values(t_all *app);
 
 #endif

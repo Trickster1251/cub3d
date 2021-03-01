@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:50 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 22:00:38 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:44:42 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,42 +57,42 @@ int		 raycaster(t_all *app)
 		app->camera_x = 2 * i / (double)(app->m.r[0]) - 1;
 		app->ray_dir_x = app->plr.dir_x + app->plr.pln_x * app->camera_x;
 		app->ray_dir_y = app->plr.dir_y + app->plr.pln_y * app->camera_x;
-		app->delta_dist_x = fabs(1/ app->ray_dir_x);
-		app->delta_dist_y = fabs(1/ app->ray_dir_y);
+		app->dlt_dst_x = fabs(1/ app->ray_dir_x);
+		app->dlt_dst_y = fabs(1/ app->ray_dir_y);
 		app->map_x = (int)(app->plr.x);
 		app->map_y = (int)(app->plr.y);
         
 		if ((app->ray_dir_x) < 0)
 		{
 			app->step_x = -1;
-			app->side_dist_x = (app->plr.x - app->map_x) * app->delta_dist_x;
+			app->side_dst_x = (app->plr.x - app->map_x) * app->dlt_dst_x;
 	  	}
 		else
 		{
 			app->step_x = 1;
-			app->side_dist_x = (app->map_x + 1.0 - app->plr.x) * app->delta_dist_x;
+			app->side_dst_x = (app->map_x + 1.0 - app->plr.x) * app->dlt_dst_x;
 		}
 		if (app->ray_dir_y < 0)
 		{
 			app->step_y = -1;
-			app->side_dist_y = (app->plr.y - app->map_y) * app->delta_dist_y;
+			app->side_dist_y = (app->plr.y - app->map_y) * app->dlt_dst_y;
 		}
 		else
 		{
 			app->step_y = 1;
-			app->side_dist_y = (app->map_y + 1.0 - app->plr.y) * app->delta_dist_y;
+			app->side_dist_y = (app->map_y + 1.0 - app->plr.y) * app->dlt_dst_y;
 		}
 		while (app->hit == 0)
 		{
-		    if (app->side_dist_x < app->side_dist_y)
+		    if (app->side_dst_x < app->side_dist_y)
 		    {
-		    	app->side_dist_x += app->delta_dist_x;
+		    	app->side_dst_x += app->dlt_dst_x;
 		    	app->map_x += app->step_x;
 		    	app->side = 0;
 		    }
 		    else
 		    {
-		    	app->side_dist_y += app->delta_dist_y;
+		    	app->side_dist_y += app->dlt_dst_y;
 		    	app->map_y += app->step_y;
 		    	app->side = 1;
 		    }

@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 22:30:23 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:48:30 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int		main(int argc, char **argv)
 
 	line = NULL;
 	fd = is_valid_file(argc, argv, &app);
-	init_values(&app);
+	init_player_values(&app);
+	init_parser_values(&app);
 	parser(fd, line, &app);
 	app.mlx = mlx_init();
 	(argc == 3) ? (app.srcsht = 1) : (0);
