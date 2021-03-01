@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 21:25:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 22:41:22 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:16:54 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	set_size_scrnsht(char **arr, t_all *app, int max_res, int i)
 {

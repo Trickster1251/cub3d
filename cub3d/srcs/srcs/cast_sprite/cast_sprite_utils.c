@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 20:02:52 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 21:25:51 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:15:38 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	ft_swap(t_sprite *arr, int i, int j)
 {

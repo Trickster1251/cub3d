@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 23:10:43 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 23:12:33 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:17:02 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int		count_word(char *str, char sym, char sym1)
 {

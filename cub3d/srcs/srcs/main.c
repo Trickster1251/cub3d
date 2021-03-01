@@ -6,13 +6,13 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 19:48:30 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:45:00 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		is_valid_file(int argc, char **argv, t_all *app)
+int		is_valid_file(int argc, char **argv)
 {
 	int		fd;
 
@@ -29,12 +29,9 @@ int		is_valid_file(int argc, char **argv, t_all *app)
 		else
 			print_error("This is a directory, dumb litty!");
 	}
+	else
+		print_error("No map!");
 	return (fd);
-}
-
-int		close_window(t_all *app)
-{
-	exit(0);
 }
 
 void	make_screenshot(int argc, char **argv, t_all *app)
@@ -49,6 +46,11 @@ void	make_screenshot(int argc, char **argv, t_all *app)
 		print_error("wrong flag argument, may be u mean \"--save\"");
 }
 
+int		close_window(int keycode)
+{
+	exit(0);
+}
+
 int		main(int argc, char **argv)
 {
 	t_all	app;
@@ -56,7 +58,7 @@ int		main(int argc, char **argv)
 	int		fd;
 
 	line = NULL;
-	fd = is_valid_file(argc, argv, &app);
+	fd = is_valid_file(argc, argv);
 	init_player_values(&app);
 	init_parser_values(&app);
 	parser(fd, line, &app);

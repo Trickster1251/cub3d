@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 22:58:02 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:22:24 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		is_valid_octa(t_all *app, int i, int j, char sym)
 	return (1);
 }
 
-void	is_valid_0_2(t_all *app, int i, int j, int size)
+void	is_valid_0_2(t_all *app, int i, int j)
 {
 	if (app->map[i][j] == '0')
 		is_valid_octa(app, i, j, '0');
@@ -66,7 +66,7 @@ void	is_valid_map(t_all *app, int size)
 			if ((i == (size - 1) && app->map[i][j] != '1')
 			|| (i == 0 && app->map[i][j] != '1'))
 				print_error("parse error, map not closed");
-			is_valid_0_2(app, i, j, size);
+			is_valid_0_2(app, i, j);
 			j++;
 		}
 	}

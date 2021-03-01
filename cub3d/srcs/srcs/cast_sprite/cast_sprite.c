@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:08 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 00:09:31 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:15:33 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void		init_var_sprite(t_all *a, t_sprite *ar)
 {

@@ -6,11 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 22:00:16 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 22:52:32 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:16:44 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	is_side_0(t_all *a)
 {

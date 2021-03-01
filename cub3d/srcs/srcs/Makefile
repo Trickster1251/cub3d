@@ -1,0 +1,63 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: walethea <walethea@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/03/02 00:30:56 by walethea          #+#    #+#              #
+#    Updated: 2021/03/02 01:57:24 by walethea         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = cub3D
+INCLUDES =  ./cub3d.h
+SRCS	=	../get_next_line/get_next_line.c\
+			../get_next_line/get_next_line_utils.c\
+			./cast_sprite/cast_sprite.c\
+			./cast_sprite/cast_sprite_utils.c\
+			./movement/ft_movement.c\
+			./movement/key_hook_utils.c\
+			./parser/ft_atoi_colon.c\
+			./parser/parse_mod.c\
+			./parser/parse_textures.c\
+			./parser/parser.c\
+			./parser/parser_utils.c\
+			./parser/parser_utils_2.c\
+			./parser/parser_utils_3.c\
+			./raycast/ft_screenshot.c\
+			./raycast/image_utils.c\
+			./raycast/raycaster.c\
+			./raycast/raycaster_utils.c\
+			./main.c \
+
+BONUS_SRCS = ./bonus/
+
+FLAGS	=	-Wall -Wextra -Werror
+FRAMEWORK	= -L./minilibx_opengl -lmlx -framework OpenGL -framework AppKit
+LIBFT	=	 -L../libft -lft
+OBJS	= $(SRCS:.c=.o)
+all:	$(NAME)
+$(NAME):	$(OBJS)
+		@echo "------------>Please wait, minilibx compile...<------------"
+		@make re -C ../libft;
+		@make bonus -C ../libft;
+		@make -C../minilibx_opengl;
+		@gcc $(FLAGS) $(SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)
+		@echo "------------>SUCCESS<------------"
+
+bonus:	
+
+clean:	
+		@make clean -C ../libft
+		@make clean -C../minilibx_opengl
+		@rm -rf $(OBJS)
+		@echo "------------>Delete all .o files<------------>"
+
+fclean:	clean
+		@make fclean -C../libft
+		@rm -f $(NAME)
+		@echo "------------>Delete all .o files and ./cub3D<------------>"
+re:		fclean $(NAME) all
+
+.PHONY:		all clean fclean re
