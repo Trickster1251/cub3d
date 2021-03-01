@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 21:43:19 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 22:45:57 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ typedef struct		s_all
 	t_texture	tex;
 	t_draw_spr	ds;
 	void		*mlx;
+	int			ds_w;
+	int			de_w;
 	void		*win_ptr;
 	char		**map;
 	int			plr_init;
@@ -216,4 +218,14 @@ void		validator_map(t_all *app, t_list **head, int size);
 void		init_parser_values(t_all *app);
 void		ft_qsort(t_sprite *arr, int left, int right);
 void        draw_sprite(t_all *app, double *sprite_dist, t_sprite *arr_sprite);
+void	calculate_step(t_all *a);
+void	is_hit(t_all *a);
+void	is_side_0(t_all *a);
+void	what_side(t_all *a);
+void	draw_wall(t_all *a, int i);
+void	drawing(t_all *a);
+void	init_ray_values(t_all *a, int i);
+void	set_ds_de(t_all *a);
+
+
 #endif
