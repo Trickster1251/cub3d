@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 19:59:54 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/01 20:00:59 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,6 @@ int		parser(int fd, char *line, t_all *app)
 		free(line);
 	}
 	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
-	len += read_map(line, len, fd, head, flag, app);
+	len += read_map(line, fd, head, app);
 	return (len);
 }
