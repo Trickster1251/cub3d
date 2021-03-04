@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 01:21:32 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 02:40:38 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	color_parser_f(char **arr, t_all *a)
 			print_error("Wrong value color modificator");
 	arr = ft_split(*(arr + 1), ',');
 	(!array_len(arr, 2)) ? print_error("More array len") : 0;
-	if (!is_correct_num((arr), 0))
+	if (!is_correct_num((arr), -1))
 		print_error("Enter correct symbols at F");
 	a->m.f = create_rgb(ft_atoi(*(arr)),
 	ft_atoi(*(arr + 1)), ft_atoi(*(arr + 2)));
@@ -61,7 +61,7 @@ void	color_parser_c(char **arr, t_all *a)
 			print_error("Wrong value color modificator");
 	arr = ft_split(*(arr + 1), ',');
 	(!array_len(arr, 2)) ? print_error("More array len") : 0;
-	if (!is_correct_num((arr), 0))
+	if (!is_correct_num((arr), -1))
 		print_error("Enter correct symbols at C");
 	a->m.c = create_rgb(ft_atoi(*(arr)),
 	ft_atoi(*(arr + 1)), ft_atoi(*(arr + 2)));

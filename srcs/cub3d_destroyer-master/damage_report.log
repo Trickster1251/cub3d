@@ -1,4 +1,4 @@
-Thu Mar  4 22:42:02 MSK 2021
+Fri Mar  5 02:28:18 MSK 2021
 
 
 =============== CUB3D DESTROYER - DAMAGE REPORT ===============
@@ -97,15 +97,15 @@ PARSER OUTPUT:
 
 
 =====================[DESTROYED STUFF # 4]=====================
-./invalid_maps/invalid_res_014.cub
-R 0 0
+valid_maps/valid_RGB_003.cub
+R 1080 720
 NO ./wolftex/WALL54.xpm
 SO ./wolftex/WALL33.xpm
+                                                C                       0,1,255
 EA ./wolftex/WALL64.xpm
 WE ./wolftex/WALL64.xpm
 S ./wolftex/HEADH0.xpm
-C 255,200,160
-F 122,122,122
+F 255,1,0
 
 11111111111111111
 10000000000000001
@@ -122,11 +122,41 @@ F 122,122,122
 11111111111111111
 
 PARSER OUTPUT:
----->SUCCESS<----
-
+Error
+modificator wrong or spaces begining line
 
 
 =====================[DESTROYED STUFF # 5]=====================
+valid_maps/valid_RGB_004.cub
+                                                                                                                                    C 255,200,160
+                                                                                                                                    F 122,122,122
+R 1080 720
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF # 6]=====================
 valid_maps/valid_RGB_005.cub
 R 1080 720
 NO ./wolftex/WALL54.xpm
@@ -156,7 +186,7 @@ Error
 Wrong value color modificator
 
 
-=====================[DESTROYED STUFF # 6]=====================
+=====================[DESTROYED STUFF # 7]=====================
 valid_maps/valid_RGB_010.cub
 R 1080 720
 NO ./wolftex/WALL54.xpm
@@ -186,7 +216,7 @@ Error
 Wrong value color modificator
 
 
-=====================[DESTROYED STUFF # 7]=====================
+=====================[DESTROYED STUFF # 8]=====================
 valid_maps/valid_RGB_011.cub
                                     C               255             ,               200             ,                           160
 R 1080 720
@@ -213,10 +243,40 @@ F 122,122,122
 
 PARSER OUTPUT:
 Error
-Wrong value color modificator
+modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF # 8]=====================
+=====================[DESTROYED STUFF # 9]=====================
+valid_maps/valid_RGB_012.cub
+R 1080 720
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+                        C 255,200,160
+F 122,122,122
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #10]=====================
 valid_maps/valid_map_area_001.cub
 R 1080 720
 NO ./wolftex/WALL54.xpm
@@ -260,7 +320,7 @@ Error
 Empty line at the map
 
 
-=====================[DESTROYED STUFF # 9]=====================
+=====================[DESTROYED STUFF #11]=====================
 valid_maps/valid_map_area_011.cub
 R 1080 720
 NO ./wolftex/WALL54.xpm
@@ -357,7 +417,161 @@ Error
 Empty line at the map
 
 
-=====================[DESTROYED STUFF #10]=====================
+=====================[DESTROYED STUFF #12]=====================
+valid_maps/valid_res_001.cub
+       R 1080 720
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #13]=====================
+valid_maps/valid_res_007.cub
+
+
+            R                1080                            720
+
+
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #14]=====================
+valid_maps/valid_res_011.cub
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+        R       1080              720
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #15]=====================
+valid_maps/valid_res_012.cub
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+
+                                                                R 1080  720
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #16]=====================
+valid_maps/valid_res_016.cub
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                R 1080 720
+NO ./wolftex/WALL54.xpm
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #17]=====================
 valid_maps/valid_tex_011.cub
 R 1080 720
 SO ./wolftex/WALL33.xpm
@@ -384,10 +598,10 @@ F 122,122,122
 
 PARSER OUTPUT:
 Error
-No modificator type, enter correct data
+modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF #11]=====================
+=====================[DESTROYED STUFF #18]=====================
 valid_maps/valid_tex_013.cub
 R 1080 720
 SO ./wolftex/WALL33.xpm
@@ -417,7 +631,7 @@ Error
 Wrong value of textures/sprite
 
 
-=====================[DESTROYED STUFF #12]=====================
+=====================[DESTROYED STUFF #19]=====================
 valid_maps/valid_tex_014.cub
 R 1080 720 
 SO ./wolftex/WALL33.xpm	
@@ -447,7 +661,7 @@ Error
 Wrong SO fd
 
 
-=====================[DESTROYED STUFF #13]=====================
+=====================[DESTROYED STUFF #20]=====================
 valid_maps/valid_tex_015.cub
 F 122,122,122
 SO 	./wolftex/WALL33.xpm
@@ -477,7 +691,7 @@ Error
 Wrong SO fd
 
 
-=====================[DESTROYED STUFF #14]=====================
+=====================[DESTROYED STUFF #21]=====================
 valid_maps/valid_tex_017.cub
 SO ./wolftex/WALL33.xpm
 EA ./wolftex/WALL64.xpm
@@ -504,10 +718,10 @@ R 1080 720
 
 PARSER OUTPUT:
 Error
-No modificator type, enter correct data
+modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF #15]=====================
+=====================[DESTROYED STUFF #22]=====================
 valid_maps/valid_tex_022.cub
 F 122,122,122	
 SO ./wolftex/WALL33.xpm 
@@ -537,7 +751,179 @@ Error
 Enter correct symbols at F
 
 
-=====================[DESTROYED STUFF #16]=====================
+=====================[DESTROYED STUFF #23]=====================
+valid_maps/valid_tex_032.cub
+C 255,200,160
+                                    NO ./wolftex/WALL54.xpm
+SO                                                                                                                              ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm                                                                                                       
+WE ./wolftex/WALL64.xpm
+S ./wolftex/HEADH0.xpm
+F 122,122,122
+
+R 1080 720
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #24]=====================
+valid_maps/valid_tex_033.cub
+R 1080 720
+SO ./wolftex/WALL33.xpm
+EA ./wolftex/WALL64.xpm
+C 255,200,160
+F 122,122,122
+
+S                               ./wolftex/HEADH0.xpm
+                                                                WE ./wolftex/WALL64.xpm
+            NO ./wolftex/WALL54.xpm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #25]=====================
+valid_maps/valid_tex_040.cub
+
+
+
+
+
+
+
+
+
+
+
+                                            R 1080 720
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                            NO ./wolftex/WALL54.xpm
+                                                                            SO ./wolftex/WALL33.xpm
+                                                                            EA ./wolftex/WALL64.xpm
+                                                                            WE ./wolftex/WALL64.xpm
+                                                                            S ./wolftex/HEADH0.xpm
+C 255,200,160
+F 122,122,122
+
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #26]=====================
+valid_maps/valid_tex_041.cub
+R 1080 720
+                                    NO                                              ./wolftex/WALL54.xpm
+                EA                                                                                          ./wolftex/WALL64.xpm
+    WE ./wolftex/WALL64.xpm
+
+
+
+C 255,200,160
+                S ./wolftex/HEADH0.xpm
+F 122,122,122
+
+SO                                          ./wolftex/WALL33.xpm
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #27]=====================
 valid_maps/valid_tex_042.cub
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             WE                                                                                                                   ./wolftex/WALL64.xpm
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
@@ -568,7 +954,100 @@ Error
 modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF #17]=====================
+=====================[DESTROYED STUFF #28]=====================
+valid_maps/valid_tex_043.cub
+WE ./wolftex/WALL64.xpm
+
+                        SO ./wolftex/WALL33.xpm
+                                                F 122,122,122
+                                                                    NO ./wolftex/WALL54.xpm
+                                                                             S ./wolftex/HEADH0.xpm
+                                                                                                    R 1080 720
+                                                            EA ./wolftex/WALL64.xpm
+
+                                    C 255,200,160
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #29]=====================
+valid_maps/valid_tex_044.cub
+WE ./wolftex/WALL64.xpm
+
+            SO ./wolftex/WALL33.xpm
+                                   F 122,122,122
+                                                  NO ./wolftex/WALL54.xpm
+                                                                S ./wolftex/HEADH0.xpm
+                                                                                R 1080 720
+                                            EA ./wolftex/WALL64.xpm
+
+                    C 255,200,160
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #30]=====================
+valid_maps/valid_tex_045.cub
+                WE ./wolftex/WALL64.xpm
+
+                                SO ./wolftex/WALL33.xpm
+                      F 122,122,122
+                                 NO ./wolftex/WALL54.xpm
+                                                     S ./wolftex/HEADH0.xpm
+                                                                    R 1080 720
+                                                                EA ./wolftex/WALL64.xpm
+
+                                     C 255,200,160
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #31]=====================
 valid_maps/valid_tex_047.cub
                 WE                                                                                                 ./wolftex/WALL64.xpm
 
@@ -596,10 +1075,10 @@ valid_maps/valid_tex_047.cub
 
 PARSER OUTPUT:
 Error
-Wrong value color modificator
+modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF #18]=====================
+=====================[DESTROYED STUFF #32]=====================
 valid_maps/valid_tex_048.cub
      WE                                                                                                                   ./wolftex/WALL64.xpm
 
@@ -627,10 +1106,41 @@ valid_maps/valid_tex_048.cub
 
 PARSER OUTPUT:
 Error
-Wrong value color modificator
+modificator wrong or spaces begining line
 
 
-=====================[DESTROYED STUFF #19]=====================
+=====================[DESTROYED STUFF #33]=====================
+valid_maps/valid_tex_049.cub
+                WE              ./wolftex/WALL64.xpm
+
+             SO                         ./wolftex/WALL33.xpm
+                      F                 122,122,122
+                                 NO ./wolftex/WALL54.xpm
+                                         S          ./wolftex/HEADH0.xpm
+                                                                    R           1080                  720
+                                                      EA                  ./wolftex/WALL64.xpm
+
+                          C                      255,200,160
+11111111111111111
+10000000000000001
+10200000200000201
+10000000000000001
+10002000200020001
+10000000000000001
+10202020N02020201
+10000000000000001
+10002000200200001
+10000000000000001
+10200000200002001
+10000000000000001
+11111111111111111
+
+PARSER OUTPUT:
+Error
+modificator wrong or spaces begining line
+
+
+=====================[DESTROYED STUFF #34]=====================
 valid_maps/valid_tex_050.cub
 
 
