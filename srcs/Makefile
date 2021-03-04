@@ -6,7 +6,7 @@
 #    By: walethea <walethea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 00:30:56 by walethea          #+#    #+#              #
-#    Updated: 2021/03/02 02:24:39 by walethea         ###   ########.fr        #
+#    Updated: 2021/03/04 15:06:51 by walethea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,17 +37,24 @@ MAIN_SRCS	= 	./raycast/raycaster.c\
 
 				
 FLAGS	=	-Wall -Wextra -Werror
-FRAMEWORK	= -L./minilibx_opengl -lmlx -framework OpenGL -framework AppKit
+FRAMEWORK	= -L../minilibx_opengl/ -lmlx -framework OpenGL -framework AppKit
+FRAMEWORK1	= -L../minilibx_mms/ -lmlx -framework OpenGL -framework AppKit
 LIBFT	=	 -L../libft -lft
 OBJS	= $(SRCS:.c=.o)
 BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 all:	$(NAME)
+
+a:		
+		gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
+
 $(NAME):	$(OBJS)
 		@echo "------------>Please wait, minilibx compile...<------------"
 		@make re -C ../libft;
 		@make bonus -C ../libft;
 		@make -C../minilibx_opengl;
-		@gcc $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)
+		@make -C../minilibx_mms;
+		@cp ../minilibx_mms/libmlx.dylib pwd
+		@gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
 		@echo "------------>SUCCESS<------------"
 
 bonus:	$(BONUS_OBJS)

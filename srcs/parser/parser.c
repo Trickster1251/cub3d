@@ -6,11 +6,20 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 23:59:10 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:30:39 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int		is_modificator(char mod)
+{
+	if (!(mod == 'N' || mod == 'F' || mod == 'R' ||
+	mod == 'W' || mod == 'S' || mod == 'C' || mod == 'E'))
+		print_error("modificator wrong or spaces begining line");
+	return (1);
+}
+
 
 int		ft_is_modificator(char **arr, t_all *app)
 {
@@ -93,7 +102,7 @@ int		read_map(char *line, int fd, t_list *head, t_all *app)
 	{
 		if (line[0] == '\0' && flag == 1 && only_spaces(line))
 			print_error("Empty line at the map");
-		else if ((line[0] != '\0' || flag == 1) && !only_spaces(line))
+		else if ((line[0] != '\0' || flag == 1))
 		{
 			flag = 1;
 			ft_lstadd_back(&head, ft_lstnew(line));
@@ -102,6 +111,7 @@ int		read_map(char *line, int fd, t_list *head, t_all *app)
 			free(line);
 	}
 	ft_lstadd_back(&head, ft_lstnew(line));
+	free(line);
 	validator_map(app, &head, ft_lstsize(head));
 	return (len);
 }
@@ -119,6 +129,8 @@ int		parser(int fd, char *line, t_all *app)
 	{
 		if (line[0] != '\0')
 		{
+			if (only_spaces(line))
+				is_modificator(line[0]);
 			arr = ft_split_colon(line, ' ', ',');
 			ft_is_modificator(arr, app);
 			free_arr(arr);
