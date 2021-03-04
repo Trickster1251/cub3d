@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/04 15:30:39 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 01:27:42 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	init_parser_values(t_all *app)
 	app->tex.we.path = 0;
 	app->tex.so.path = 0;
 	app->tex.s.path = 0;
+	app->tex.c_spr = 0;
 	app->tex.c_spr = 0;
 	app->m.r_i = 0;
 	app->m.f_i = 0;
@@ -110,8 +111,13 @@ int		read_map(char *line, int fd, t_list *head, t_all *app)
 		else
 			free(line);
 	}
-	ft_lstadd_back(&head, ft_lstnew(line));
-	free(line);
+	if (line[0] == '\n')
+		print_error("Empty line at the map");
+	else
+	{
+		ft_lstadd_back(&head, ft_lstnew(line));
+		free(line);
+	}
 	validator_map(app, &head, ft_lstsize(head));
 	return (len);
 }
@@ -129,9 +135,9 @@ int		parser(int fd, char *line, t_all *app)
 	{
 		if (line[0] != '\0')
 		{
-			if (only_spaces(line))
-				is_modificator(line[0]);
-			arr = ft_split_colon(line, ' ', ',');
+			if (!(is_modificator(line[0])))
+				print_error("modificator wrong or spaces begining line");
+			arr = ft_split(line, ' ');
 			ft_is_modificator(arr, app);
 			free_arr(arr);
 		}

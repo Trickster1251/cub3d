@@ -6,19 +6,66 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/02/28 21:42:10 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 01:21:32 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include "stdio.h"
 
 int		create_rgb(int r, int g, int b)
 {
 	(r < 0 || g < 0 || b < 0)
-	? (print_error("Color modificator less then 0")) : (0);
+	? (print_error("Wrong value color modificator")) : (0);
 	(r > 255 || g > 255 || b > 255)
-	? (print_error("Color modificator more then 255")) : (0);
+	? (print_error("Wrong value color modificator")) : (0);
 	return (r << 16 | g << 8 | b);
+}
+
+int		valid_colon(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (!str)
+		print_error("Wrong value color modificator");
+	while(*str)
+	{
+		if (*str == ',')
+			i++;
+		str++;
+	}
+	return ((i == 2) ? (1) : (0));
+}
+
+void	color_parser_f(char **arr, t_all *a)
+{
+	(a->m.f_i == 1)
+	? (print_error("F twice init")) : (a->m.f_i = 1);
+	if (!(valid_colon(*(arr + 1))))
+			print_error("Wrong value color modificator");
+	arr = ft_split(*(arr + 1), ',');
+	(!array_len(arr, 2)) ? print_error("More array len") : 0;
+	if (!is_correct_num((arr), 0))
+		print_error("Enter correct symbols at F");
+	a->m.f = create_rgb(ft_atoi(*(arr)),
+	ft_atoi(*(arr + 1)), ft_atoi(*(arr + 2)));
+	free_arr(arr);
+}
+
+void	color_parser_c(char **arr, t_all *a)
+{
+	(a->m.c_i == 1)
+	? (print_error("C twice init")) : (a->m.c_i = 1);
+	if (!(valid_colon(*(arr + 1))))
+			print_error("Wrong value color modificator");
+	arr = ft_split(*(arr + 1), ',');
+	(!array_len(arr, 2)) ? print_error("More array len") : 0;
+	if (!is_correct_num((arr), 0))
+		print_error("Enter correct symbols at C");
+	a->m.c = create_rgb(ft_atoi(*(arr)),
+	ft_atoi(*(arr + 1)), ft_atoi(*(arr + 2)));
+	free_arr(arr);
 }
 
 void	set_size_window(char **arr, t_all *app, int max_res, int i)
@@ -26,6 +73,8 @@ void	set_size_window(char **arr, t_all *app, int max_res, int i)
 	if (((**(arr + i)) == '0') || (ft_strlen(*(arr + i)) <= 4))
 		if ((app->m.r[i - 1] = ft_atoi(*(arr + i))) < max_res)
 		{
+			if (app->m.r[i - 1] < 1)
+				print_error("Wrong value R modificator");
 			if (app->m.r[i - 1] < 300)
 				app->m.r[i - 1] = 300;
 		}
@@ -56,34 +105,25 @@ int		ft_parse_r(char **arr, t_all *app)
 	return (0);
 }
 
-int		ft_parse_f_c(char **arr, t_all *app)
+int		ft_parse_f_c(char **arr, t_all *a)
 {
-	(!array_len(arr, 3)) ? print_error("More array len") : 0;
+	(!array_len(arr, 1)) ? print_error("Wrong value color modificator")
+	: (0);
 	if (**arr == 'F')
 	{
-		(app->m.f_i == 1)
-		? (print_error("F twice init")) : (app->m.f_i = 1);
-		if (!is_correct_num((arr), 0))
-			print_error("Enter correct symbols at F");
-		app->m.f = create_rgb(ft_atoi(*(arr + 1)),
-		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
+		color_parser_f(arr, a);
 	}
 	else
 	{
-		(app->m.c_i == 1) ?
-		(print_error("C twice init")) : (app->m.c_i = 1);
-		if (!is_correct_num((arr), 0))
-			print_error("Enter correct symbols at C");
-		app->m.c = create_rgb(ft_atoi(*(arr + 1)),
-		ft_atoi(*(arr + 2)), ft_atoi(*(arr + 3)));
+		color_parser_c(arr, a);
 	}
-	app->m.count_mod += 1;
+	a->m.count_mod += 1;
 	return (0);
 }
 
 int		ft_parse_sprite(char **arr, t_all *app, int type)
 {
-	(!array_len(arr, 1)) ? print_error("More array len") : 0;
+	(!array_len(arr, 1)) ? print_error("Wrong value of textures/sprite") : 0;
 	if (type == 'N')
 		parse_no_tex(app, arr);
 	else if (type == 'W')

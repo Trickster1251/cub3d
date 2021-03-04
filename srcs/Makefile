@@ -6,7 +6,7 @@
 #    By: walethea <walethea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 00:30:56 by walethea          #+#    #+#              #
-#    Updated: 2021/03/04 15:06:51 by walethea         ###   ########.fr        #
+#    Updated: 2021/03/04 23:40:47 by walethea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,23 +29,20 @@ SRCS	=	../get_next_line/get_next_line.c\
 			./raycast/raycaster_utils.c\
 			./main.c \
 
-BONUS_SRCS	=	./bonus/ft_movement.c\
-				./bonus/raycaster.c\
+BONUS_SRCS	=	./bonus/ft_movement_bonus.c\
+				./bonus/raycaster_bonus.c\
 
 MAIN_SRCS	= 	./raycast/raycaster.c\
 				./movement/ft_movement.c\
 
 				
 FLAGS	=	-Wall -Wextra -Werror
-FRAMEWORK	= -L../minilibx_opengl/ -lmlx -framework OpenGL -framework AppKit
-FRAMEWORK1	= -L../minilibx_mms/ -lmlx -framework OpenGL -framework AppKit
+FRAMEWORK	= -L ../minilibx_opengl/ -lmlx -framework OpenGL -framework AppKit
+FRAMEWORK1	= -L ../minilibx_mms/ -lmlx -framework OpenGL -framework AppKit
 LIBFT	=	 -L../libft -lft
 OBJS	= $(SRCS:.c=.o)
 BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 all:	$(NAME)
-
-a:		
-		gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
 
 $(NAME):	$(OBJS)
 		@echo "------------>Please wait, minilibx compile...<------------"
@@ -53,9 +50,12 @@ $(NAME):	$(OBJS)
 		@make bonus -C ../libft;
 		@make -C../minilibx_opengl;
 		@make -C../minilibx_mms;
-		@cp ../minilibx_mms/libmlx.dylib pwd
-		@gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
+		@cp ../minilibx_mms/libmlx.dylib ./
+		@gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)
 		@echo "------------>SUCCESS<------------"
+
+a:		
+		gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
 
 bonus:	$(BONUS_OBJS)
 		@gcc $(FLAGS) $(SRCS) $(BONUS_SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)
@@ -66,6 +66,9 @@ clean:
 		@make clean -C../minilibx_opengl
 		@rm -rf $(OBJS)
 		@rm -rf $(BONUS_OBJS)
+		@rm -f libmlx.dylib
+		@rm -rf cub3D.dSYM
+		@rm -f screenshot.bmp
 		@echo "------------>Delete all .o files<------------>"
 
 fclean:	clean

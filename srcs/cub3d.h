@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 02:40:42 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/04 23:46:09 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 # include "../minilibx_opengl/mlx.h"
+# include "../minilibx_mms/mlx.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
@@ -122,6 +123,7 @@ typedef struct			s_map
 	int			f;
 	int			c;
 	int			count_mod;
+	int			c_colon;
 }						t_map;
 
 typedef struct			s_all

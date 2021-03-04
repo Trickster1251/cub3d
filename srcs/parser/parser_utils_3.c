@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 23:17:26 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/01 23:23:57 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:37:17 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**free_arr(char **str)
 
 void	print_error(char *string)
 {
-	ft_putendl_fd("Error:", 1);
+	ft_putendl_fd("Error", 1);
 	ft_putendl_fd(string, 1);
 	exit(0);
 }
