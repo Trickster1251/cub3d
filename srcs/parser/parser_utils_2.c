@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 19:37:35 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 22:55:16 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,29 @@ void	is_valid_0_2(t_all *app, int i, int j)
 		app->tex.c_spr++;
 }
 
-void	is_valid_map(t_all *app, int size)
+void	is_valid_map(t_all *a, int size)
 {
 	int		i;
 	int		j;
 
 	i = -1;
 	j = 0;
-	while (app->map[++i])
+	while (a->map[++i])
 	{
-		j = skip_space(app->map[i]);
-		while (app->map[i][j])
+		j = skip_space(a->map[i]);
+		while (a->map[i][j])
 		{
-			if (!is_valid_space(app->map[i][j]))
+			if (!is_valid_space(a->map[i][j]))
 				print_error("Not valid character");
-			if ((i == (size - 1) && app->map[i][j] != '1')
-			|| (i == 0 && app->map[i][j] != '1'))
+			if ((i == 0) && a->map[i][j] != '1' && a->map[i][j] != ' ')
 				print_error("parse error, map not closed");
-			is_valid_0_2(app, i, j);
+			if ((i == size - 1) && a->map[i][j] != '1' && a->map[i][j] != ' ')
+				print_error("parse error, map not closed");
+			is_valid_0_2(a, i, j);
 			j++;
 		}
-		ft_putendl_fd(app->map[i], 1);
 	}
+	size += 1;
 }
 
 void	validator_map(t_all *app, t_list **head, int size)
@@ -85,7 +86,6 @@ void	validator_map(t_all *app, t_list **head, int size)
 	{
 		if (tmp->content[0] != '\0')
 			app->map[++i] = tmp->content;
-		// ft_putendl_fd(app->map[i], 1);
 		tmp = tmp->next;
 	}
 	is_valid_map(app, size);

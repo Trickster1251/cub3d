@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 21:36:19 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 21:58:32 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	init_player_values(t_all *app)
 	app->ds.color = 0;
 }
 
-void		read_map(char *line, int fd, t_list *head, t_all *app)
+void	read_map(char *line, int fd, t_list *head, t_all *app)
 {
 	int		flag;
 
@@ -107,7 +107,7 @@ void		read_map(char *line, int fd, t_list *head, t_all *app)
 	validator_map(app, &head, ft_lstsize(head));
 }
 
-int		parser(int fd, char *line, t_all *app)
+int		parser(int fd, char *line, t_all *a)
 {
 	int		len;
 	int		i;
@@ -116,19 +116,21 @@ int		parser(int fd, char *line, t_all *app)
 
 	i = 0;
 	head = NULL;
-	while ((len = get_next_line(fd, &line) > 0) && (app->m.count_mod < 8))
+	while ((len = get_next_line(fd, &line) > 0) && (a->m.count_mod < 8))
 	{
-		if (line[0] != '\0')
+		if (line[0] == '\0' && a->m.count_mod == 0)
+			print_error("Empty line before modicifators");
+		else if (line[0] != '\0')
 		{
 			if (!(is_modificator(line[0])))
 				print_error("modificator wrong or spaces begining line");
 			arr = ft_split(line, ' ');
-			ft_is_modificator(arr, app);
+			ft_is_modificator(arr, a);
 			free_arr(arr);
 		}
 		free(line);
 	}
 	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
-	read_map(line, fd, head, app);
+	read_map(line, fd, head, a);
 	return (len);
 }

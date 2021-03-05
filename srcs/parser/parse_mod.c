@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 21:42:17 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 21:57:07 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	set_size_window(char **arr, t_all *app, int max_res, int i)
 		{
 			if (app->m.r[i - 1] < 1)
 				print_error("Wrong value R modificator");
-			
 		}
 		else
 			app->m.r[i - 1] = max_res;
