@@ -6,20 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 01:27:42 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 03:10:58 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int		is_modificator(char mod)
-{
-	if (!(mod == 'N' || mod == 'F' || mod == 'R' ||
-	mod == 'W' || mod == 'S' || mod == 'C' || mod == 'E'))
-		print_error("modificator wrong or spaces begining line");
-	return (1);
-}
-
 
 int		ft_is_modificator(char **arr, t_all *app)
 {
@@ -88,18 +79,16 @@ void	init_player_values(t_all *app)
 	app->ds.color = 0;
 }
 
-int		read_map(char *line, int fd, t_list *head, t_all *app)
+void		read_map(char *line, int fd, t_list *head, t_all *app)
 {
 	int		flag;
-	int		len;
 
 	flag = 0;
-	len = 0;
 	if (*line != '\0')
 		ft_lstadd_back(&head, ft_lstnew(line));
 	else
 		free(line);
-	while ((len = get_next_line(fd, &line)) > 0)
+	while ((get_next_line(fd, &line)) > 0)
 	{
 		if (line[0] == '\0' && flag == 1 && only_spaces(line))
 			print_error("Empty line at the map");
@@ -111,15 +100,14 @@ int		read_map(char *line, int fd, t_list *head, t_all *app)
 		else
 			free(line);
 	}
-	if (line[0] == '\n')
-		print_error("Empty line at the map");
-	else
-	{
-		ft_lstadd_back(&head, ft_lstnew(line));
-		free(line);
-	}
+	// if (line[0] == '\n')
+	// 	print_error("Empty line at the map");
+	// else
+	// {
+	// 	ft_lstadd_back(&head, ft_lstnew(line));
+	// 	free(line);
+	// }
 	validator_map(app, &head, ft_lstsize(head));
-	return (len);
 }
 
 int		parser(int fd, char *line, t_all *app)
@@ -144,6 +132,6 @@ int		parser(int fd, char *line, t_all *app)
 		free(line);
 	}
 	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
-	len += read_map(line, fd, head, app);
+	read_map(line, fd, head, app);
 	return (len);
 }

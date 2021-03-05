@@ -6,7 +6,7 @@
 #    By: walethea <walethea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 00:30:56 by walethea          #+#    #+#              #
-#    Updated: 2021/03/04 23:40:47 by walethea         ###   ########.fr        #
+#    Updated: 2021/03/05 03:18:57 by walethea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS	=	../get_next_line/get_next_line.c\
 			./movement/key_hook_utils.c\
 			./parser/ft_atoi_colon.c\
 			./parser/parse_mod.c\
+			./parser/parse_color.c\
 			./parser/parse_textures.c\
 			./parser/parser.c\
 			./parser/parser_utils.c\

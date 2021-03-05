@@ -6,11 +6,19 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 23:17:26 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/04 15:37:17 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 03:22:15 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int		is_modificator(char mod)
+{
+	if (!(mod == 'N' || mod == 'F' || mod == 'R' ||
+	mod == 'W' || mod == 'S' || mod == 'C' || mod == 'E'))
+		print_error("modificator wrong or spaces begining line");
+	return (1);
+}
 
 int		ft_isdigit_str(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/04 23:46:09 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 03:18:27 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,9 @@ void					draw_wall(t_all *a, int i);
 void					drawing(t_all *a);
 void					init_ray_values(t_all *a, int i);
 void					set_ds_de(t_all *a);
+int						is_modificator(char mod);
+int						create_rgb(int r, int g, int b);
+void					color_parser_f(char **arr, t_all *a);
+void					color_parser_c(char **arr, t_all *a);
 
 #endif
