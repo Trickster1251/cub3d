@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "__debug": "cpp",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "chrono": "cpp",
+        "mutex": "cpp",
+        "cstdio": "c"
+    }
+}
