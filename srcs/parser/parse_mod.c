@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 03:17:13 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 21:42:17 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	set_size_window(char **arr, t_all *app, int max_res, int i)
 		{
 			if (app->m.r[i - 1] < 1)
 				print_error("Wrong value R modificator");
-			if (app->m.r[i - 1] < 300)
-				app->m.r[i - 1] = 300;
+			
 		}
 		else
 			app->m.r[i - 1] = max_res;
@@ -29,24 +28,25 @@ void	set_size_window(char **arr, t_all *app, int max_res, int i)
 		app->m.r[i - 1] = max_res;
 }
 
-int		ft_parse_r(char **arr, t_all *app)
+int		ft_parse_r(char **arr, t_all *a)
 {
 	(!array_len(arr, 2)) ? print_error("More array len") : (0);
-	(app->m.r_i == 1) ?
-	(print_error("R twice init")) : (app->m.r_i = 1);
+	(a->m.r_i == 1) ?
+	(print_error("R twice init")) : (a->m.r_i = 1);
 	if (!is_correct_num(arr, 0))
 		print_error("Enter correct symbols at resolution");
-	if (app->srcsht == 0)
+	mlx_get_screen_size(a->mlx, &a->max_w, &a->max_h);
+	if (a->srcsht == 0)
 	{
-		set_size_window(arr, app, 2560, 1);
-		set_size_window(arr, app, 1440, 2);
+		set_size_window(arr, a, a->max_w, 1);
+		set_size_window(arr, a, a->max_h, 2);
 	}
 	else
 	{
-		set_size_scrnsht(arr, app, 10000, 1);
-		set_size_scrnsht(arr, app, 10000, 2);
+		set_size_scrnsht(arr, a, 10000, 1);
+		set_size_scrnsht(arr, a, 10000, 2);
 	}
-	app->m.count_mod += 1;
+	a->m.count_mod += 1;
 	return (0);
 }
 

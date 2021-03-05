@@ -6,7 +6,7 @@
 #    By: walethea <walethea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 00:30:56 by walethea          #+#    #+#              #
-#    Updated: 2021/03/05 03:18:57 by walethea         ###   ########.fr        #
+#    Updated: 2021/03/05 20:56:57 by walethea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,18 +45,18 @@ OBJS	= $(SRCS:.c=.o)
 BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 all:	$(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(INCLUDES)
 		@echo "------------>Please wait, minilibx compile...<------------"
 		@make re -C ../libft;
 		@make bonus -C ../libft;
 		@make -C../minilibx_opengl;
 		@make -C../minilibx_mms;
 		@cp ../minilibx_mms/libmlx.dylib ./
-		@gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)
+		@gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) libmlx.dylib -o $(NAME)
 		@echo "------------>SUCCESS<------------"
 
 a:		
-		gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) $(FRAMEWORK1) -o $(NAME)
+		gcc -g $(FLAGS) $(SRCS) $(MAIN_SRCS) $(LIBFT) $(FRAMEWORK) libmlx.dylib -o $(NAME)
 
 bonus:	$(BONUS_OBJS)
 		@gcc $(FLAGS) $(SRCS) $(BONUS_SRCS) $(LIBFT) $(FRAMEWORK) -o $(NAME)

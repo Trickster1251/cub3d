@@ -6,11 +6,12 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:59 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 02:34:27 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 21:32:52 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "stdio.h"
 
 int		is_valid_file(int argc, char **argv)
 {

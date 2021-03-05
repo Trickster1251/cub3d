@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 03:18:27 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 21:33:57 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ typedef struct			s_all
 	char		**map;
 	int			plr_init;
 	int			srcsht;
+	int			max_w;
+	int			max_h;
 	double		camera_x;
 	double		ray_dir_x;
 	double		ray_dir_y;
