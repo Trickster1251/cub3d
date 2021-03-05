@@ -6,88 +6,72 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/06 02:19:04 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 02:00:55 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		this_is_plr(char str)
+int		is_valid_octa(t_all *app, int i, int j, char sym)
 {
-	if (str == 'N' || str == 'W' || str == 'S' || str == 'E')
-		return (1);
-	return (0);
-}
-
-int		is_valid_octa_plr(t_all *a, int i, int j, char t)
-{
-	if ((j >= (int)ft_strlen(a->map[i - 1])) || (j >= (int)ft_strlen(a->map[i + 1])))
-		print_error("player not closed");
-	if (!(is_valid_sym(a->map[i - 1][j]) &&
-	is_valid_sym(a->map[i + 1][j]) &&
-	is_valid_sym(a->map[i][j - 1]) &&
-	is_valid_sym(a->map[i + 1][j + 1]) &&
-	is_valid_sym(a->map[i + 1][j - 1]) &&
-	is_valid_sym(a->map[i - 1][j - 1]) &&
-	is_valid_sym(a->map[i - 1][j + 1]) &&
-	is_valid_sym(a->map[i][j + 1])))
-		print_error("Player not close1d");
-	ft_is_plr(a, t, i, j);
-	return (1);
-}
-
-int		is_valid_octa_0_2(t_all *a, int i, int j)
-{
-	if ((j >= (int)ft_strlen(a->map[i - 1])) || (j >= (int)ft_strlen(a->map[i + 1])))
-		print_error("symbol not closed");
-	if (!(is_valid_sym(a->map[i - 1][j]) &&
-	is_valid_sym(a->map[i + 1][j]) &&
-	is_valid_sym(a->map[i][j - 1]) &&
-	is_valid_sym(a->map[i + 1][j + 1]) &&
-	is_valid_sym(a->map[i + 1][j - 1]) &&
-	is_valid_sym(a->map[i - 1][j - 1]) &&
-	is_valid_sym(a->map[i - 1][j + 1]) &&
-	is_valid_sym(a->map[i][j + 1])))
-		print_error("symbol not closed");
-
-	return (1);
-}
-
-void	is_valid(t_all *app, int i, int j)
-{
-	if (this_is_plr(app->map[i][j]))
-		is_valid_octa_plr(app, i, j, app->map[i][j]);
-	else if (app->map[i][j] == '2' || app->map[i][j] == '0')
+	if (i > 0 && !(is_valid_sym(app->map[i - 1][j]) &&
+	is_valid_sym(app->map[i + 1][j]) &&
+	is_valid_sym(app->map[i][j - 1]) &&
+	is_valid_sym(app->map[i + 1][j + 1]) &&
+	is_valid_sym(app->map[i + 1][j - 1]) &&
+	is_valid_sym(app->map[i - 1][j - 1]) &&
+	is_valid_sym(app->map[i - 1][j + 1]) &&
+	is_valid_sym(app->map[i][j + 1])))
 	{
-			is_valid_octa_0_2(app, i, j);
-			app->tex.c_spr++;
+		if (sym == '0')
+			print_error("parse error, zero not closed");
+		else
+			print_error("parse error, sprite not closed");
 	}
+	return (1);
 }
 
-void	is_valid_map(t_all *a, int size)
+void	is_valid_0_2(t_all *app, int i, int j)
+{
+	if (app->map[i][j] == '0')
+		is_valid_octa(app, i, j, '0');
+	else if (app->map[i][j] == '2')
+		is_valid_octa(app, i, j, '2');
+	
+	
+	if (app->map[i][j] == 'N')
+		ft_is_plr(app, 'N', i, j);
+	else if (app->map[i][j] == 'E')
+		ft_is_plr(app, 'E', i, j);
+	else if (app->map[i][j] == 'W')
+		ft_is_plr(app, 'W', i, j);
+	else if (app->map[i][j] == 'S')
+		ft_is_plr(app, 'S', i, j);
+	else if (app->map[i][j] == '2')
+		app->tex.c_spr++;
+}
+
+void	is_valid_map(t_all *app, int size)
 {
 	int		i;
 	int		j;
 
 	i = -1;
 	j = 0;
-	while (a->map[++i])
+	while (app->map[++i])
 	{
-		j = skip_space(a->map[i]);
-		while (a->map[i][j])
+		j = skip_space(app->map[i]);
+		while (app->map[i][j])
 		{
-			if (!is_valid_space(a->map[i][j]))
+			if (!is_valid_space(app->map[i][j]))
 				print_error("Not valid character");
-			if ((i == 0) && a->map[i][j] != '1' && a->map[i][j] != ' ')
+			if ((i == (size - 1) && app->map[i][j] != '1')
+			|| (i == 0 && app->map[i][j] != '1'))
 				print_error("parse error, map not closed");
-			if ((i == size - 1) && a->map[i][j] != '1' && a->map[i][j] != ' ')
-				print_error("parse error, map not closed");
-			if (i > 0 && i < (size - 1) && (a->map[i][j] != '1') && (a->map[i][j] != ' '))
-				is_valid(a, i, j);
+			is_valid_0_2(app, i, j);
 			j++;
 		}
 	}
-	size += 1;
 }
 
 void	validator_map(t_all *app, t_list **head, int size)

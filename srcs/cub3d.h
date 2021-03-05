@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:00:05 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 22:18:12 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 01:58:02 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int						skip_space(char *str);
 int						is_correct_num(char **arr, int i);
 void					set_size_scrnsht(char **arr,
 t_all *app, int max_res, int i);
-int						is_valid_octa(t_all *app, int i, int j, char sym);
+int						is_valid_octa(t_all *app, int i, int j, char t);
 void					is_valid_0_2(t_all *app, int i, int j);
 void					is_valid_map(t_all *app, int size);
 void					validator_map(t_all *app, t_list **head, int size);
