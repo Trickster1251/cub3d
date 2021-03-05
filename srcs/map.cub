@@ -1,35 +1,11 @@
-R         800 800
-F 132,01,2
+R 800 800
+F 122,122,122
 NO             ./textures/bob.xpm
-WE ./textures/anime.xpm
-EA ./textures/anime.xpm
+WE   ./textures/anime.xpm
+EA ./textures/fuhrer.xpm
 S ./textures/slavane.xpm
 SO ./textures/wood.xpm
 C 123,34,55
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             1111111111111111111111
