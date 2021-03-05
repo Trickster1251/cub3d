@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 01:22:24 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:37:35 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	is_valid_map(t_all *app, int size)
 			is_valid_0_2(app, i, j);
 			j++;
 		}
+		ft_putendl_fd(app->map[i], 1);
 	}
 }
 
@@ -84,6 +85,7 @@ void	validator_map(t_all *app, t_list **head, int size)
 	{
 		if (tmp->content[0] != '\0')
 			app->map[++i] = tmp->content;
+		// ft_putendl_fd(app->map[i], 1);
 		tmp = tmp->next;
 	}
 	is_valid_map(app, size);

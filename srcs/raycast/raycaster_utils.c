@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 22:00:16 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/02 01:16:44 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:29:38 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	is_hit(t_all *a)
 			a->map_y += a->step_y;
 			a->side = 1;
 		}
+		// ft_putendl_fd(&a->map[a->map_y][a->map_x], 1);
 		if (a->map[a->map_y][a->map_x] == '1')
 			a->hit = 1;
 	}

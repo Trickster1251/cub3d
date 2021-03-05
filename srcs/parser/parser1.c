@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 20:17:22 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:49:17 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		read_map(char *line, int fd, t_list *head, t_all *app)
 	while ((get_next_line(fd, &line)) > 0)
 	{
 		if (line[0] == '\0' && flag == 1 && only_spaces(line))
-			print_error("Empty line at the map!");
+			print_error("Empty line at the map");
 		else if ((line[0] != '\0' || flag == 1))
 		{
 			flag = 1;
@@ -100,10 +100,13 @@ void		read_map(char *line, int fd, t_list *head, t_all *app)
 		else
 			free(line);
 	}
-	if (line[0] == '\0')
+	if (line[0] == '\n')
 		print_error("Empty line at the map");
 	else
+	{
 		ft_lstadd_back(&head, ft_lstnew(line));
+		free(line);
+	}
 	validator_map(app, &head, ft_lstsize(head));
 }
 
