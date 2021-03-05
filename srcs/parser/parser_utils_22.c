@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils_2.c                                   :+:      :+:    :+:   */
+/*   parser_utils_22.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/06 02:00:55 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 02:28:40 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	is_valid_0_2(t_all *app, int i, int j)
 		is_valid_octa(app, i, j, '0');
 	else if (app->map[i][j] == '2')
 		is_valid_octa(app, i, j, '2');
-	
-	
 	if (app->map[i][j] == 'N')
 		ft_is_plr(app, 'N', i, j);
 	else if (app->map[i][j] == 'E')

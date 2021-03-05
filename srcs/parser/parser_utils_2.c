@@ -6,7 +6,7 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:16:10 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/06 02:19:04 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 02:29:52 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		is_valid_octa_plr(t_all *a, int i, int j, char t)
 
 int		is_valid_octa_0_2(t_all *a, int i, int j)
 {
+	if (a->map[i][j] == '2')
+		a->tex.c_spr++;
 	if ((j >= (int)ft_strlen(a->map[i - 1])) || (j >= (int)ft_strlen(a->map[i + 1])))
 		print_error("symbol not closed");
 	if (!(is_valid_sym(a->map[i - 1][j]) &&
@@ -58,10 +60,7 @@ void	is_valid(t_all *app, int i, int j)
 	if (this_is_plr(app->map[i][j]))
 		is_valid_octa_plr(app, i, j, app->map[i][j]);
 	else if (app->map[i][j] == '2' || app->map[i][j] == '0')
-	{
 			is_valid_octa_0_2(app, i, j);
-			app->tex.c_spr++;
-	}
 }
 
 void	is_valid_map(t_all *a, int size)
