@@ -6,12 +6,11 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 05:01:00 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 21:57:07 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 03:26:18 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include "stdio.h"
 
 void	set_size_window(char **arr, t_all *app, int max_res, int i)
 {

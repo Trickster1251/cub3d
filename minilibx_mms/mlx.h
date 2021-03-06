@@ -150,6 +150,4 @@
 // ** cmd is one of the define, param will be img_ptr or win_ptr accordingly
 // */
 
-int	mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
-
 // #endif /* MLX_H */

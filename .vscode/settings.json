@@ -5,6 +5,8 @@
         "atomic": "cpp",
         "chrono": "cpp",
         "mutex": "cpp",
-        "cstdio": "c"
+        "cstdio": "c",
+        "ios": "c",
+        "__bit_reference": "c"
     }
 }
