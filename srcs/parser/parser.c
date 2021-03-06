@@ -6,11 +6,16 @@
 /*   By: walethea <walethea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 04:59:47 by walethea          #+#    #+#             */
-/*   Updated: 2021/03/05 21:58:32 by walethea         ###   ########.fr       */
+/*   Updated: 2021/03/06 03:04:52 by walethea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	hello()
+{
+	ft_putchar_fd('1',1);
+}
 
 int		ft_is_modificator(char **arr, t_all *app)
 {
@@ -123,7 +128,7 @@ int		parser(int fd, char *line, t_all *a)
 		else if (line[0] != '\0')
 		{
 			if (!(is_modificator(line[0])))
-				print_error("modificator wrong or spaces begining line");
+				print_error("modificator parser is wrong");
 			arr = ft_split(line, ' ');
 			ft_is_modificator(arr, a);
 			free_arr(arr);
@@ -131,6 +136,7 @@ int		parser(int fd, char *line, t_all *a)
 		free(line);
 	}
 	(len < 0) ? (print_error("Something wrong with .cub file")) : (0);
+	(a->m.count_mod != 8) ? (print_error("mod count is wrong")) : 0;
 	read_map(line, fd, head, a);
 	return (len);
 }
